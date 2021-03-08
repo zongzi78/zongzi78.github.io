@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Hexo博客框架NexT主题配置数学公式渲染引擎</title>
-    <url>/2020/10/21/Hexo%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6NexT%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93%E5%99%A8/</url>
+    <url>/posts/56201/</url>
     <content><![CDATA[<h1 id="前言">前言</h1>
 <p>时隔多日终于有时间更新一波了，今天要讲的还是关于Hexo博客框架的相关知识，具体来说是关于更换Hexo默认的markdown渲染插件以及在<a href="https://theme-next.js.org/">NexT主题</a>中配置数学公式渲染引擎的相关知识。</p>
 <hr />
@@ -55,8 +55,37 @@
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu与Win10双系统下更改默认启动项+更换国内源</title>
+    <url>/posts/38677/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<p>前一段时间在一台装有Windows 10系统的旧电脑上又装了Ubuntu LTS 16.04系统，一般这种双系统的情况会自动配置grub软件作为多操作系统启动程序，这里就讲一下如何设置默认启动哪一个系统和Ubuntu系统换源的一些事。</p>
+<h1 id="更换默认启动项">更换默认启动项</h1>
+<p>GNU GRUB（GRand Unified Bootloader简称“GRUB”）是一个来自GNU项目的多操作系统启动程序。GRUB是多启动规范的实现，它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。GRUB可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。</p>
+<p>一般默认启动的是Ubuntu系统，这里以设置默认启动Windows系统为例，以下设置方法需要在Ubuntu中进行。</p>
+<p>第一步：在电脑开机的时候，会进入到系统手动选择界面，观察有Windows字样的那个选项排在第几位（注意序号是从0开始计数的）。</p>
+<p>第二步：打开终端，在终端打开<code>/etc/default/grub</code>文件。这里需要注意，grub文件需要管理员权限才能修改，因此需要打开终端，在终端里输入<code>sudo gedit /etc/default/grub</code>，这样就能以管理员身份打开配置文件了。</p>
+<div data-align="center">
+<p><img src="https://gitee.com/zongzi78/picturebed/raw/master/2020/201122/1.PNG" width="50%"></p>
+</div>
+<p>如上图所示为打开grub后的样子，找到<strong>GRUB_DEFAULT=0</strong>这一行（上图中我已经将其改成了GRUB_DEFAULT=2，因为我的电脑启动时，Windows系统排在第三位），将其后面的0改成第一步中Windows系统所在对应的序号。</p>
+<p>第三步：修改完成后，在终端中输入<code>sudo update-grub</code>进行刷新，重启电脑就能发现默认启动项已经改成Windows了。</p>
+<h1 id="ubuntu更换国内源">Ubuntu更换国内源</h1>
+<p>Ubuntu的官方服务器在国外，国内访问的时候速度很慢，更新一些软件往往需要花费大量的时间，将其下载源更换为国内镜像源将极大的提升下载速度，国内的许多公司、高校等机构都会提供此服务。</p>
+<p>第一步：在终端输入<code>sudo gedit /etc/apt/sources.list</code>对存储源地址的文件进行编辑。</p>
+<p>第二步：删除原先的内容，复制国内镜像源的地址进去，这里提供几个国内提供镜像源服务的网址。</p>
+<p>阿里源：<a href="https://developer.aliyun.com/mirror/ubuntu?spm=a2c6h.13651102.0.0.3e221b11vFh8D2">ubuntu镜像-ubuntu下载地址-ubuntu安装教程-阿里巴巴开源镜像站</a></p>
+<p>清华源：<a href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/">ubuntu | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a></p>
+<p>注意一定要确认好自己安装的系统的版本，选择对应版本号的源地址。</p>
+<p>第三步：在终端内输入<code>sudo apt update</code>来更新源地址，再输入<code>sudo apt upgrade</code>对安装的软件包进行更新，这时就能发现速度已经得到了很大提升。</p>
+]]></content>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>双系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Windows下，安装Hexo博客框架并部署到GitHub（1）</title>
-    <url>/2020/09/11/Windows%E4%B8%8B%EF%BC%8C%E5%AE%89%E8%A3%85Hexo%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%88%B0GitHub%EF%BC%881%EF%BC%89/</url>
+    <url>/posts/55439/</url>
     <content><![CDATA[<style>
 h1 {
     border-bottom: none
@@ -168,37 +197,59 @@ h2 {
 ]]></content>
   </entry>
   <entry>
-    <title>Ubuntu与Win10双系统下更改默认启动项+更换国内源</title>
-    <url>/2020/11/22/Ubuntu%E4%B8%8EWin10%E5%8F%8C%E7%B3%BB%E7%BB%9F%E4%B8%8B%E6%9B%B4%E6%94%B9%E9%BB%98%E8%AE%A4%E5%90%AF%E5%8A%A8%E9%A1%B9-%E6%9B%B4%E6%8D%A2%E5%9B%BD%E5%86%85%E6%BA%90/</url>
+    <title>Windows终端(cmd)内走v2ray代理</title>
+    <url>/posts/884982221/</url>
     <content><![CDATA[<h1 id="前言">前言</h1>
-<p>前一段时间在一台装有Windows 10系统的旧电脑上又装了Ubuntu LTS 16.04系统，一般这种双系统的情况会自动配置grub软件作为多操作系统启动程序，这里就讲一下如何设置默认启动哪一个系统和Ubuntu系统换源的一些事。</p>
-<h1 id="更换默认启动项">更换默认启动项</h1>
-<p>GNU GRUB（GRand Unified Bootloader简称“GRUB”）是一个来自GNU项目的多操作系统启动程序。GRUB是多启动规范的实现，它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。GRUB可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。</p>
-<p>一般默认启动的是Ubuntu系统，这里以设置默认启动Windows系统为例，以下设置方法需要在Ubuntu中进行。</p>
-<p>第一步：在电脑开机的时候，会进入到系统手动选择界面，观察有Windows字样的那个选项排在第几位（注意序号是从0开始计数的）。</p>
-<p>第二步：打开终端，在终端打开<code>/etc/default/grub</code>文件。这里需要注意，grub文件需要管理员权限才能修改，因此需要打开终端，在终端里输入<code>sudo gedit /etc/default/grub</code>，这样就能以管理员身份打开配置文件了。</p>
-<div data-align="center">
-<p><img src="https://gitee.com/zongzi78/picturebed/raw/master/2020/201122/1.PNG" width="50%"></p>
-</div>
-<p>如上图所示为打开grub后的样子，找到<strong>GRUB_DEFAULT=0</strong>这一行（上图中我已经将其改成了GRUB_DEFAULT=2，因为我的电脑启动时，Windows系统排在第三位），将其后面的0改成第一步中Windows系统所在对应的序号。</p>
-<p>第三步：修改完成后，在终端中输入<code>sudo update-grub</code>进行刷新，重启电脑就能发现默认启动项已经改成Windows了。</p>
-<h1 id="ubuntu更换国内源">Ubuntu更换国内源</h1>
-<p>Ubuntu的官方服务器在国外，国内访问的时候速度很慢，更新一些软件往往需要花费大量的时间，将其下载源更换为国内镜像源将极大的提升下载速度，国内的许多公司、高校等机构都会提供此服务。</p>
-<p>第一步：在终端输入<code>sudo gedit /etc/apt/sources.list</code>对存储源地址的文件进行编辑。</p>
-<p>第二步：删除原先的内容，复制国内镜像源的地址进去，这里提供几个国内提供镜像源服务的网址。</p>
-<p>阿里源：<a href="https://developer.aliyun.com/mirror/ubuntu?spm=a2c6h.13651102.0.0.3e221b11vFh8D2">ubuntu镜像-ubuntu下载地址-ubuntu安装教程-阿里巴巴开源镜像站</a></p>
-<p>清华源：<a href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/">ubuntu | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a></p>
-<p>注意一定要确认好自己安装的系统的版本，选择对应版本号的源地址。</p>
-<p>第三步：在终端内输入<code>sudo apt update</code>来更新源地址，再输入<code>sudo apt upgrade</code>对安装的软件包进行更新，这时就能发现速度已经得到了很大提升。</p>
+<p>这个是我很久之前就准备写的一篇blog了，拖了很久到现在才动笔。起因是这样的，有次在Linux系统需要下载一个具有第三方源的软件，这个源在国内没有镜像，于是我在GitHub上找到了<a href="https://github.com/Qv2ray/Qv2ray">Qv2ray</a>这个项目，它在Linux端也有封装好的.AppImage文件，双击即可使用，比较适合我这种Linux基础不深的偏小白用户，本以为用了v2ray之后我下载的速度能直接起飞，但用了v2ray之后发现速度并没有显著变化，在网上找了好久资料后发现v2ray的生效范围不包括终端内，想让其在终端内生效，需要配置代理，下面就对这部分内容进行说明。</p>
+<h1 id="配置代理">配置代理</h1>
+<p>其实配置方法很简单</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">配置</span><br><span class="line">set http_proxy&#x3D;http:&#x2F;&#x2F;127.0.0.1:x</span><br><span class="line">set https_proxy&#x3D;http:&#x2F;&#x2F;127.0.0.1:x</span><br><span class="line"></span><br><span class="line">恢复</span><br><span class="line">set http_proxy&#x3D;</span><br><span class="line">set https_proxy&#x3D;</span><br></pre></td></tr></table></figure>
+<p>使用上面的两行命令就能完成配置，但应注意<code>http://127.0.0.1:x</code>中的x每个人可能是不一样的，这个可以在v2ray客户端主界面的最下面查到。</p>
+<p>配置完成后，可以用curl命令查看终端是否走了代理，不要用ping命令，因为ping是基于ICMP协议的，这个协议从属于IP协议，属于网络层中的协议，而v2ray不能作用在网络层上。</p>
+<p>在终端中输入<code>curl www.google.com</code>，若很快出现一大堆乱码一样的符号就说明代理配置成功了。此外，还可以在终端中输入<code>curl ip.fm</code>，这个命令会返回你当前的ip地址跟对应的归属地。</p>
+<p>Linux系统下只需要将这两行命令中的<code>set</code>改成<code>export</code>即可。</p>
+<h1 id="参考文献">参考文献</h1>
+<p>[1]. <a href="https://github.com/shadowsocks/shadowsocks-windows/issues/1489">windows终端命令行下如何使用代理？ · Issue #1489 · shadowsocks/shadowsocks-windows</a></p>
+<p>[2]. <a href="https://gist.github.com/dreamlu/cf7cbc0b8329ac145fa44342d6a1c01d">windows终端翻墙，简易方式</a></p>
+<p>[3]. <a href="https://www.cnblogs.com/91donkey/p/11640079.html">Linux系统下终端proxy代理配置 - 龙龙小宝 - 博客园</a></p>
+<p>[4]. <a href="https://zcdll.github.io/2018/01/27/proxy-on-windows-terminal/">给 Windows 的终端配置代理 | zcdll's Blog</a></p>
+<p>[5]. <a href="https://www.cnblogs.com/liujizhou/p/11680329.html">HTTP TCP UDP ICMP IP ARP 协议详解（10.15 第二十一天） - 枕桃花吹长笛 - 博客园</a></p>
+<p>[6]. <a href="http://www.ruanyifeng.com/blog/2019/09/curl-reference.html">curl 的用法指南 - 阮一峰的网络日志</a></p>
+<p>[7]. <a href="https://zcdll.github.io/2020/08/04/hack-ips/">深入浅出 IP | zcdll's Blog</a></p>
 ]]></content>
       <tags>
-        <tag>ubuntu</tag>
-        <tag>双系统</tag>
+        <tag>v2ray</tag>
+        <tag>cmd</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【转载】Windows下，npm模块的安装位置</title>
+    <url>/posts/52910/</url>
+    <content><![CDATA[<p>本文转载自： <a href="https://www.cnblogs.com/fannn/p/9351931.html">npm install路径 - Fannn - 博客园</a></p>
+<p>我们在webpack项目中使用npm install命令安装很多模块，但是很多时候都不知道这些模块安装在哪里，想要删除的时候找不到，所有想要明确的知道npm的安装路径</p>
+<p>首先，npm install 安装的模块分为两种：</p>
+<p>一种是本地安装(直接在项目路径下)，使用命令：<code>npm install xxxx</code></p>
+<p>一种是全局安装(安装在nodejs的默认路径下)，使用命令：<code>npm install -g xxxx</code></p>
+<ol type="1">
+<li><p>本地安装，会在CMD当前路径下创建node_modules文件夹，安装的模块都是放在这里。</p></li>
+<li><p>全局安装，默认npm全局安装路径的设置是在node.js的安装路径下_modules</p></li>
+</ol>
+<p>默认为：<code>prefix=$&#123;APPDATA&#125;\npm</code>，在Windows下，这一位置为<code>C:\Users\"Your Name"\AppData\Roaming\npm</code></p>
+<p>可以使用命令<code>npm config get prefix</code>查看npm -g 全局安装的路径命令。</p>
+<p>如果需要修改默认全局安装路径，直接修改即可，比如我想放在D盘modules文件夹中，修改npmrc为下面的值即可</p>
+<p><code>prefix=D:\modules</code></p>
+<hr />
+<p>如果你想要通过命令删除某些模块，可以在项目路径下，输入命令<code>npm uninstall xxxx</code>,比如我想要删除webpack模块，命令为：<code>npm uninstall webpack</code></p>
+<p>例外，有的时候项目路径太长，导致无法删除，可以通过安装<code>npm install rimraf -g</code>,再输入命令<code>rimraf node_modules</code>来达到删除的效果。</p>
+]]></content>
+      <tags>
+        <tag>转载</tag>
+        <tag>npm</tag>
       </tags>
   </entry>
   <entry>
     <title>Windows下，安装Hexo博客框架并部署到GitHub（2）</title>
-    <url>/2020/09/19/Windows%E4%B8%8B%EF%BC%8C%E5%AE%89%E8%A3%85Hexo%E5%8D%9A%E5%AE%A2%E6%A1%86%E6%9E%B6%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%88%B0GitHub%EF%BC%882%EF%BC%89/</url>
+    <url>/posts/40079/</url>
     <content><![CDATA[<style>
 h1 {
     border-bottom: none
@@ -306,34 +357,52 @@ h2 {
       </tags>
   </entry>
   <entry>
-    <title>Windows终端(cmd)内走v2ray代理</title>
-    <url>/2020/11/23/Windows%E7%BB%88%E7%AB%AF(cmd)%E5%86%85%E8%B5%B0v2ray%E4%BB%A3%E7%90%86/</url>
-    <content><![CDATA[<h1 id="前言">前言</h1>
-<p>这个是我很久之前就准备写的一篇blog了，拖了很久到现在才动笔。起因是这样的，有次在Linux系统需要下载一个具有第三方源的软件，这个源在国内没有镜像，于是我在GitHub上找到了<a href="https://github.com/Qv2ray/Qv2ray">Qv2ray</a>这个项目，它在Linux端也有封装好的.AppImage文件，双击即可使用，比较适合我这种Linux基础不深的偏小白用户，本以为用了v2ray之后我下载的速度能直接起飞，但用了v2ray之后发现速度并没有显著变化，在网上找了好久资料后发现v2ray的生效范围不包括终端内，想让其在终端内生效，需要配置代理，下面就对这部分内容进行说明。</p>
-<h1 id="配置代理">配置代理</h1>
-<p>其实配置方法很简单</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">配置</span><br><span class="line">set http_proxy&#x3D;http:&#x2F;&#x2F;127.0.0.1:x</span><br><span class="line">set https_proxy&#x3D;http:&#x2F;&#x2F;127.0.0.1:x</span><br><span class="line"></span><br><span class="line">恢复</span><br><span class="line">set http_proxy&#x3D;</span><br><span class="line">set https_proxy&#x3D;</span><br></pre></td></tr></table></figure>
-<p>使用上面的两行命令就能完成配置，但应注意<code>http://127.0.0.1:x</code>中的x每个人可能是不一样的，这个可以在v2ray客户端主界面的最下面查到。</p>
-<p>配置完成后，可以用curl命令查看终端是否走了代理，不要用ping命令，因为ping是基于ICMP协议的，这个协议从属于IP协议，属于网络层中的协议，而v2ray不能作用在网络层上。</p>
-<p>在终端中输入<code>curl www.google.com</code>，若很快出现一大堆乱码一样的符号就说明代理配置成功了。此外，还可以在终端中输入<code>curl ip.fm</code>，这个命令会返回你当前的ip地址跟对应的归属地。</p>
-<p>Linux系统下只需要将这两行命令中的<code>set</code>改成<code>export</code>即可。</p>
-<h1 id="参考文献">参考文献</h1>
-<p>[1]. <a href="https://github.com/shadowsocks/shadowsocks-windows/issues/1489">windows终端命令行下如何使用代理？ · Issue #1489 · shadowsocks/shadowsocks-windows</a></p>
-<p>[2]. <a href="https://gist.github.com/dreamlu/cf7cbc0b8329ac145fa44342d6a1c01d">windows终端翻墙，简易方式</a></p>
-<p>[3]. <a href="https://www.cnblogs.com/91donkey/p/11640079.html">Linux系统下终端proxy代理配置 - 龙龙小宝 - 博客园</a></p>
-<p>[4]. <a href="https://zcdll.github.io/2018/01/27/proxy-on-windows-terminal/">给 Windows 的终端配置代理 | zcdll's Blog</a></p>
-<p>[5]. <a href="https://www.cnblogs.com/liujizhou/p/11680329.html">HTTP TCP UDP ICMP IP ARP 协议详解（10.15 第二十一天） - 枕桃花吹长笛 - 博客园</a></p>
-<p>[6]. <a href="http://www.ruanyifeng.com/blog/2019/09/curl-reference.html">curl 的用法指南 - 阮一峰的网络日志</a></p>
-<p>[7]. <a href="https://zcdll.github.io/2020/08/04/hack-ips/">深入浅出 IP | zcdll's Blog</a></p>
+    <title>【转载】快速转换FLV视频为MP4格式</title>
+    <url>/posts/38106/</url>
+    <content><![CDATA[<p>本文转载至： <a href="https://www.zhihu.com/question/65224766/answer/252226264">怎样快速的转换FLV视频为MP4格式？ - 知乎</a></p>
+<p>无需安装来路不明的软件，直接使用几乎所有格式转换的软件都需要用到的FFmpeg就可以实现题主的目的。</p>
+<p>前往FFmpeg官网下载软件：<a href="https://www.ffmpeg.org/download.html">Download FFmpeg</a></p>
+<p>找到对应的平台，这里我使用的是Windows，就点击Windows Build，然后出现的页面里找到自己的Windows版本，如我使用的是64-bit，选择Static的封装就好。</p>
+<p>解压下载回来的压缩包，在解压后的文件夹中找到bin文件夹，把里面的三个后缀是exe的文件拷贝到<code>C:\Windows\System32\</code></p>
+<p>可能会弹出窗口要求权限，点击允许即可。</p>
+<p>然后在Windows开始菜单中点击 运行，</p>
+<p>输入CMD</p>
+<p>进入你的FLV文件所在的文件夹</p>
+<p>如果是单个文件，就用如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ffmpeg -i &quot;input.flv&quot; -c copy &quot;output.mp4&quot;</span><br></pre></td></tr></table></figure>
+<p>将这里的input改为你的文件名，output改为你想得到的文件名即可。</p>
+<p>如果是整个文件夹中的所有flv文件需要批量转成mp4，那么使用以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for %i in (*.flv) do ffmpeg -i &quot;%i&quot; -c copy &quot;%~ni.mp4&quot;</span><br></pre></td></tr></table></figure>
+<p>注：新生成的mp4文件会沿用原文件名。</p>
+<p>限于时间，就不上图了，祝使用愉快。</p>
+<p>补充一：</p>
+<p>对于某些flv文件，转换成mp4的时候会报错，这时候可以用以下的代码来尝试：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ffmpeg -i filename.flv -c:v libx264 -crf 19 -strict experimental filename.mp4</span><br></pre></td></tr></table></figure>
+<p>将这里的filrename改为你的文件名即可</p>
+<p>补充二：</p>
+<p>flv/mp4文件的合并</p>
+<p>有时候通过某些下载工具得到的flv/mp4文件是多段的，比如B站视频上下载一集40分钟左右的纪录片实际上是8个小片段，这时候可以新建一个txt文本文件，把你需要合并的flv/mp4和这个txt放在同一个文件夹里面，然后把需要合并的flv/mp4文件的名字按照顺序写在txt文件中并保存，格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">file &#39;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[00].mp4&#39;</span><br><span class="line">file &#39;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[01].mp4&#39;</span><br><span class="line">file &#39;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[02].mp4&#39;</span><br><span class="line">file &#39;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[03].mp4&#39;</span><br><span class="line">file &#39;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[04].mp4&#39;</span><br><span class="line">file &#39;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[05].mp4&#39;</span><br><span class="line">file &#39;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[06].mp4&#39;</span><br><span class="line">file &#39;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[07].mp4&#39;</span><br></pre></td></tr></table></figure>
+<p>注：本例中将该txt文件命名为file.txt</p>
+<p>在cmd里面进入该txt和视频文件所在的文件夹，然后输入以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ffmpeg -f concat -safe 0 -i files.txt -c copy output.mp4</span><br></pre></td></tr></table></figure>
+<p>即可得到一个完整的mp4文件</p>
+<p>如需合并flv，方法同上</p>
+<hr />
+<p>PS.</p>
+<p>最近在使用油猴脚本<a href="https://github.com/the1812/Bilibili-Evolved">Bilibili Evolved</a>下载B站视频的时候，发现只有FLV和DASH两种下载模式。其中DASH是下载一个无声的.mp4视频文件和一个.m4a音频文件，而FLV模式是下载一个.flv视频文件。百度了一下关于flv文件的说明，下面是百度百科上面的介绍：<em>FLV 是FLASH VIDEO的简称，FLV流媒体格式是随着Flash MX的推出发展而来的视频格式。由于它形成的文件极小、加载速度极快，使得网络观看视频文件成为可能，它的出现有效地解决了视频文件导入Flash后，使导出的SWF文件体积庞大，不能在网络上很好的使用等问题。</em>猜测这两种下载模式应该是B站两种不同的播放器（flash播放器，html5播放器）下对应的视频文件。</p>
+<p>但.flv文件存在一个问题，就是并不是每个播放器都支持解码，我自己用的potplayer可以很流畅的播放，但用Windows media player和win10自带的电影和电视都不能播放，于是才有了今天的问题。本来想着下载一个格式工厂，但在搜索界面推送了今天转载的这篇文章，按照文章试了一下发现ffmpeg这个工具出奇的好用，简直amazing呀，一个1.23G的文件只用了不超过10秒就转换好了，而且清晰度也很高，所以才把这么好的文章转载过来，以作记录。</p>
 ]]></content>
       <tags>
-        <tag>v2ray</tag>
-        <tag>cmd</tag>
+        <tag>视频格式转换</tag>
+        <tag>flv</tag>
+        <tag>mp4</tag>
+        <tag>ffmpeg</tag>
       </tags>
   </entry>
   <entry>
     <title>使用PPPoE宽带拨号上网时v2ray无法正常工作的解决方法</title>
-    <url>/2020/11/22/%E4%BD%BF%E7%94%A8PPPoE%E5%AE%BD%E5%B8%A6%E6%8B%A8%E5%8F%B7%E4%B8%8A%E7%BD%91%E6%97%B6v2ray%E6%97%A0%E6%B3%95%E6%AD%A3%E5%B8%B8%E5%B7%A5%E4%BD%9C%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+    <url>/posts/38903/</url>
     <content><![CDATA[<p>最近把路由器撤了改成了直接宽带连接上网，但遇到了一个问题，就是我的v2ray不起作用了，经过观察，发现时上网时的流量没经过v2ray渠道从而无法访问外网。</p>
 <p>经过个人排查与上网搜集资料，发现应该是宽带连接名称的问题，名称里如果<strong>含有中文</strong>就会出现这种现象，所以把宽带连接名称<strong>改成纯英文</strong>就好了！</p>
 <h1 id="参考文献">参考文献</h1>
@@ -346,7 +415,7 @@ h2 {
   </entry>
   <entry>
     <title>如何使用git工具上传/克隆代码</title>
-    <url>/2020/11/22/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8git%E5%B7%A5%E5%85%B7%E4%B8%8A%E4%BC%A0-%E5%85%8B%E9%9A%86%E4%BB%A3%E7%A0%81/</url>
+    <url>/posts/55348/</url>
     <content><![CDATA[<p>在写博客的时候，我个人选择了国内的代码托管平台Gitee作为自己的博客图床，但一篇博客往往会用到很多图片，一张一张上传未免太麻烦，这篇博客就是记录自己使用git工具将博客内截图上传到Gitee仓库的过程。</p>
 <h1 id="生成ssh-key">生成SSH Key</h1>
 <p>在“Windows下，安装Hexo博客框架并部署到GitHub（2）”这篇文章中已经说过，要想实现对GitHub仓库的控制，需要使用SSH Key。关于如何生成SSH Key，并将其配置至GitHub或者Gitee等代码托管平台的方法已经在上面提到的博文中详细说过，此处不再赘述。</p>
@@ -382,7 +451,7 @@ h2 {
   </entry>
   <entry>
     <title>我的第一篇博客文章</title>
-    <url>/2020/08/30/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/</url>
+    <url>/posts/15650/</url>
     <content><![CDATA[<p>本篇博客用于测试配置与代码</p>
 <h1 id="第一章">第一章</h1>
 <h2 id="第一节">第一节</h2>
@@ -429,7 +498,7 @@ ab &amp;= cb \\
   </entry>
   <entry>
     <title>50L自动电加热开水桶水温水位控制系统设计开发报告</title>
-    <url>/2020/11/26/50L%E8%87%AA%E5%8A%A8%E7%94%B5%E5%8A%A0%E7%83%AD%E5%BC%80%E6%B0%B4%E6%A1%B6%E6%B0%B4%E6%B8%A9%E6%B0%B4%E4%BD%8D%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E5%BC%80%E5%8F%91%E6%8A%A5%E5%91%8A/</url>
+    <url>/posts/941809798/</url>
     <content><![CDATA[<h1 id="项目概况">项目概况</h1>
 <p>本项目要为容量为50升的电加热开水桶设计一个单片机控制系统。 系统功能与技术指标：能实时检测桶内水位高度和水温，自动控制加水和电阻丝加热。 水位分为低、中、高三档，采用2个开关式水位计检测，对于水位的控制原则为：（1）水位为低水位时，启动加水开关并且停止加热；（2）水位由低水位达到高水位时，启动加热开关；（3）水位达到高水位时，关闭加水开关。对于水温的控制原则为：（1）水温低于80℃时启动加热开关（水位为非低水位）；（2）水温位于80~100℃之间为保温阶段；（3）水温达到100℃时停止加热。</p>
 <h1 id="需求分析">需求分析</h1>
@@ -833,75 +902,6 @@ ab &amp;= cb \\
         <tag>C51</tag>
         <tag>单片机</tag>
         <tag>Proteus</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【转载】Windows下，npm模块的安装位置</title>
-    <url>/2021/03/06/%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91Windows%E4%B8%8B%EF%BC%8Cnpm%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AE%89%E8%A3%85%E4%BD%8D%E7%BD%AE/</url>
-    <content><![CDATA[<p>本文转载自： <a href="https://www.cnblogs.com/fannn/p/9351931.html">npm install路径 - Fannn - 博客园</a></p>
-<p>我们在webpack项目中使用npm install命令安装很多模块，但是很多时候都不知道这些模块安装在哪里，想要删除的时候找不到，所有想要明确的知道npm的安装路径</p>
-<p>首先，npm install 安装的模块分为两种：</p>
-<p>一种是本地安装(直接在项目路径下)，使用命令：<code>npm install xxxx</code></p>
-<p>一种是全局安装(安装在nodejs的默认路径下)，使用命令：<code>npm install -g xxxx</code></p>
-<ol type="1">
-<li><p>本地安装，会在CMD当前路径下创建node_modules文件夹，安装的模块都是放在这里。</p></li>
-<li><p>全局安装，默认npm全局安装路径的设置是在node.js的安装路径下_modules</p></li>
-</ol>
-<p>默认为：<code>prefix=$&#123;APPDATA&#125;\npm</code>，在Windows下，这一位置为<code>C:\Users\"Your Name"\AppData\Roaming\npm</code></p>
-<p>可以使用命令<code>npm config get prefix</code>查看npm -g 全局安装的路径命令。</p>
-<p>如果需要修改默认全局安装路径，直接修改即可，比如我想放在D盘modules文件夹中，修改npmrc为下面的值即可</p>
-<p><code>prefix=D:\modules</code></p>
-<hr />
-<p>如果你想要通过命令删除某些模块，可以在项目路径下，输入命令<code>npm uninstall xxxx</code>,比如我想要删除webpack模块，命令为：<code>npm uninstall webpack</code></p>
-<p>例外，有的时候项目路径太长，导致无法删除，可以通过安装<code>npm install rimraf -g</code>,再输入命令<code>rimraf node_modules</code>来达到删除的效果。</p>
-]]></content>
-      <tags>
-        <tag>转载</tag>
-        <tag>npm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【转载】快速转换FLV视频为MP4格式</title>
-    <url>/2021/03/07/%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91%E5%BF%AB%E9%80%9F%E8%BD%AC%E6%8D%A2FLV%E8%A7%86%E9%A2%91%E4%B8%BAMP4%E6%A0%BC%E5%BC%8F/</url>
-    <content><![CDATA[<p>本文转载至： <a href="https://www.zhihu.com/question/65224766/answer/252226264">怎样快速的转换FLV视频为MP4格式？ - 知乎</a></p>
-<p>无需安装来路不明的软件，直接使用几乎所有格式转换的软件都需要用到的FFmpeg就可以实现题主的目的。</p>
-<p>前往FFmpeg官网下载软件：<a href="https://www.ffmpeg.org/download.html">Download FFmpeg</a></p>
-<p>找到对应的平台，这里我使用的是Windows，就点击Windows Build，然后出现的页面里找到自己的Windows版本，如我使用的是64-bit，选择Static的封装就好。</p>
-<p>解压下载回来的压缩包，在解压后的文件夹中找到bin文件夹，把里面的三个后缀是exe的文件拷贝到<code>C:\Windows\System32\</code></p>
-<p>可能会弹出窗口要求权限，点击允许即可。</p>
-<p>然后在Windows开始菜单中点击 运行，</p>
-<p>输入CMD</p>
-<p>进入你的FLV文件所在的文件夹</p>
-<p>如果是单个文件，就用如下命令：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ffmpeg -i &quot;input.flv&quot; -c copy &quot;output.mp4&quot;</span><br></pre></td></tr></table></figure>
-<p>将这里的input改为你的文件名，output改为你想得到的文件名即可。</p>
-<p>如果是整个文件夹中的所有flv文件需要批量转成mp4，那么使用以下命令：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for %i in (*.flv) do ffmpeg -i &quot;%i&quot; -c copy &quot;%~ni.mp4&quot;</span><br></pre></td></tr></table></figure>
-<p>注：新生成的mp4文件会沿用原文件名。</p>
-<p>限于时间，就不上图了，祝使用愉快。</p>
-<p>补充一：</p>
-<p>对于某些flv文件，转换成mp4的时候会报错，这时候可以用以下的代码来尝试：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ffmpeg -i filename.flv -c:v libx264 -crf 19 -strict experimental filename.mp4</span><br></pre></td></tr></table></figure>
-<p>将这里的filrename改为你的文件名即可</p>
-<p>补充二：</p>
-<p>flv/mp4文件的合并</p>
-<p>有时候通过某些下载工具得到的flv/mp4文件是多段的，比如B站视频上下载一集40分钟左右的纪录片实际上是8个小片段，这时候可以新建一个txt文本文件，把你需要合并的flv/mp4和这个txt放在同一个文件夹里面，然后把需要合并的flv/mp4文件的名字按照顺序写在txt文件中并保存，格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">file &#39;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[00].mp4&#39;</span><br><span class="line">file &#39;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[01].mp4&#39;</span><br><span class="line">file &#39;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[02].mp4&#39;</span><br><span class="line">file &#39;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[03].mp4&#39;</span><br><span class="line">file &#39;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[04].mp4&#39;</span><br><span class="line">file &#39;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[05].mp4&#39;</span><br><span class="line">file &#39;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[06].mp4&#39;</span><br><span class="line">file &#39;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[07].mp4&#39;</span><br></pre></td></tr></table></figure>
-<p>注：本例中将该txt文件命名为file.txt</p>
-<p>在cmd里面进入该txt和视频文件所在的文件夹，然后输入以下命令：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ffmpeg -f concat -safe 0 -i files.txt -c copy output.mp4</span><br></pre></td></tr></table></figure>
-<p>即可得到一个完整的mp4文件</p>
-<p>如需合并flv，方法同上</p>
-<hr />
-<p>PS.</p>
-<p>最近在使用油猴脚本<a href="https://github.com/the1812/Bilibili-Evolved">Bilibili Evolved</a>下载B站视频的时候，发现只有FLV和DASH两种下载模式。其中DASH是下载一个无声的.mp4视频文件和一个.m4a音频文件，而FLV模式是下载一个.flv视频文件。百度了一下关于flv文件的说明，下面是百度百科上面的介绍：<em>FLV 是FLASH VIDEO的简称，FLV流媒体格式是随着Flash MX的推出发展而来的视频格式。由于它形成的文件极小、加载速度极快，使得网络观看视频文件成为可能，它的出现有效地解决了视频文件导入Flash后，使导出的SWF文件体积庞大，不能在网络上很好的使用等问题。</em>猜测这两种下载模式应该是B站两种不同的播放器（flash播放器，html5播放器）下对应的视频文件。</p>
-<p>但.flv文件存在一个问题，就是并不是每个播放器都支持解码，我自己用的potplayer可以很流畅的播放，但用Windows media player和win10自带的电影和电视都不能播放，于是才有了今天的问题。本来想着下载一个格式工厂，但在搜索界面推送了今天转载的这篇文章，按照文章试了一下发现ffmpeg这个工具出奇的好用，简直amazing呀，一个1.23G的文件只用了不超过10秒就转换好了，而且清晰度也很高，所以才把这么好的文章转载过来，以作记录。</p>
-]]></content>
-      <tags>
-        <tag>视频格式转换</tag>
-        <tag>flv</tag>
-        <tag>mp4</tag>
-        <tag>ffmpeg</tag>
       </tags>
   </entry>
 </search>
