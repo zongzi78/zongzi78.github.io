@@ -29,21 +29,21 @@
 <meta property="og:site_name" content="Tiddler&#39;s blog">
 <meta property="og:description" content="h1 {     border-bottom: none }   h2 {     border-bottom: none }  前言 在上一篇博客中，针对Hexo的前置软件的安装与配置，Hexo框架的安装与初始化做了介绍，在本篇博客中，将针对如何利用GitHub Page将本地博客部署到云端做详细介绍。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/1.PNG">
-<meta property="og:image" content="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/2.PNG">
-<meta property="og:image" content="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/3.png">
-<meta property="og:image" content="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/4.PNG">
-<meta property="og:image" content="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/5.PNG">
-<meta property="og:image" content="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/6.PNG">
-<meta property="og:image" content="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/7.PNG">
-<meta property="og:image" content="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/9.PNG">
-<meta property="og:image" content="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/10.PNG">
+<meta property="og:image" content="https://msdrive.tiddler.cc/images/blogimages/2020/200919/1.PNG?raw">
+<meta property="og:image" content="https://msdrive.tiddler.cc/images/blogimages/2020/200919/2.PNG?raw">
+<meta property="og:image" content="https://msdrive.tiddler.cc/images/blogimages/2020/200919/3.PNG?raw">
+<meta property="og:image" content="https://msdrive.tiddler.cc/images/blogimages/2020/200919/4.PNG?raw">
+<meta property="og:image" content="https://msdrive.tiddler.cc/images/blogimages/2020/200919/5.PNG?raw">
+<meta property="og:image" content="https://msdrive.tiddler.cc/images/blogimages/2020/200919/6.PNG?raw">
+<meta property="og:image" content="https://msdrive.tiddler.cc/images/blogimages/2020/200919/7.PNG?raw">
+<meta property="og:image" content="https://msdrive.tiddler.cc/images/blogimages/2020/200919/9.PNG?raw">
+<meta property="og:image" content="https://msdrive.tiddler.cc/images/blogimages/2020/200919/10.PNG?raw">
 <meta property="article:published_time" content="2020-09-19T10:20:54.000Z">
-<meta property="article:modified_time" content="2021-03-08T02:19:56.804Z">
+<meta property="article:modified_time" content="2021-05-10T09:09:59.209Z">
 <meta property="article:author" content="Tiddler">
 <meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/1.PNG">
+<meta name="twitter:image" content="https://msdrive.tiddler.cc/images/blogimages/2020/200919/1.PNG?raw">
 
 
 <link rel="canonical" href="http://yoursite.com/posts/40079/">
@@ -326,7 +326,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-03-08 10:19:56" itemprop="dateModified" datetime="2021-03-08T10:19:56+08:00">2021-03-08</time>
+        <time title="Modified: 2021-05-10 17:09:59" itemprop="dateModified" datetime="2021-05-10T17:09:59+08:00">2021-05-10</time>
       </span>
 
   
@@ -364,11 +364,11 @@ h2 {
 <p>必须先在 GitHub 上有站点的仓库，然后才可创建站点。</p>
 <p>先转到个人仓库页面<code>https://github.com/&lt;user&gt;?tab=repositories</code>，点击右上角的“New”按钮，进入新建仓库的界面。</p>
 <div data-align="center">
-<p><img src="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/1.PNG" width="50%"></p>
+<p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/200919/1.PNG?raw" width="50%"></p>
 </div>
 <p>在Repository name中填入你自己的用户名，仓库的Description可以不用写，仓库的可见性应选择“public”，其余保持默认，上述步骤完成后，点击“Create repository”完成新仓库的建立。</p>
 <div data-align="center">
-<p><img src="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/2.PNG" width="50%"></p>
+<p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/200919/2.PNG?raw" width="50%"></p>
 </div>
 <hr />
 <h1 id="本地blog文件夹中的操作">本地blog文件夹中的操作</h1>
@@ -388,7 +388,7 @@ h2 {
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: &#39;git&#39;</span><br><span class="line">  repo: git@github.com:zongzi78&#x2F;zongzi78.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
 <p>其中最主要的就是<code>repo</code>部分，repo后面跟着的一串网址是前面我们新建的站点仓库的SSH地址，该地址位置如下</p>
 <div data-align="center">
-<p><img src="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/3.png" width="50%"></p>
+<p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/200919/3.PNG?raw" width="50%"></p>
 </div>
 <hr />
 <h1 id="云端操作">云端操作</h1>
@@ -398,12 +398,12 @@ h2 {
 <p>一般写完一个博客之后，先运行<code>hexo clean</code>清除缓存，再运行<code>hexo g</code>生成本地静态文件，再运行<code>hexo s</code>看看自己的博客上传到云端是什么样子的，如果没有问题，最后运行<code>hexo d</code>将本地的静态文件上传到云端。</p>
 <p>现在我们尝试一下将前面弄好的博客框架上传一下，依次输入<code>hexo clean</code>，<code>hexo g</code>，<code>hexo s</code>之后，在浏览器中访问http://localhost:4000，效果如下图</p>
 <div data-align="center">
-<p><img src="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/4.PNG" width="50%"></p>
+<p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/200919/4.PNG?raw" width="50%"></p>
 </div>
 <p>可以看到，我们已经成功搭建好了自己的个人博客，下一步就是上传云端了。</p>
 <p>输入<code>hexo d</code>，发现有如下错误提示</p>
 <div data-align="center">
-<p><img src="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/5.PNG" width="50%"></p>
+<p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/200919/5.PNG?raw" width="50%"></p>
 </div>
 <p>这些提示是什么意思呢？大家想一想这其中缺少了那一步重要步骤，对了，从始至终都没要过我们的账号密码！试想一下，如果所有人都可以不用账密就能更改你的GitHub仓库内容，那是不是很可怕，这里就要引入另一个概念————SSH keys。</p>
 <h2 id="配置ssh-keys">配置SSH keys</h2>
@@ -411,7 +411,7 @@ h2 {
 <p>所谓SSH，是“Secure Shell”的英文简写，中文名是“安全外壳协议”，它是建立在应用层基础上的<b>安全协议</b>，主要用于远程登录会话，如果一个用户从本地计算机，使用SSH协议登录另一台远程计算机，我们就可以认为，这种登录是安全的，即使被中途截获，密码也不会泄露。这里演示GitHub如何建立自己的SSH公钥，不会对SSH的原理做更多说明，想要了解更多，可以去阮一峰老师的<a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html">个人博客</a>中查看相关知识。</p>
 <p>首先查看自己电脑中有无SSH key，先进入Git Bash界面，输入<code>cd .ssh</code>，进入到ssh文件夹，再输入<code>ls</code></p>
 <div data-align="center">
-<p><img src="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/6.PNG" width="35%"> <img src="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/7.PNG" width="35%"></p>
+<p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/200919/6.PNG?raw" width="35%"> <img src="https://msdrive.tiddler.cc/images/blogimages/2020/200919/7.PNG?raw" width="35%"></p>
 </div>
 <p>如左图所示则表明电脑中无SSH key，如右图所示则表明有SSH key，就可以跳过下一步生成SSH key的步骤了。</p>
 <p>进入Git Bash界面，输入</p>
@@ -423,12 +423,12 @@ h2 {
 <p>进入~/.ssh文件夹，用记事本打开“id_rsa.pub”文件，复制里面的所有内容。</p>
 <p>在浏览器中登录你的GitHub账号，进入setting后进入SSH and GPG keys</p>
 <div data-align="center">
-<p><img src="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/9.PNG" width="50%"></p>
+<p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/200919/9.PNG?raw" width="50%"></p>
 </div>
 <p>如图，点击New SSH key，title任意填写，下面方框中填入前面我们在“id_rsa.pub”这一文件中复制的内容，现在再次尝试使用<code>hexo d</code>命令上传本地文件至GitHub仓库就能成功了。</p>
 <p>进入站点仓库页面，就可以看到本地文件已经成功上传了</p>
 <div data-align="center">
-<p><img src="https://gitee.com/zongzi78/picturebed/raw/master/2020/200919/10.PNG" width="50%"></p>
+<p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/200919/10.PNG?raw" width="50%"></p>
 </div>
 <p>访问网址<code>https://&lt;user&gt;.github.io</code>，可以看到界面与我们之前访问<code>http://localhost:4000</code>看到的界面是一模一样的，至此，Windows下安装Hexo博客框架并将其部署到GitHub page云端的教程结束。</p>
 <h1 id="参考文献">参考文献</h1>
