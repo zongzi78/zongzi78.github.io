@@ -55,6 +55,35 @@
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu与Win10双系统下更改默认启动项+更换国内源</title>
+    <url>/posts/38677/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<p>前一段时间在一台装有Windows 10系统的旧电脑上又装了Ubuntu LTS 16.04系统，一般这种双系统的情况会自动配置grub软件作为多操作系统启动程序，这里就讲一下如何设置默认启动哪一个系统和Ubuntu系统换源的一些事。</p>
+<h1 id="更换默认启动项">更换默认启动项</h1>
+<p>GNU GRUB（GRand Unified Bootloader简称“GRUB”）是一个来自GNU项目的多操作系统启动程序。GRUB是多启动规范的实现，它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。GRUB可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。</p>
+<p>一般默认启动的是Ubuntu系统，这里以设置默认启动Windows系统为例，以下设置方法需要在Ubuntu中进行。</p>
+<p>第一步：在电脑开机的时候，会进入到系统手动选择界面，观察有Windows字样的那个选项排在第几位（注意序号是从0开始计数的）。</p>
+<p>第二步：打开终端，在终端打开<code>/etc/default/grub</code>文件。这里需要注意，grub文件需要管理员权限才能修改，因此需要打开终端，在终端里输入<code>sudo gedit /etc/default/grub</code>，这样就能以管理员身份打开配置文件了。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/201122/1.PNG?raw" width="50%"></p>
+</div>
+<p>如上图所示为打开grub后的样子，找到<strong>GRUB_DEFAULT=0</strong>这一行（上图中我已经将其改成了GRUB_DEFAULT=2，因为我的电脑启动时，Windows系统排在第三位），将其后面的0改成第一步中Windows系统所在对应的序号。</p>
+<p>第三步：修改完成后，在终端中输入<code>sudo update-grub</code>进行刷新，重启电脑就能发现默认启动项已经改成Windows了。</p>
+<h1 id="ubuntu更换国内源">Ubuntu更换国内源</h1>
+<p>Ubuntu的官方服务器在国外，国内访问的时候速度很慢，更新一些软件往往需要花费大量的时间，将其下载源更换为国内镜像源将极大的提升下载速度，国内的许多公司、高校等机构都会提供此服务。</p>
+<p>第一步：在终端输入<code>sudo gedit /etc/apt/sources.list</code>对存储源地址的文件进行编辑。</p>
+<p>第二步：删除原先的内容，复制国内镜像源的地址进去，这里提供几个国内提供镜像源服务的网址。</p>
+<p>阿里源：<a href="https://developer.aliyun.com/mirror/ubuntu?spm=a2c6h.13651102.0.0.3e221b11vFh8D2">ubuntu镜像-ubuntu下载地址-ubuntu安装教程-阿里巴巴开源镜像站</a></p>
+<p>清华源：<a href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/">ubuntu | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a></p>
+<p>注意一定要确认好自己安装的系统的版本，选择对应版本号的源地址。</p>
+<p>第三步：在终端内输入<code>sudo apt update</code>来更新源地址，再输入<code>sudo apt upgrade</code>对安装的软件包进行更新，这时就能发现速度已经得到了很大提升。</p>
+]]></content>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>双系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Windows下，安装Hexo博客框架并部署到GitHub（1）</title>
     <url>/posts/55439/</url>
     <content><![CDATA[<style>
@@ -168,86 +197,6 @@ h2 {
 ]]></content>
   </entry>
   <entry>
-    <title>Ubuntu与Win10双系统下更改默认启动项+更换国内源</title>
-    <url>/posts/38677/</url>
-    <content><![CDATA[<h1 id="前言">前言</h1>
-<p>前一段时间在一台装有Windows 10系统的旧电脑上又装了Ubuntu LTS 16.04系统，一般这种双系统的情况会自动配置grub软件作为多操作系统启动程序，这里就讲一下如何设置默认启动哪一个系统和Ubuntu系统换源的一些事。</p>
-<h1 id="更换默认启动项">更换默认启动项</h1>
-<p>GNU GRUB（GRand Unified Bootloader简称“GRUB”）是一个来自GNU项目的多操作系统启动程序。GRUB是多启动规范的实现，它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。GRUB可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。</p>
-<p>一般默认启动的是Ubuntu系统，这里以设置默认启动Windows系统为例，以下设置方法需要在Ubuntu中进行。</p>
-<p>第一步：在电脑开机的时候，会进入到系统手动选择界面，观察有Windows字样的那个选项排在第几位（注意序号是从0开始计数的）。</p>
-<p>第二步：打开终端，在终端打开<code>/etc/default/grub</code>文件。这里需要注意，grub文件需要管理员权限才能修改，因此需要打开终端，在终端里输入<code>sudo gedit /etc/default/grub</code>，这样就能以管理员身份打开配置文件了。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/201122/1.PNG?raw" width="50%"></p>
-</div>
-<p>如上图所示为打开grub后的样子，找到<strong>GRUB_DEFAULT=0</strong>这一行（上图中我已经将其改成了GRUB_DEFAULT=2，因为我的电脑启动时，Windows系统排在第三位），将其后面的0改成第一步中Windows系统所在对应的序号。</p>
-<p>第三步：修改完成后，在终端中输入<code>sudo update-grub</code>进行刷新，重启电脑就能发现默认启动项已经改成Windows了。</p>
-<h1 id="ubuntu更换国内源">Ubuntu更换国内源</h1>
-<p>Ubuntu的官方服务器在国外，国内访问的时候速度很慢，更新一些软件往往需要花费大量的时间，将其下载源更换为国内镜像源将极大的提升下载速度，国内的许多公司、高校等机构都会提供此服务。</p>
-<p>第一步：在终端输入<code>sudo gedit /etc/apt/sources.list</code>对存储源地址的文件进行编辑。</p>
-<p>第二步：删除原先的内容，复制国内镜像源的地址进去，这里提供几个国内提供镜像源服务的网址。</p>
-<p>阿里源：<a href="https://developer.aliyun.com/mirror/ubuntu?spm=a2c6h.13651102.0.0.3e221b11vFh8D2">ubuntu镜像-ubuntu下载地址-ubuntu安装教程-阿里巴巴开源镜像站</a></p>
-<p>清华源：<a href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/">ubuntu | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a></p>
-<p>注意一定要确认好自己安装的系统的版本，选择对应版本号的源地址。</p>
-<p>第三步：在终端内输入<code>sudo apt update</code>来更新源地址，再输入<code>sudo apt upgrade</code>对安装的软件包进行更新，这时就能发现速度已经得到了很大提升。</p>
-]]></content>
-      <tags>
-        <tag>ubuntu</tag>
-        <tag>双系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows终端(cmd)内走v2ray代理</title>
-    <url>/posts/884982221/</url>
-    <content><![CDATA[<h1 id="前言">前言</h1>
-<p>这个是我很久之前就准备写的一篇blog了，拖了很久到现在才动笔。起因是这样的，有次在Linux系统需要下载一个具有第三方源的软件，这个源在国内没有镜像，于是我在GitHub上找到了<a href="https://github.com/Qv2ray/Qv2ray">Qv2ray</a>这个项目，它在Linux端也有封装好的.AppImage文件，双击即可使用，比较适合我这种Linux基础不深的偏小白用户，本以为用了v2ray之后我下载的速度能直接起飞，但用了v2ray之后发现速度并没有显著变化，在网上找了好久资料后发现v2ray的生效范围不包括终端内，想让其在终端内生效，需要配置代理，下面就对这部分内容进行说明。</p>
-<h1 id="配置代理">配置代理</h1>
-<p>其实配置方法很简单</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">配置</span><br><span class="line">set http_proxy&#x3D;http:&#x2F;&#x2F;127.0.0.1:x</span><br><span class="line">set https_proxy&#x3D;http:&#x2F;&#x2F;127.0.0.1:x</span><br><span class="line"></span><br><span class="line">恢复</span><br><span class="line">set http_proxy&#x3D;</span><br><span class="line">set https_proxy&#x3D;</span><br></pre></td></tr></table></figure>
-<p>使用上面的两行命令就能完成配置，但应注意<code>http://127.0.0.1:x</code>中的x每个人可能是不一样的，这个可以在v2ray客户端主界面的最下面查到。</p>
-<p>配置完成后，可以用curl命令查看终端是否走了代理，不要用ping命令，因为ping是基于ICMP协议的，这个协议从属于IP协议，属于网络层中的协议，而v2ray不能作用在网络层上。</p>
-<p>在终端中输入<code>curl www.google.com</code>，若很快出现一大堆乱码一样的符号就说明代理配置成功了。此外，还可以在终端中输入<code>curl ip.fm</code>，这个命令会返回你当前的ip地址跟对应的归属地。</p>
-<p>Linux系统下只需要将这两行命令中的<code>set</code>改成<code>export</code>即可。</p>
-<h1 id="参考文献">参考文献</h1>
-<p>[1]. <a href="https://github.com/shadowsocks/shadowsocks-windows/issues/1489">windows终端命令行下如何使用代理？ · Issue #1489 · shadowsocks/shadowsocks-windows</a></p>
-<p>[2]. <a href="https://gist.github.com/dreamlu/cf7cbc0b8329ac145fa44342d6a1c01d">windows终端翻墙，简易方式</a></p>
-<p>[3]. <a href="https://www.cnblogs.com/91donkey/p/11640079.html">Linux系统下终端proxy代理配置 - 龙龙小宝 - 博客园</a></p>
-<p>[4]. <a href="https://zcdll.github.io/2018/01/27/proxy-on-windows-terminal/">给 Windows 的终端配置代理 | zcdll's Blog</a></p>
-<p>[5]. <a href="https://www.cnblogs.com/liujizhou/p/11680329.html">HTTP TCP UDP ICMP IP ARP 协议详解（10.15 第二十一天） - 枕桃花吹长笛 - 博客园</a></p>
-<p>[6]. <a href="http://www.ruanyifeng.com/blog/2019/09/curl-reference.html">curl 的用法指南 - 阮一峰的网络日志</a></p>
-<p>[7]. <a href="https://zcdll.github.io/2020/08/04/hack-ips/">深入浅出 IP | zcdll's Blog</a></p>
-]]></content>
-      <tags>
-        <tag>v2ray</tag>
-        <tag>cmd</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【转载】Windows下，npm模块的安装位置</title>
-    <url>/posts/52910/</url>
-    <content><![CDATA[<p>本文转载自： <a href="https://www.cnblogs.com/fannn/p/9351931.html">npm install路径 - Fannn - 博客园</a></p>
-<p>我们在webpack项目中使用npm install命令安装很多模块，但是很多时候都不知道这些模块安装在哪里，想要删除的时候找不到，所有想要明确的知道npm的安装路径</p>
-<p>首先，npm install 安装的模块分为两种：</p>
-<p>一种是本地安装(直接在项目路径下)，使用命令：<code>npm install xxxx</code></p>
-<p>一种是全局安装(安装在nodejs的默认路径下)，使用命令：<code>npm install -g xxxx</code></p>
-<ol type="1">
-<li><p>本地安装，会在CMD当前路径下创建node_modules文件夹，安装的模块都是放在这里。</p></li>
-<li><p>全局安装，默认npm全局安装路径的设置是在node.js的安装路径下_modules</p></li>
-</ol>
-<p>默认为：<code>prefix=$&#123;APPDATA&#125;\npm</code>，在Windows下，这一位置为<code>C:\Users\"Your Name"\AppData\Roaming\npm</code></p>
-<p>可以使用命令<code>npm config get prefix</code>查看npm -g 全局安装的路径命令。</p>
-<p>如果需要修改默认全局安装路径，直接修改即可，比如我想放在D盘modules文件夹中，修改npmrc为下面的值即可</p>
-<p><code>prefix=D:\modules</code></p>
-<hr />
-<p>如果你想要通过命令删除某些模块，可以在项目路径下，输入命令<code>npm uninstall xxxx</code>,比如我想要删除webpack模块，命令为：<code>npm uninstall webpack</code></p>
-<p>例外，有的时候项目路径太长，导致无法删除，可以通过安装<code>npm install rimraf -g</code>,再输入命令<code>rimraf node_modules</code>来达到删除的效果。</p>
-]]></content>
-      <tags>
-        <tag>转载</tag>
-        <tag>npm</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Windows下，安装Hexo博客框架并部署到GitHub（2）</title>
     <url>/posts/40079/</url>
     <content><![CDATA[<style>
@@ -357,6 +306,32 @@ h2 {
       </tags>
   </entry>
   <entry>
+    <title>Windows终端(cmd)内走v2ray代理</title>
+    <url>/posts/884982221/</url>
+    <content><![CDATA[<h1 id="前言">前言</h1>
+<p>这个是我很久之前就准备写的一篇blog了，拖了很久到现在才动笔。起因是这样的，有次在Linux系统需要下载一个具有第三方源的软件，这个源在国内没有镜像，于是我在GitHub上找到了<a href="https://github.com/Qv2ray/Qv2ray">Qv2ray</a>这个项目，它在Linux端也有封装好的.AppImage文件，双击即可使用，比较适合我这种Linux基础不深的偏小白用户，本以为用了v2ray之后我下载的速度能直接起飞，但用了v2ray之后发现速度并没有显著变化，在网上找了好久资料后发现v2ray的生效范围不包括终端内，想让其在终端内生效，需要配置代理，下面就对这部分内容进行说明。</p>
+<h1 id="配置代理">配置代理</h1>
+<p>其实配置方法很简单</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">配置</span><br><span class="line">set http_proxy&#x3D;http:&#x2F;&#x2F;127.0.0.1:x</span><br><span class="line">set https_proxy&#x3D;http:&#x2F;&#x2F;127.0.0.1:x</span><br><span class="line"></span><br><span class="line">恢复</span><br><span class="line">set http_proxy&#x3D;</span><br><span class="line">set https_proxy&#x3D;</span><br></pre></td></tr></table></figure>
+<p>使用上面的两行命令就能完成配置，但应注意<code>http://127.0.0.1:x</code>中的x每个人可能是不一样的，这个可以在v2ray客户端主界面的最下面查到。</p>
+<p>配置完成后，可以用curl命令查看终端是否走了代理，不要用ping命令，因为ping是基于ICMP协议的，这个协议从属于IP协议，属于网络层中的协议，而v2ray不能作用在网络层上。</p>
+<p>在终端中输入<code>curl www.google.com</code>，若很快出现一大堆乱码一样的符号就说明代理配置成功了。此外，还可以在终端中输入<code>curl ip.fm</code>，这个命令会返回你当前的ip地址跟对应的归属地。</p>
+<p>Linux系统下只需要将这两行命令中的<code>set</code>改成<code>export</code>即可。</p>
+<h1 id="参考文献">参考文献</h1>
+<p>[1]. <a href="https://github.com/shadowsocks/shadowsocks-windows/issues/1489">windows终端命令行下如何使用代理？ · Issue #1489 · shadowsocks/shadowsocks-windows</a></p>
+<p>[2]. <a href="https://gist.github.com/dreamlu/cf7cbc0b8329ac145fa44342d6a1c01d">windows终端翻墙，简易方式</a></p>
+<p>[3]. <a href="https://www.cnblogs.com/91donkey/p/11640079.html">Linux系统下终端proxy代理配置 - 龙龙小宝 - 博客园</a></p>
+<p>[4]. <a href="https://zcdll.github.io/2018/01/27/proxy-on-windows-terminal/">给 Windows 的终端配置代理 | zcdll's Blog</a></p>
+<p>[5]. <a href="https://www.cnblogs.com/liujizhou/p/11680329.html">HTTP TCP UDP ICMP IP ARP 协议详解（10.15 第二十一天） - 枕桃花吹长笛 - 博客园</a></p>
+<p>[6]. <a href="http://www.ruanyifeng.com/blog/2019/09/curl-reference.html">curl 的用法指南 - 阮一峰的网络日志</a></p>
+<p>[7]. <a href="https://zcdll.github.io/2020/08/04/hack-ips/">深入浅出 IP | zcdll's Blog</a></p>
+]]></content>
+      <tags>
+        <tag>v2ray</tag>
+        <tag>cmd</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【转载】快速转换FLV视频为MP4格式</title>
     <url>/posts/38106/</url>
     <content><![CDATA[<p>本文转载至： <a href="https://www.zhihu.com/question/65224766/answer/252226264">怎样快速的转换FLV视频为MP4格式？ - 知乎</a></p>
@@ -414,39 +389,28 @@ h2 {
       </tags>
   </entry>
   <entry>
-    <title>如何使用git工具上传/克隆代码</title>
-    <url>/posts/55348/</url>
-    <content><![CDATA[<p>在写博客的时候，我个人选择了国内的代码托管平台Gitee作为自己的博客图床，但一篇博客往往会用到很多图片，一张一张上传未免太麻烦，这篇博客就是记录自己使用git工具将博客内截图上传到Gitee仓库的过程。</p>
-<h1 id="生成ssh-key">生成SSH Key</h1>
-<p>在“Windows下，安装Hexo博客框架并部署到GitHub（2）”这篇文章中已经说过，要想实现对GitHub仓库的控制，需要使用SSH Key。关于如何生成SSH Key，并将其配置至GitHub或者Gitee等代码托管平台的方法已经在上面提到的博文中详细说过，此处不再赘述。</p>
-<h1 id="建立git仓库并上传本地文件">建立git仓库并上传本地文件</h1>
-<p>什么是git？git是一个开源的分布式版本控制系统，可以有效、高速地处理从很小到非常大的项目版本管理。git是一种工具，它能更好的让我们管理代码。很多时候如果我们需要保持本地代码和github代码版本一致，那么我们就会用到git这个工具。git工具不仅可以让我们克隆别人的或者自己的远程代码，还可以实现本次存储远程仓库。</p>
-<p>第一步：进入Gitee主页，在右上角找到“新建仓库”选项，仓库名称写“个人图床”，写完仓库名称之后，系统会自动生成路径“personal-chart-bed”，自己也可以对其进行修改，我的个人图床仓库的路径是“picturebed”，下面的选项都保持默认。</p>
-<p>第二步：创建完仓库之后，需要做的是进行Git全局设置</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;your name&quot;</span><br><span class="line">git config --global user.email &quot;your email&quot;</span><br></pre></td></tr></table></figure>
-<p>接着在本地创建git仓库，并与云端进行联系</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir personal-chart-bed</span><br><span class="line">&#x2F;&#x2F; 在本地建立&quot;personal-chart-bed&quot;</span><br><span class="line">cd personal-chart-bed</span><br><span class="line">&#x2F;&#x2F; 将当前目录设置为上一步建立的本地仓库文件夹</span><br><span class="line">git init</span><br><span class="line">&#x2F;&#x2F; 初始化</span><br><span class="line">touch README.md</span><br><span class="line">git add README.md</span><br><span class="line">&#x2F;&#x2F; 创建并上传README.md文件</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line">&#x2F;&#x2F; 本次上传的commit</span><br><span class="line">git remote add origin git@gitee.com:yourName&#x2F;yourRepo.git</span><br><span class="line">&#x2F;&#x2F; 与仓库取得联系（SSH方式）</span><br><span class="line">git push -u origin master</span><br><span class="line">&#x2F;&#x2F; 确认提交</span><br></pre></td></tr></table></figure>
-<p>如果感觉上面的步骤太麻烦，这里还有一个更简单的方式，就是使用<code>git clone</code>命令先将云端的仓库下载到本地，这样就会自带初始化信息，就不用在用<code>git init</code>命令去初始化了，然后想上传的文件放到clone下来的文件夹里，使用相关命令上传即可。注意这种方式是不需要<code>git remote add origin git@gitee.com:yourName/yourRepo.git</code>的，因为在clone过程中已经建立了本地和云端的联系。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone git@gitee.com:yourName&#x2F;yourRepo.git</span><br><span class="line">touch README.md</span><br><span class="line">git add README.md</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
-<p><strong>下面说一下<code>git add</code>的几种用法</strong></p>
-<p>除了上面使用<code>git add &lt;文件名&gt;</code>命令对单个文件进行上传之外，还可以用下面的方法对多个文件进行处理。</p>
-<p>git add [参数] <路径>　 作用就是将我们需要提交的代码从工作区添加到暂存区，就是告诉git系统，我们要提交哪些文件，之后就可以使用git commit命令进行提交了。 为了方便下面都用 . 来标识路径， . 表示当前目录，路径可以修改，下列操作的作用范围都在版本库之内。</p>
-<p><code>git add .</code></p>
-<p>不加参数默认为将修改操作的文件和未跟踪新添加的文件添加到git系统的暂存区，注意不包括删除</p>
-<p><code>git add -u .</code></p>
-<p>-u 表示将已跟踪文件中的修改和删除的文件添加到暂存区，不包括新增加的文件，注意这些被删除的文件被加入到暂存区再被提交并推送到服务器的版本库之后这个文件就会从git系统中消失了。</p>
-<p><code>git add -A .</code></p>
-<p>-A 表示将所有的已跟踪的文件的修改与删除和新增的未跟踪的文件都添加到暂存区。</p>
-<h1 id="参考文献">参考文献</h1>
-<p>[1]. <a href="https://www.cnblogs.com/tangjian07/p/11282773.html">Git的add、commit、push命令 - akon07 - 博客园</a></p>
-<p>[2]. <a href="https://gitee.com/help/articles/4122">提交第一行代码 - Gitee.com</a></p>
-<p>[3]. <a href="https://gitee.com/help/articles/4192#article-header0">git clone / 下载代码 - Gitee.com</a></p>
-<p>[4]. <a href="https://gitee.com/all-about-git">Git 大全 - Gitee.com</a></p>
+    <title>【转载】Windows下，npm模块的安装位置</title>
+    <url>/posts/52910/</url>
+    <content><![CDATA[<p>本文转载自： <a href="https://www.cnblogs.com/fannn/p/9351931.html">npm install路径 - Fannn - 博客园</a></p>
+<p>我们在webpack项目中使用npm install命令安装很多模块，但是很多时候都不知道这些模块安装在哪里，想要删除的时候找不到，所有想要明确的知道npm的安装路径</p>
+<p>首先，npm install 安装的模块分为两种：</p>
+<p>一种是本地安装(直接在项目路径下)，使用命令：<code>npm install xxxx</code></p>
+<p>一种是全局安装(安装在nodejs的默认路径下)，使用命令：<code>npm install -g xxxx</code></p>
+<ol type="1">
+<li><p>本地安装，会在CMD当前路径下创建node_modules文件夹，安装的模块都是放在这里。</p></li>
+<li><p>全局安装，默认npm全局安装路径的设置是在node.js的安装路径下_modules</p></li>
+</ol>
+<p>默认为：<code>prefix=$&#123;APPDATA&#125;\npm</code>，在Windows下，这一位置为<code>C:\Users\"Your Name"\AppData\Roaming\npm</code></p>
+<p>可以使用命令<code>npm config get prefix</code>查看npm -g 全局安装的路径命令。</p>
+<p>如果需要修改默认全局安装路径，直接修改即可，比如我想放在D盘modules文件夹中，修改npmrc为下面的值即可</p>
+<p><code>prefix=D:\modules</code></p>
+<hr />
+<p>如果你想要通过命令删除某些模块，可以在项目路径下，输入命令<code>npm uninstall xxxx</code>,比如我想要删除webpack模块，命令为：<code>npm uninstall webpack</code></p>
+<p>例外，有的时候项目路径太长，导致无法删除，可以通过安装<code>npm install rimraf -g</code>,再输入命令<code>rimraf node_modules</code>来达到删除的效果。</p>
 ]]></content>
       <tags>
-        <tag>git</tag>
-        <tag>github</tag>
-        <tag>gitee</tag>
+        <tag>转载</tag>
+        <tag>npm</tag>
       </tags>
   </entry>
   <entry>
@@ -495,6 +459,42 @@ ab &amp;= cb \\
 <p>paper1. www.keylol.com</p>
 <p>==paper2==</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>如何使用git工具上传/克隆代码</title>
+    <url>/posts/55348/</url>
+    <content><![CDATA[<p>在写博客的时候，我个人选择了国内的代码托管平台Gitee作为自己的博客图床，但一篇博客往往会用到很多图片，一张一张上传未免太麻烦，这篇博客就是记录自己使用git工具将博客内截图上传到Gitee仓库的过程。</p>
+<h1 id="生成ssh-key">生成SSH Key</h1>
+<p>在“Windows下，安装Hexo博客框架并部署到GitHub（2）”这篇文章中已经说过，要想实现对GitHub仓库的控制，需要使用SSH Key。关于如何生成SSH Key，并将其配置至GitHub或者Gitee等代码托管平台的方法已经在上面提到的博文中详细说过，此处不再赘述。</p>
+<h1 id="建立git仓库并上传本地文件">建立git仓库并上传本地文件</h1>
+<p>什么是git？git是一个开源的分布式版本控制系统，可以有效、高速地处理从很小到非常大的项目版本管理。git是一种工具，它能更好的让我们管理代码。很多时候如果我们需要保持本地代码和github代码版本一致，那么我们就会用到git这个工具。git工具不仅可以让我们克隆别人的或者自己的远程代码，还可以实现本次存储远程仓库。</p>
+<p>第一步：进入Gitee主页，在右上角找到“新建仓库”选项，仓库名称写“个人图床”，写完仓库名称之后，系统会自动生成路径“personal-chart-bed”，自己也可以对其进行修改，我的个人图床仓库的路径是“picturebed”，下面的选项都保持默认。</p>
+<p>第二步：创建完仓库之后，需要做的是进行Git全局设置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;your name&quot;</span><br><span class="line">git config --global user.email &quot;your email&quot;</span><br></pre></td></tr></table></figure>
+<p>接着在本地创建git仓库，并与云端进行联系</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkdir personal-chart-bed</span><br><span class="line">&#x2F;&#x2F; 在本地建立&quot;personal-chart-bed&quot;</span><br><span class="line">cd personal-chart-bed</span><br><span class="line">&#x2F;&#x2F; 将当前目录设置为上一步建立的本地仓库文件夹</span><br><span class="line">git init</span><br><span class="line">&#x2F;&#x2F; 初始化</span><br><span class="line">touch README.md</span><br><span class="line">git add README.md</span><br><span class="line">&#x2F;&#x2F; 创建并上传README.md文件</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line">&#x2F;&#x2F; 本次上传的commit</span><br><span class="line">git remote add origin git@gitee.com:yourName&#x2F;yourRepo.git</span><br><span class="line">&#x2F;&#x2F; 与仓库取得联系（SSH方式）</span><br><span class="line">git push -u origin master</span><br><span class="line">&#x2F;&#x2F; 确认提交</span><br></pre></td></tr></table></figure>
+<p>如果感觉上面的步骤太麻烦，这里还有一个更简单的方式，就是使用<code>git clone</code>命令先将云端的仓库下载到本地，这样就会自带初始化信息，就不用在用<code>git init</code>命令去初始化了，然后想上传的文件放到clone下来的文件夹里，使用相关命令上传即可。注意这种方式是不需要<code>git remote add origin git@gitee.com:yourName/yourRepo.git</code>的，因为在clone过程中已经建立了本地和云端的联系。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone git@gitee.com:yourName&#x2F;yourRepo.git</span><br><span class="line">touch README.md</span><br><span class="line">git add README.md</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+<p><strong>下面说一下<code>git add</code>的几种用法</strong></p>
+<p>除了上面使用<code>git add &lt;文件名&gt;</code>命令对单个文件进行上传之外，还可以用下面的方法对多个文件进行处理。</p>
+<p>git add [参数] <路径>　 作用就是将我们需要提交的代码从工作区添加到暂存区，就是告诉git系统，我们要提交哪些文件，之后就可以使用git commit命令进行提交了。 为了方便下面都用 . 来标识路径， . 表示当前目录，路径可以修改，下列操作的作用范围都在版本库之内。</p>
+<p><code>git add .</code></p>
+<p>不加参数默认为将修改操作的文件和未跟踪新添加的文件添加到git系统的暂存区，注意不包括删除</p>
+<p><code>git add -u .</code></p>
+<p>-u 表示将已跟踪文件中的修改和删除的文件添加到暂存区，不包括新增加的文件，注意这些被删除的文件被加入到暂存区再被提交并推送到服务器的版本库之后这个文件就会从git系统中消失了。</p>
+<p><code>git add -A .</code></p>
+<p>-A 表示将所有的已跟踪的文件的修改与删除和新增的未跟踪的文件都添加到暂存区。</p>
+<h1 id="参考文献">参考文献</h1>
+<p>[1]. <a href="https://www.cnblogs.com/tangjian07/p/11282773.html">Git的add、commit、push命令 - akon07 - 博客园</a></p>
+<p>[2]. <a href="https://gitee.com/help/articles/4122">提交第一行代码 - Gitee.com</a></p>
+<p>[3]. <a href="https://gitee.com/help/articles/4192#article-header0">git clone / 下载代码 - Gitee.com</a></p>
+<p>[4]. <a href="https://gitee.com/all-about-git">Git 大全 - Gitee.com</a></p>
+]]></content>
+      <tags>
+        <tag>git</tag>
+        <tag>github</tag>
+        <tag>gitee</tag>
+      </tags>
   </entry>
   <entry>
     <title>50L自动电加热开水桶水温水位控制系统设计开发报告</title>
