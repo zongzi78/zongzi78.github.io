@@ -30,7 +30,7 @@
 <meta property="og:description" content="git 代码管理">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-11-22T13:44:53.000Z">
-<meta property="article:modified_time" content="2021-05-17T13:11:05.066Z">
+<meta property="article:modified_time" content="2021-05-17T14:15:16.283Z">
 <meta property="article:author" content="Tiddler">
 <meta property="article:tag" content="git">
 <meta property="article:tag" content="github">
@@ -212,7 +212,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%9F%E6%88%90-ssh-key"><span class="nav-number">1.</span> <span class="nav-text">生成 SSH Key</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-git-%E4%BB%93%E5%BA%93%E5%B9%B6%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">建立 git 仓库并上传本地文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">3.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90-ssh-key"><span class="nav-number">1.</span> <span class="nav-text">生成 SSH Key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-git-%E4%BB%93%E5%BA%93%E5%B9%B6%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">建立 git 仓库并上传本地文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -318,7 +318,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-05-17 21:11:05" itemprop="dateModified" datetime="2021-05-17T21:11:05+08:00">2021-05-17</time>
+        <time title="Modified: 2021-05-17 22:15:16" itemprop="dateModified" datetime="2021-05-17T22:15:16+08:00">2021-05-17</time>
       </span>
 
   
@@ -333,9 +333,9 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>在写博客的时候，我个人选择了国内的代码托管平台 Gitee 作为自己的博客图床，但一篇博客往往会用到很多图片，一张一张上传未免太麻烦，这篇博客就是记录自己使用 git 工具将博客内截图上传到 Gitee 仓库的过程。</p>
-<h1 id="生成-ssh-key">生成 SSH Key</h1>
+<h2 id="生成-ssh-key">生成 SSH Key</h2>
 <p>在“Windows 下，安装 Hexo 博客框架并部署到 GitHub（2）”这篇文章中已经说过，要想实现对 GitHub 仓库的控制，需要使用 SSH Key。关于如何生成 SSH Key，并将其配置至 GitHub 或者 Gitee 等代码托管平台的方法已经在上面提到的博文中详细说过，此处不再赘述。</p>
-<h1 id="建立-git-仓库并上传本地文件">建立 git 仓库并上传本地文件</h1>
+<h2 id="建立-git-仓库并上传本地文件">建立 git 仓库并上传本地文件</h2>
 <p>什么是 git？git 是一个开源的分布式版本控制系统，可以有效、高速地处理从很小到非常大的项目版本管理。git 是一种工具，它能更好的让我们管理代码。很多时候如果我们需要保持本地代码和 github 代码版本一致，那么我们就会用到 git 这个工具。git 工具不仅可以让我们克隆别人的或者自己的远程代码，还可以实现本次存储远程仓库。</p>
 <p>第一步：进入 Gitee 主页，在右上角找到“新建仓库”选项，仓库名称写“个人图床”，写完仓库名称之后，系统会自动生成路径“personal-chart-bed”，自己也可以对其进行修改，我的个人图床仓库的路径是“picturebed”，下面的选项都保持默认。</p>
 <p>第二步：创建完仓库之后，需要做的是进行 Git 全局设置</p>
@@ -354,7 +354,7 @@
 <p>-u 表示将已跟踪文件中的修改和删除的文件添加到暂存区，不包括新增加的文件，注意这些被删除的文件被加入到暂存区再被提交并推送到服务器的版本库之后这个文件就会从 git 系统中消失了。</p>
 <p><code>git add -A .</code></p>
 <p>-A 表示将所有的已跟踪的文件的修改与删除和新增的未跟踪的文件都添加到暂存区。</p>
-<h1 id="参考文献">参考文献</h1>
+<h2 id="参考">参考</h2>
 <ol type="1">
 <li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/tangjian07/p/11282773.html">Git的add、commit、push命令 - akon07 - 博客园</a></p></li>
 <li><p><a target="_blank" rel="noopener" href="https://gitee.com/help/articles/4122">提交第一行代码 - Gitee.com</a></p></li>

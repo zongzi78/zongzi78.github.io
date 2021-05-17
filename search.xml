@@ -43,7 +43,7 @@
 </ol>
 <p>这样就设置好了，可以 NexT 官网提供的<a href="https://theme-next.js.org/docs/third-party-services/math-equations.html">几个例子</a>实验一下。</p>
 <hr />
-<h2 id="参考文献">参考文献</h2>
+<h2 id="参考">参考</h2>
 <ol type="1">
 <li><p><a href="https://theme-next.js.org/docs/third-party-services/math-equations.html">Math Equations | NexT</a></p></li>
 <li><p><a href="https://github.com/wzpan/hexo-renderer-pandoc">wzpan/hexo-renderer-pandoc: A pandoc-markdown-flavor renderer for hexo.</a></p></li>
@@ -98,12 +98,12 @@ h2 {
     border-bottom: none
 }
 </style>
-<h1 id="前言">前言</h1>
+<h2 id="前言">前言</h2>
 <p>8 月 30 号就搞定了 blog 的本地安装与 GitHub 部署，拖了半个多月才想起要把部署过程写出来，在写之前，首先要感谢B站的 up 主 <a href="https://space.bilibili.com/384068749">CodeSheep</a>，是在他的系列 blog 搭建视频的帮助下才有的这篇文章。 由于安装 Node.js 和 Git，本地安装 Hexo 以及部署到云端的整个流程较长，预计分为两次来写，本篇 blog 主要写 Node.js 和 Git 的安装。</p>
 <a id="more"></a>
 <hr />
-<h1 id="环境配置">环境配置</h1>
-<h2 id="node.js-安装">Node.js 安装</h2>
+<h2 id="环境配置">环境配置</h2>
+<h3 id="node.js-安装">Node.js 安装</h3>
 <p>首先进入其<a href="https://nodejs.org">官方网站</a></p>
 <div data-align="center">
 <p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/200911/0.PNG?raw" width="50%"></p>
@@ -120,7 +120,7 @@ h2 {
 </div>
 <p>npm 一般是跟 nodejs 主程序一起自动安装的，至于 npm 的含义与作用将在后文解释，这样就可以进行下一步操作了。</p>
 <hr />
-<h2 id="git-安装">Git 安装</h2>
+<h3 id="git-安装">Git 安装</h3>
 <p>首先进入 Git 的<a href="https://git-scm.com">官方网站</a>，接着点击 download 按钮，进入<a href="https://git-scm.com/downloads">下载界面</a>。</p>
 <div data-align="center">
 <p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/200911/3.PNG?raw" width="50%"></p>
@@ -140,8 +140,8 @@ h2 {
 </div>
 <p>后面没有需要注意的地方了，一路默认即可。安装完成后，桌面上将出现“Git Bash”快捷方式，双击就能进入 Git 的命令行界面了，由于在 Git 的安装过程中环境变量都已自动配置好，所以也可以直接进入 cmd 界面进行 Git 的一些操作。进入 cmd 界面，输入 <code>git --version</code>，若出现“git version 2.28.0.windows.1”字样，说明安装成功。</p>
 <hr />
-<h2 id="npm-换源">npm 换源</h2>
-<h3 id="npm-介绍">npm 介绍</h3>
+<h3 id="npm-换源">npm 换源</h3>
+<h4 id="npm-介绍">npm 介绍</h4>
 <p>所谓 npm，通俗理解为包管理器，这里的包就是基于 nodejs 而开发的的一个个插件/模块，而 npm 就是对这些包进行安装，卸载等操作的管理器。根据菜鸟教程上面的<a href="https://www.runoob.com/nodejs/nodejs-npm.html">介绍</a>，npm 的主要功能有：</p>
 <ul>
 <li>允许用户从NPM服务器下载别人编写的第三方包到本地使用。</li>
@@ -149,7 +149,7 @@ h2 {
 <li>允许用户将自己编写的包或命令行程序上传到NPM服务器供别人使用。</li>
 </ul>
 <p>现在的 nodejs 已经集成了 npm，所以在安装 nodejs 的时候 npm 也会随之安装。</p>
-<h3 id="npm更换淘宝源">npm更换淘宝源</h3>
+<h4 id="npm更换淘宝源">npm更换淘宝源</h4>
 <p>由于 nodejs 服务器在国外，许多包的源地址也在国外，国内使用 npm 的时候速度会非常的慢，所以需要将 npm 包的源地址更换为国内的镜像地址。<a href="https://developer.aliyun.com/mirror/NPM?from=tnpm">这个</a>是阿里的淘宝 npm 镜像网站。按照官方文档，有两种换源方式，一种是安装 cnpm 代替 npm，另一种是直接更换源地址。 首先是安装 cnpm 的方式：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
 <p>通过上述命令，即可安装 cnpm 包管理器以代替 npm，以后任何使用 npm 命令的场合，都改为使用 cnpm。</p>
@@ -162,8 +162,8 @@ h2 {
 </div>
 <p>如图所示则表明换源成功。</p>
 <hr />
-<h1 id="本地安装-hexo">本地安装 Hexo</h1>
-<h2 id="安装-hexo">安装 Hexo</h2>
+<h2 id="本地安装-hexo">本地安装 Hexo</h2>
+<h3 id="安装-hexo">安装 Hexo</h3>
 <p>首先找到 Hexo 的<a href="https://hexo.io">官方网站</a>，进入“文档”界面可以看到 Hexo 的使用说明，在安装前提一栏可以看到安装hexo的前置条件我们在环境配置一节中已经全部完成了，接下来即可使用 npm/cnpm 进行 Hexo 框架的本地安装。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 <div data-align="center">
@@ -175,7 +175,7 @@ h2 {
 <p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/200911/9.PNG?raw" width="50%"></p>
 </div>
 <hr />
-<h2 id="建立空白博客框架">建立空白博客框架</h2>
+<h3 id="建立空白博客框架">建立空白博客框架</h3>
 <p>首先在计算机任意位置建立一个名为 blog 的空文件夹，这里我们选择 ~/blog<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p>进入 cmd 命令行界面，左侧的地址为当前的路径地址，输入 <code>cd blog</code> 将其变更到上一步建立的 blog 文件夹下。</p>
 <div data-align="center">
@@ -183,12 +183,12 @@ h2 {
 </div>
 <p>可以看到现在左侧的地址由 <code>C:\Users\xxx\</code> 变成了 <code>C:\Users\xxx\blog\</code>，这一步是很重要的，它确保了跟你个人博客相关的文件，包括配置文件、博客原文、皮肤文件等等全部位于“C:”这一地址下，便于你以后管理。在 cmd 终端中输入 <code>hexo init</code> 安装博客框架，安装完成后，打开“C:”，可以看到里面已经多了很多文件，这些文件就是你的个人博客框架，关于这些文件各自的作用与含义，Hexo 官网的文档界面的<a href="https://hexo.io/zh-cn/docs/setup">建站</a>部分解释的很清楚，可以自行查看。</p>
 <hr />
-<h2 id="创建新的博文">创建新的博文</h2>
+<h3 id="创建新的博文">创建新的博文</h3>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo n &quot;blog&#39;s name&quot;</span><br></pre></td></tr></table></figure>
 <p>上述命令就是建立一个新的博文界面的命令，在 cmd 界面运行上述命令后，在“C:_posts”中会出现一个名为“blog's name.md”的markdown文件，这个就是一篇博文的原始文件，所谓的“写博客”也是在这个 md 文件中进行的，即使用相关软件对 md 文件进行编辑。</p>
 <p>这里推荐一个 Windows 系统下的 md 文件编辑器 <a href="https://www.typora.io">Typora</a>，直接在其官网下载 exe 文件安装即可。当然也可以使用 VS Code 搭配 MPE 插件进行 md 文档的书写。</p>
 <hr />
-<h1 id="总结">总结</h1>
+<h2 id="总结">总结</h2>
 <p>到这里，在 Windows 系统下安装部署 Hexo 博客框架的第一部分就结束了，在本篇博文中，主要介绍了 Hexo 框架的前置两个软件 Node.js 和 Git 的安装与配置，Hexo 框架的安装与初始化以及如何在本地建立一篇新博文并对其进行编辑的方法。在第二部分的文章中，将对如何利用 GitHub page 建立自己的云端博客以及如何将本地的 Hexo 框架部署到 GitHub 做详细说明。</p>
 <section class="footnotes" role="doc-endnotes">
 <hr />
@@ -202,16 +202,16 @@ h2 {
   <entry>
     <title>Windows 终端（cmd）内走 v2ray 代理</title>
     <url>/posts/884982221/</url>
-    <content><![CDATA[<h1 id="前言">前言</h1>
+    <content><![CDATA[<h2 id="前言">前言</h2>
 <p>这个是我很久之前就准备写的一篇 blog 了，拖了很久到现在才动笔。起因是这样的，有次在 Linux 系统需要下载一个具有第三方源的软件，这个源在国内没有镜像，于是我在 GitHub 上找到了 <a href="https://github.com/Qv2ray/Qv2ray">Qv2ray</a> 这个项目，它在 Linux 端也有封装好的 AppImage 文件，双击即可使用，比较适合我这种 Linux 基础不深的偏小白用户，本以为用了 v2ray 之后我下载的速度能直接起飞，但用了 v2ray 之后发现速度并没有显著变化，在网上找了好久资料后发现 v2ray 的生效范围不包括终端内，想让其在终端内生效，需要配置代理，下面就对这部分内容进行说明。</p>
-<h1 id="配置代理">配置代理</h1>
+<h2 id="配置代理">配置代理</h2>
 <p>其实配置方法很简单</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">配置</span><br><span class="line">set http_proxy&#x3D;http:&#x2F;&#x2F;127.0.0.1:x</span><br><span class="line">set https_proxy&#x3D;http:&#x2F;&#x2F;127.0.0.1:x</span><br><span class="line"></span><br><span class="line">恢复</span><br><span class="line">set http_proxy&#x3D;</span><br><span class="line">set https_proxy&#x3D;</span><br></pre></td></tr></table></figure>
 <p>使用上面的两行命令就能完成配置，但应注意 <code>http://127.0.0.1:x</code> 中的 x 每个人可能是不一样的，这个可以在 v2ray 客户端主界面的最下面查到。</p>
 <p>配置完成后，可以用 curl 命令查看终端是否走了代理，不要用 ping 命令，因为 ping 是基于 ICMP 协议的，这个协议从属于 IP 协议，属于网络层中的协议，而 v2ray 不能作用在网络层上。</p>
 <p>在终端中输入 <code>curl www.google.com</code>，若很快出现一大堆乱码一样的符号就说明代理配置成功了。此外，还可以在终端中输入 <code>curl ip.fm</code>，这个命令会返回你当前的 ip 地址跟对应的归属地。</p>
 <p>Linux 系统下只需要将这两行命令中的 <code>set</code> 改成 <code>export</code> 即可。</p>
-<h1 id="参考文献">参考文献</h1>
+<h2 id="参考">参考</h2>
 <ol type="1">
 <li><p><a href="https://github.com/shadowsocks/shadowsocks-windows/issues/1489">windows终端命令行下如何使用代理？ · Issue #1489 · shadowsocks/shadowsocks-windows</a></p></li>
 <li><p><a href="https://gist.github.com/dreamlu/cf7cbc0b8329ac145fa44342d6a1c01d">windows终端翻墙，简易方式</a></p></li>
@@ -240,18 +240,18 @@ h2 {
     border-bottom: none
 }
 </style>
-<h1 id="前言">前言</h1>
+<h2 id="前言">前言</h2>
 <p>在上一篇博客中，针对 Hexo 的前置软件的安装与配置，Hexo 框架的安装与初始化做了介绍，在本篇博客中，将针对如何利用 GitHub Page 将本地博客部署到云端做详细介绍。</p>
 <a id="more"></a>
 <hr />
-<h1 id="github-page">GitHub Page</h1>
+<h2 id="github-page">GitHub Page</h2>
 <p>GitHub 官方对 GitHub Page 有说明文档，其中文版的链接为 <a href="https://docs.github.com/cn/github/working-with-github-pages">Github Page docs</a>，此界面详细描述了关于 GitHub Page 的相关知识。在往下阅读之前，请务必仔细阅读上述页面，同时，在 GitHub 的云端部署 Hexo 遇到的大部分问题都可以在此找到解决方案。本文将仅作操作性说明而不涉及 GitHub Page 的技术或理论层面的知识。</p>
-<h2 id="github-page-站点的类型">GitHub Page 站点的类型</h2>
+<h3 id="github-page-站点的类型">GitHub Page 站点的类型</h3>
 <p>GitHub Page 站点分为三种类型，分别是项目站点、用户站点和组织站点。其中，用户站点和组织站点与特定账户链接，项目站点与特定项目链接。</p>
 <p>要发布用户站点，必须创建名为 <code>&lt;user&gt;.github.io</code> 的用户帐户所拥有的仓库，其中 &lt;user&gt; 为你的个人账户 id（注意不是昵称，是 id），比如这是我的<a href="https://github.com/zongzi78">个人主页</a>，点进这个链接就可以发现我的 id 是“zongzi78”，而不是“Tiddler”；要发布组织站点，必须创建名为 <code>&lt;organization&gt;.github.io</code> 的组织所拥有的仓库，与上面类似，&lt;organization&gt; 表示组织的 id，比如这是腾讯的<a href="https://github.com/Tencent">组织主页</a> ，则其 id 为“Tencent”。除非使用自定义域，否则用户和组织站点位于 <code>http(s)://&lt;user&gt;.github.io</code> 或 <code>http(s)://&lt;organization&gt;.github.io</code>。</p>
 <p>项目站点的源文件与其项目存储在同一个仓库中。 除非使用自定义域，否则项目站点位于 <code>http(s)://&lt;user&gt;.github.io/&lt;repository&gt;</code> 或 <code>http(s)://&lt;organization&gt;.github.io/&lt;repository&gt;</code>。</p>
 <p>由于用户/组织站点与账户链接，因此每个账户只能拥有一个用户/组织站点，而项目站点与项目链接，所以一个账户可以拥有多个项目站点。</p>
-<h2 id="创建-github-page-站点仓库">创建 GitHub Page 站点仓库</h2>
+<h3 id="创建-github-page-站点仓库">创建 GitHub Page 站点仓库</h3>
 <p>必须先在 GitHub 上有站点的仓库，然后才可创建站点。</p>
 <p>先转到个人仓库页面 <code>https://github.com/&lt;user&gt;?tab=repositories</code>，点击右上角的“New”按钮，进入新建仓库的界面。</p>
 <div data-align="center">
@@ -262,12 +262,12 @@ h2 {
 <p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/200919/2.PNG?raw" width="50%"></p>
 </div>
 <hr />
-<h1 id="本地-blog-文件夹中的操作">本地 blog 文件夹中的操作</h1>
-<h2 id="在-blog-文件夹中安装-git-插件">在 blog 文件夹中安装 git 插件</h2>
+<h2 id="本地-blog-文件夹中的操作">本地 blog 文件夹中的操作</h2>
+<h3 id="在-blog-文件夹中安装-git-插件">在 blog 文件夹中安装 git 插件</h3>
 <p>进入 cmd 中，将当前路径设置为 blog 所在文件夹，输入</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure>
 <p>等待安装完成。</p>
-<h2 id="设置-_config.yml">设置 _config.yml</h2>
+<h3 id="设置-_config.yml">设置 _config.yml</h3>
 <p>在上一篇博文的“建立空白博客框架”一节中提到过，初始化之后的 Hexo 框架自动生成了一堆文件，这些文件各自的作用在 Hexo 官网的文档界面的<a href="https://hexo.io/zh-cn/docs/setup">建站</a>部分都有解释，在本节中，我们就要对“_config.yml”这一文件进行设置。先来看看官方对这一文件的定义</p>
 <blockquote>
 <p>网站的配置信息，您可以在此配置大部分的参数。</p>
@@ -282,8 +282,8 @@ h2 {
 <p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/200919/3.PNG?raw" width="50%"></p>
 </div>
 <hr />
-<h1 id="云端操作">云端操作</h1>
-<h2 id="尝试上传本地文件到-github">尝试上传本地文件到 GitHub</h2>
+<h2 id="云端操作">云端操作</h2>
+<h3 id="尝试上传本地文件到-github">尝试上传本地文件到 GitHub</h3>
 <p>在 Hexo 官方网站提供的说明文档的<a href="https://hexo.io/zh-cn/docs/commands">命令</a>部分，有如何使用 Hexo 的详细说明，最常用的几个命令如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo init [folder];</span><br><span class="line">&#x2F;&#x2F;新建（初始化）一个网站，如果不指明folder，则默认在当前文件夹中建立</span><br><span class="line"></span><br><span class="line">hexo new;</span><br><span class="line">&#x2F;&#x2F;创建一个新博客，可简写为hexo n</span><br><span class="line"></span><br><span class="line">hexo clean;</span><br><span class="line">&#x2F;&#x2F;清除缓存文件 (db.json) 和已生成的静态文件 (public)。在某些情况（尤其是更换主题后），如果发现对站点的更改无论如何也不生效，可能需要运行该命令。</span><br><span class="line"></span><br><span class="line">hexo generate;</span><br><span class="line">&#x2F;&#x2F;生成静态文件（等待上传的文件），可简写为hexo g</span><br><span class="line"></span><br><span class="line">hexo server;</span><br><span class="line">&#x2F;&#x2F;启动（本地）服务器，默认情况下，访问网址为：http:&#x2F;&#x2F;localhost:4000&#x2F;。通过此命令，在浏览器中输入上述网址，可以在本地查看你的博客上传到云端之后的样子，可简写为hexo s。</span><br><span class="line"></span><br><span class="line">hexo deploy;</span><br><span class="line">&#x2F;&#x2F;部署网站，即将本地的静态文件上传到github上，任何人可以通过https:&#x2F;&#x2F;&lt;user&gt;.github.io访问你的个人博客。</span><br></pre></td></tr></table></figure>
 <p>一般写完一个博客之后，先运行 <code>hexo clean</code> 清除缓存，再运行 <code>hexo g</code> 生成本地静态文件，再运行 <code>hexo s</code> 看看自己的博客上传到云端是什么样子的，如果没有问题，最后运行 <code>hexo d</code> 将本地的静态文件上传到云端。</p>
@@ -297,7 +297,7 @@ h2 {
 <p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/200919/5.PNG?raw" width="50%"></p>
 </div>
 <p>这些提示是什么意思呢？大家想一想这其中缺少了那一步重要步骤，对了，从始至终都没要过我们的账号密码！试想一下，如果所有人都可以不用账密就能更改你的 GitHub 仓库内容，那是不是很可怕，这里就要引入另一个概念————SSH keys。</p>
-<h2 id="配置-ssh-keys">配置 SSH keys</h2>
+<h3 id="配置-ssh-keys">配置 SSH keys</h3>
 <p>还记得前面我们修改 _config.yml 文件时添加的“repo”吗？它后面跟着的一串网址就是咱们前面建立的站点仓库的 SSH 地址。</p>
 <p>所谓 SSH，是“Secure Shell”的英文简写，中文名是“安全外壳协议”，它是建立在应用层基础上的<strong>安全协议</strong>，主要用于远程登录会话，如果一个用户从本地计算机，使用 SSH 协议登录另一台远程计算机，我们就可以认为，这种登录是安全的，即使被中途截获，密码也不会泄露。这里演示 GitHub 如何建立自己的 SSH 公钥，不会对 SSH 的原理做更多说明，想要了解更多，可以去阮一峰老师的<a href="http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html">个人博客</a>中查看相关知识。</p>
 <p>首先查看自己电脑中有无 SSH key，先进入 Git Bash 界面，输入 <code>cd .ssh</code>，进入到 ssh 文件夹，再输入 <code>ls</code></p>
@@ -322,7 +322,7 @@ h2 {
 <p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/200919/10.PNG?raw" width="50%"></p>
 </div>
 <p>访问网址 <code>https://&lt;user&gt;.github.io</code>，可以看到界面与我们之前访问 <code>http://localhost:4000</code> 看到的界面是一模一样的，至此，Windows 下安装 Hexo 博客框架并将其部署到 GitHub page 云端的教程结束。</p>
-<h1 id="参考文献">参考文献</h1>
+<h2 id="参考">参考</h2>
 <ol type="1">
 <li><p><a href="https://www.bilibili.com/video/BV1Yb411a7ty">手把手教你从0开始搭建自己的个人博客 |无坑版视频教程| hexo_哔哩哔哩 (゜-゜)つロ 干杯~-bilibili</a></p></li>
 <li><p><a href="https://caiyantao.gitee.io/">日复一日，来日方长_kajskj753的个人blog</a></p></li>
@@ -330,7 +330,7 @@ h2 {
 <li><p><a href="https://www.cnblogs.com/fsong/p/11425669.html">使用Github当作自己个人博客的图床</a></p></li>
 <li><p><a href="http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html">SSH原理与运用（一）：远程登录 - 阮一峰的网络日志</a></p></li>
 </ol>
-<h1 id="总结">总结</h1>
+<h2 id="总结">总结</h2>
 <p>终于完成了本教程，正如我在前一篇博客的开头所言，自己搭建博客的过程，我在 8 月 30 号就完成了，但由于开学的原因，一直没有时间把自己的心得写成文字。这是我的第一篇正经教程性文章，也是我的第一篇博客文章。本来以为会很简单的一上午或一天就能完成的，没想到竟然断断续续写了一周的时间，拖延症真是要不得。其实本篇文章并没有多少我自己的东西，大部分是把羊哥视频里的东西用 Windows 复现了一下然后转成了文字，尽管如此，看着自己写的东西能发布在网上还是有着很大的成就感的。</p>
 <p>我对程序设计也没什么概念，本科学过的一点 c++ 现在也差不多全还给老师了。本来计划着今年好好学一下 c++ 的。可今年学校课程要求用开发板开发一个温控烧水系统，看了看，好像对c语言要求比较高，就暂停了 c++ 的学习计划，转去学c语言了，此外还得自学 51 单片机，唉，想想就头大。现在后悔暑假没有好好的学习了。。。后边我应该会经常在博客里分享一些我学习c语言和 51 中的心得体会与有趣的事情。本来我还计划写一下 Ubuntu 系统中部署 Hexo 并且上传到 GitHub 的教程的，但想到能用 Ubuntu 系统的人应该也不需要我写的这种水货教程，而且写这个的难度已经远远超过了我原先设想的难度，所以可能就暂时不会写这一部分了。此外，还想写一下如何让 SSR 和 v2ray 在终端中也生效的教程的，这个早晚会写的，看我的时间安排吧。</p>
 ]]></content>
@@ -352,8 +352,7 @@ h2 {
 </ol>
 <p>默认为：<code>prefix=$&#123;APPDATA&#125;\npm</code>，在 Windows 下，这一位置为 <code>C:\Users\"Your Name"\AppData\Roaming\npm</code></p>
 <p>可以使用命令 <code>npm config get prefix</code> 查看 <code>npm -g</code> 全局安装的路径命令。</p>
-<p>如果需要修改默认全局安装路径，直接修改即可，比如我想放在D盘 modules 文件夹中，修改 npmrc 为下面的值即可</p>
-<p><code>prefix=D:\modules</code></p>
+<p>如果需要修改默认全局安装路径，直接修改即可，比如我想放在D盘 modules 文件夹中，修改 npmrc 为 <code>prefix=D:\modules</code> 即可</p>
 <hr />
 <p>如果你想要通过命令删除某些模块，可以在项目路径下，输入命令 <code>npm uninstall xxxx</code>，比如我想要删除 webpack 模块，命令为：<code>npm uninstall webpack</code></p>
 <p>例外，有的时候项目路径太长，导致无法删除，可以通过安装 <code>npm install rimraf -g</code>，再输入命令 <code>rimraf node_modules</code> 来达到删除的效果。</p>
@@ -416,7 +415,7 @@ h2 {
     <url>/posts/38903/</url>
     <content><![CDATA[<p>最近把路由器撤了改成了直接宽带连接上网，但遇到了一个问题，就是我的 v2ray 不起作用了，经过观察，发现时上网时的流量没经过 v2ray 渠道从而无法访问外网。</p>
 <p>经过个人排查与上网搜集资料，发现应该是宽带连接名称的问题，名称里如果<strong>含有中文</strong>就会出现这种现象，所以把宽带连接名称<strong>改成纯英文</strong>就好了！</p>
-<h1 id="参考文献">参考文献</h1>
+<h2 id="参考">参考</h2>
 <ol type="1">
 <li><a href="https://zhuanlan.zhihu.com/p/106695296">PPPOE拨号上网无法使用代理问题</a></li>
 </ol>
@@ -430,9 +429,9 @@ h2 {
     <title>如何使用 git 工具上传/克隆代码</title>
     <url>/posts/55348/</url>
     <content><![CDATA[<p>在写博客的时候，我个人选择了国内的代码托管平台 Gitee 作为自己的博客图床，但一篇博客往往会用到很多图片，一张一张上传未免太麻烦，这篇博客就是记录自己使用 git 工具将博客内截图上传到 Gitee 仓库的过程。</p>
-<h1 id="生成-ssh-key">生成 SSH Key</h1>
+<h2 id="生成-ssh-key">生成 SSH Key</h2>
 <p>在“Windows 下，安装 Hexo 博客框架并部署到 GitHub（2）”这篇文章中已经说过，要想实现对 GitHub 仓库的控制，需要使用 SSH Key。关于如何生成 SSH Key，并将其配置至 GitHub 或者 Gitee 等代码托管平台的方法已经在上面提到的博文中详细说过，此处不再赘述。</p>
-<h1 id="建立-git-仓库并上传本地文件">建立 git 仓库并上传本地文件</h1>
+<h2 id="建立-git-仓库并上传本地文件">建立 git 仓库并上传本地文件</h2>
 <p>什么是 git？git 是一个开源的分布式版本控制系统，可以有效、高速地处理从很小到非常大的项目版本管理。git 是一种工具，它能更好的让我们管理代码。很多时候如果我们需要保持本地代码和 github 代码版本一致，那么我们就会用到 git 这个工具。git 工具不仅可以让我们克隆别人的或者自己的远程代码，还可以实现本次存储远程仓库。</p>
 <p>第一步：进入 Gitee 主页，在右上角找到“新建仓库”选项，仓库名称写“个人图床”，写完仓库名称之后，系统会自动生成路径“personal-chart-bed”，自己也可以对其进行修改，我的个人图床仓库的路径是“picturebed”，下面的选项都保持默认。</p>
 <p>第二步：创建完仓库之后，需要做的是进行 Git 全局设置</p>
@@ -451,7 +450,7 @@ h2 {
 <p>-u 表示将已跟踪文件中的修改和删除的文件添加到暂存区，不包括新增加的文件，注意这些被删除的文件被加入到暂存区再被提交并推送到服务器的版本库之后这个文件就会从 git 系统中消失了。</p>
 <p><code>git add -A .</code></p>
 <p>-A 表示将所有的已跟踪的文件的修改与删除和新增的未跟踪的文件都添加到暂存区。</p>
-<h1 id="参考文献">参考文献</h1>
+<h2 id="参考">参考</h2>
 <ol type="1">
 <li><p><a href="https://www.cnblogs.com/tangjian07/p/11282773.html">Git的add、commit、push命令 - akon07 - 博客园</a></p></li>
 <li><p><a href="https://gitee.com/help/articles/4122">提交第一行代码 - Gitee.com</a></p></li>
