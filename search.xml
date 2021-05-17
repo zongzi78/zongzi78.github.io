@@ -57,35 +57,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu 与 Win10 双系统下更改默认启动项+更换国内源</title>
-    <url>/posts/38677/</url>
-    <content><![CDATA[<h2 id="前言">前言</h2>
-<p>前一段时间在一台装有 Windows 10 系统的旧电脑上又装了 Ubuntu LTS 16.04 系统，一般这种双系统的情况会自动配置 grub 软件作为多操作系统启动程序，这里就讲一下如何设置默认启动哪一个系统和 Ubuntu 系统换源的一些事。</p>
-<h2 id="更换默认启动项">更换默认启动项</h2>
-<p>GNU GRUB（GRand Unified Bootloader，GRUB）是一个来自 GNU 项目的多操作系统启动程序。GRUB 是多启动规范的实现，它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。GRUB 可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。</p>
-<p>一般默认启动的是 Ubuntu 系统，这里以设置默认启动 Windows 系统为例，以下设置方法需要在 Ubuntu 中进行。</p>
-<p>第一步：在电脑开机的时候，会进入到系统手动选择界面，观察有 Windows 字样的那个选项排在第几位（注意序号是从 0 开始计数的）。</p>
-<p>第二步：打开终端，在终端打开 <code>/etc/default/grub</code> 文件。这里需要注意，grub 文件需要管理员权限才能修改，因此需要打开终端，在终端里输入 <code>sudo gedit /etc/default/grub</code>，这样就能以管理员身份打开配置文件了。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/201122/1.PNG?raw" width="50%"></p>
-</div>
-<p>如上图所示为打开 grub 后的样子，找到 <strong>GRUB_DEFAULT=0</strong> 这一行（上图中我已经将其改成了 GRUB_DEFAULT=2，因为我的电脑启动时，Windows 系统排在第三位），将其后面的 0 改成第一步中 Windows 系统所在对应的序号。</p>
-<p>第三步：修改完成后，在终端中输入 <code>sudo update-grub</code> 进行刷新，重启电脑就能发现默认启动项已经改成 Windows 了。</p>
-<h2 id="ubuntu-更换国内源">Ubuntu 更换国内源</h2>
-<p>Ubuntu 的官方服务器在国外，国内访问的时候速度很慢，更新一些软件往往需要花费大量的时间，将其下载源更换为国内镜像源将极大的提升下载速度，国内的许多公司、高校等机构都会提供此服务。</p>
-<p>第一步：在终端输入 <code>sudo gedit /etc/apt/sources.list</code> 对存储源地址的文件进行编辑。</p>
-<p>第二步：删除原先的内容，复制国内镜像源的地址进去，这里提供几个国内提供镜像源服务的网址。</p>
-<p>阿里源：<a href="https://developer.aliyun.com/mirror/ubuntu?spm=a2c6h.13651102.0.0.3e221b11vFh8D2">ubuntu镜像-ubuntu下载地址-ubuntu安装教程-阿里巴巴开源镜像站</a></p>
-<p>清华源：<a href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/">ubuntu | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a></p>
-<p>注意一定要确认好自己安装的系统的版本，选择对应版本号的源地址。</p>
-<p>第三步：在终端内输入 <code>sudo apt update</code> 来更新源地址，再输入 <code>sudo apt upgrade</code> 对安装的软件包进行更新，这时就能发现速度已经得到了很大提升。</p>
-]]></content>
-      <tags>
-        <tag>ubuntu</tag>
-        <tag>双系统</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Windows 下，安装 Hexo 博客框架并部署到 GitHub（1）</title>
     <url>/posts/55439/</url>
     <content><![CDATA[<style>
@@ -225,6 +196,35 @@ h2 {
       <tags>
         <tag>v2ray</tag>
         <tag>cmd</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu 与 Win10 双系统下更改默认启动项+更换国内源</title>
+    <url>/posts/38677/</url>
+    <content><![CDATA[<h2 id="前言">前言</h2>
+<p>前一段时间在一台装有 Windows 10 系统的旧电脑上又装了 Ubuntu LTS 16.04 系统，一般这种双系统的情况会自动配置 grub 软件作为多操作系统启动程序，这里就讲一下如何设置默认启动哪一个系统和 Ubuntu 系统换源的一些事。</p>
+<h2 id="更换默认启动项">更换默认启动项</h2>
+<p>GNU GRUB（GRand Unified Bootloader，GRUB）是一个来自 GNU 项目的多操作系统启动程序。GRUB 是多启动规范的实现，它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。GRUB 可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。</p>
+<p>一般默认启动的是 Ubuntu 系统，这里以设置默认启动 Windows 系统为例，以下设置方法需要在 Ubuntu 中进行。</p>
+<p>第一步：在电脑开机的时候，会进入到系统手动选择界面，观察有 Windows 字样的那个选项排在第几位（注意序号是从 0 开始计数的）。</p>
+<p>第二步：打开终端，在终端打开 <code>/etc/default/grub</code> 文件。这里需要注意，grub 文件需要管理员权限才能修改，因此需要打开终端，在终端里输入 <code>sudo gedit /etc/default/grub</code>，这样就能以管理员身份打开配置文件了。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/201122/1.PNG?raw" width="50%"></p>
+</div>
+<p>如上图所示为打开 grub 后的样子，找到 <strong>GRUB_DEFAULT=0</strong> 这一行（上图中我已经将其改成了 GRUB_DEFAULT=2，因为我的电脑启动时，Windows 系统排在第三位），将其后面的 0 改成第一步中 Windows 系统所在对应的序号。</p>
+<p>第三步：修改完成后，在终端中输入 <code>sudo update-grub</code> 进行刷新，重启电脑就能发现默认启动项已经改成 Windows 了。</p>
+<h2 id="ubuntu-更换国内源">Ubuntu 更换国内源</h2>
+<p>Ubuntu 的官方服务器在国外，国内访问的时候速度很慢，更新一些软件往往需要花费大量的时间，将其下载源更换为国内镜像源将极大的提升下载速度，国内的许多公司、高校等机构都会提供此服务。</p>
+<p>第一步：在终端输入 <code>sudo gedit /etc/apt/sources.list</code> 对存储源地址的文件进行编辑。</p>
+<p>第二步：删除原先的内容，复制国内镜像源的地址进去，这里提供几个国内提供镜像源服务的网址。</p>
+<p>阿里源：<a href="https://developer.aliyun.com/mirror/ubuntu?spm=a2c6h.13651102.0.0.3e221b11vFh8D2">ubuntu镜像-ubuntu下载地址-ubuntu安装教程-阿里巴巴开源镜像站</a></p>
+<p>清华源：<a href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/">ubuntu | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a></p>
+<p>注意一定要确认好自己安装的系统的版本，选择对应版本号的源地址。</p>
+<p>第三步：在终端内输入 <code>sudo apt update</code> 来更新源地址，再输入 <code>sudo apt upgrade</code> 对安装的软件包进行更新，这时就能发现速度已经得到了很大提升。</p>
+]]></content>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>双系统</tag>
       </tags>
   </entry>
   <entry>
