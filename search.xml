@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Ubuntu 与 Win10 双系统下更改默认启动项+更换国内源</title>
+    <url>/posts/38677/</url>
+    <content><![CDATA[<h2 id="前言">前言</h2>
+<p>前一段时间在一台装有 Windows 10 系统的旧电脑上又装了 Ubuntu LTS 16.04 系统，一般这种双系统的情况会自动配置 grub 软件作为多操作系统启动程序，这里就讲一下如何设置默认启动哪一个系统和 Ubuntu 系统换源的一些事。</p>
+<h2 id="更换默认启动项">更换默认启动项</h2>
+<p>GNU GRUB（GRand Unified Bootloader，GRUB）是一个来自 GNU 项目的多操作系统启动程序。GRUB 是多启动规范的实现，它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。GRUB 可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。</p>
+<p>一般默认启动的是 Ubuntu 系统，这里以设置默认启动 Windows 系统为例，以下设置方法需要在 Ubuntu 中进行。</p>
+<p>第一步：在电脑开机的时候，会进入到系统手动选择界面，观察有 Windows 字样的那个选项排在第几位（注意序号是从 0 开始计数的）。</p>
+<p>第二步：打开终端，在终端打开 <code>/etc/default/grub</code> 文件。这里需要注意，grub 文件需要管理员权限才能修改，因此需要打开终端，在终端里输入 <code>sudo gedit /etc/default/grub</code>，这样就能以管理员身份打开配置文件了。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/201122/1.PNG?raw" width="50%"></p>
+</div>
+<p>如上图所示为打开 grub 后的样子，找到 <strong>GRUB_DEFAULT=0</strong> 这一行（上图中我已经将其改成了 GRUB_DEFAULT=2，因为我的电脑启动时，Windows 系统排在第三位），将其后面的 0 改成第一步中 Windows 系统所在对应的序号。</p>
+<p>第三步：修改完成后，在终端中输入 <code>sudo update-grub</code> 进行刷新，重启电脑就能发现默认启动项已经改成 Windows 了。</p>
+<h2 id="ubuntu-更换国内源">Ubuntu 更换国内源</h2>
+<p>Ubuntu 的官方服务器在国外，国内访问的时候速度很慢，更新一些软件往往需要花费大量的时间，将其下载源更换为国内镜像源将极大的提升下载速度，国内的许多公司、高校等机构都会提供此服务。</p>
+<p>第一步：在终端输入 <code>sudo gedit /etc/apt/sources.list</code> 对存储源地址的文件进行编辑。</p>
+<p>第二步：删除原先的内容，复制国内镜像源的地址进去，这里提供几个国内提供镜像源服务的网址。</p>
+<p>阿里源：<a href="https://developer.aliyun.com/mirror/ubuntu?spm=a2c6h.13651102.0.0.3e221b11vFh8D2">ubuntu镜像-ubuntu下载地址-ubuntu安装教程-阿里巴巴开源镜像站</a></p>
+<p>清华源：<a href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/">ubuntu | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a></p>
+<p>注意一定要确认好自己安装的系统的版本，选择对应版本号的源地址。</p>
+<p>第三步：在终端内输入 <code>sudo apt update</code> 来更新源地址，再输入 <code>sudo apt upgrade</code> 对安装的软件包进行更新，这时就能发现速度已经得到了很大提升。</p>
+]]></content>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>双系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hexo 博客框架 NexT 主题配置数学公式渲染引擎</title>
     <url>/posts/56201/</url>
     <content><![CDATA[<h2 id="前言">前言</h2>
@@ -199,35 +228,6 @@ h2 {
       </tags>
   </entry>
   <entry>
-    <title>Ubuntu 与 Win10 双系统下更改默认启动项+更换国内源</title>
-    <url>/posts/38677/</url>
-    <content><![CDATA[<h2 id="前言">前言</h2>
-<p>前一段时间在一台装有 Windows 10 系统的旧电脑上又装了 Ubuntu LTS 16.04 系统，一般这种双系统的情况会自动配置 grub 软件作为多操作系统启动程序，这里就讲一下如何设置默认启动哪一个系统和 Ubuntu 系统换源的一些事。</p>
-<h2 id="更换默认启动项">更换默认启动项</h2>
-<p>GNU GRUB（GRand Unified Bootloader，GRUB）是一个来自 GNU 项目的多操作系统启动程序。GRUB 是多启动规范的实现，它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。GRUB 可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。</p>
-<p>一般默认启动的是 Ubuntu 系统，这里以设置默认启动 Windows 系统为例，以下设置方法需要在 Ubuntu 中进行。</p>
-<p>第一步：在电脑开机的时候，会进入到系统手动选择界面，观察有 Windows 字样的那个选项排在第几位（注意序号是从 0 开始计数的）。</p>
-<p>第二步：打开终端，在终端打开 <code>/etc/default/grub</code> 文件。这里需要注意，grub 文件需要管理员权限才能修改，因此需要打开终端，在终端里输入 <code>sudo gedit /etc/default/grub</code>，这样就能以管理员身份打开配置文件了。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/images/blogimages/2020/201122/1.PNG?raw" width="50%"></p>
-</div>
-<p>如上图所示为打开 grub 后的样子，找到 <strong>GRUB_DEFAULT=0</strong> 这一行（上图中我已经将其改成了 GRUB_DEFAULT=2，因为我的电脑启动时，Windows 系统排在第三位），将其后面的 0 改成第一步中 Windows 系统所在对应的序号。</p>
-<p>第三步：修改完成后，在终端中输入 <code>sudo update-grub</code> 进行刷新，重启电脑就能发现默认启动项已经改成 Windows 了。</p>
-<h2 id="ubuntu-更换国内源">Ubuntu 更换国内源</h2>
-<p>Ubuntu 的官方服务器在国外，国内访问的时候速度很慢，更新一些软件往往需要花费大量的时间，将其下载源更换为国内镜像源将极大的提升下载速度，国内的许多公司、高校等机构都会提供此服务。</p>
-<p>第一步：在终端输入 <code>sudo gedit /etc/apt/sources.list</code> 对存储源地址的文件进行编辑。</p>
-<p>第二步：删除原先的内容，复制国内镜像源的地址进去，这里提供几个国内提供镜像源服务的网址。</p>
-<p>阿里源：<a href="https://developer.aliyun.com/mirror/ubuntu?spm=a2c6h.13651102.0.0.3e221b11vFh8D2">ubuntu镜像-ubuntu下载地址-ubuntu安装教程-阿里巴巴开源镜像站</a></p>
-<p>清华源：<a href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/">ubuntu | 镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a></p>
-<p>注意一定要确认好自己安装的系统的版本，选择对应版本号的源地址。</p>
-<p>第三步：在终端内输入 <code>sudo apt update</code> 来更新源地址，再输入 <code>sudo apt upgrade</code> 对安装的软件包进行更新，这时就能发现速度已经得到了很大提升。</p>
-]]></content>
-      <tags>
-        <tag>ubuntu</tag>
-        <tag>双系统</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Windows 下，安装 Hexo 博客框架并部署到 GitHub（2）</title>
     <url>/posts/40079/</url>
     <content><![CDATA[<style>
@@ -348,7 +348,7 @@ h2 {
 <p>一种是全局安装（安装在 nodejs 的默认路径下），使用命令：<code>npm install -g xxxx</code></p>
 <ol type="1">
 <li><p>本地安装，会在 CMD 当前路径下创建 node_modules 文件夹，安装的模块都是放在这里。</p></li>
-<li><p>全局安装，默认 npm 全局安装路径的设置是在 node.js 的安装路径下 _modules的 npmrc 文件设置</p></li>
+<li><p>全局安装，默认 npm 全局安装路径的设置是在 node.js 的安装路径下 \node_modules\npm 的 npmrc 文件设置</p></li>
 </ol>
 <p>默认为：<code>prefix=$&#123;APPDATA&#125;\npm</code>，在 Windows 下，这一位置为 <code>C:\Users\"Your Name"\AppData\Roaming\npm</code></p>
 <p>可以使用命令 <code>npm config get prefix</code> 查看 <code>npm -g</code> 全局安装的路径命令。</p>
@@ -411,21 +411,6 @@ h2 {
       </tags>
   </entry>
   <entry>
-    <title>使用 PPPoE 宽带拨号上网时 v2ray 无法正常工作的解决方法</title>
-    <url>/posts/38903/</url>
-    <content><![CDATA[<p>最近把路由器撤了改成了直接宽带连接上网，但遇到了一个问题，就是我的 v2ray 不起作用了，经过观察，发现时上网时的流量没经过 v2ray 渠道从而无法访问外网。</p>
-<p>经过个人排查与上网搜集资料，发现应该是宽带连接名称的问题，名称里如果<strong>含有中文</strong>就会出现这种现象，所以把宽带连接名称<strong>改成纯英文</strong>就好了！</p>
-<h2 id="参考">参考</h2>
-<ol type="1">
-<li><a href="https://zhuanlan.zhihu.com/p/106695296">PPPOE拨号上网无法使用代理问题</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>V2Ray</tag>
-        <tag>PPPoE</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>如何使用 git 工具上传/克隆代码</title>
     <url>/posts/55348/</url>
     <content><![CDATA[<p>在写博客的时候，我个人选择了国内的代码托管平台 Gitee 作为自己的博客图床，但一篇博客往往会用到很多图片，一张一张上传未免太麻烦，这篇博客就是记录自己使用 git 工具将博客内截图上传到 Gitee 仓库的过程。</p>
@@ -462,6 +447,21 @@ h2 {
         <tag>git</tag>
         <tag>github</tag>
         <tag>gitee</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用 PPPoE 宽带拨号上网时 v2ray 无法正常工作的解决方法</title>
+    <url>/posts/38903/</url>
+    <content><![CDATA[<p>最近把路由器撤了改成了直接宽带连接上网，但遇到了一个问题，就是我的 v2ray 不起作用了，经过观察，发现时上网时的流量没经过 v2ray 渠道从而无法访问外网。</p>
+<p>经过个人排查与上网搜集资料，发现应该是宽带连接名称的问题，名称里如果<strong>含有中文</strong>就会出现这种现象，所以把宽带连接名称<strong>改成纯英文</strong>就好了！</p>
+<h2 id="参考">参考</h2>
+<ol type="1">
+<li><a href="https://zhuanlan.zhihu.com/p/106695296">PPPOE拨号上网无法使用代理问题</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>V2Ray</tag>
+        <tag>PPPoE</tag>
       </tags>
   </entry>
   <entry>
