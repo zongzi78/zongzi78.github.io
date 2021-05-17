@@ -24,13 +24,13 @@
 
   <meta name="description" content="终端下配置代理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Windows终端(cmd)内走v2ray代理">
+<meta property="og:title" content="Windows 终端（cmd）内走 v2ray 代理">
 <meta property="og:url" content="http://yoursite.com/posts/884982221/index.html">
 <meta property="og:site_name" content="Tiddler&#39;s blog">
 <meta property="og:description" content="终端下配置代理">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-11-23T13:21:07.000Z">
-<meta property="article:modified_time" content="2021-02-27T06:14:38.835Z">
+<meta property="article:modified_time" content="2021-05-17T13:13:22.584Z">
 <meta property="article:author" content="Tiddler">
 <meta property="article:tag" content="v2ray">
 <meta property="article:tag" content="cmd">
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>Windows终端(cmd)内走v2ray代理 | Tiddler's blog</title>
+  <title>Windows 终端（cmd）内走 v2ray 代理 | Tiddler's blog</title>
   
 
 
@@ -220,7 +220,7 @@
     <img class="site-author-image" itemprop="image" alt="Tiddler"
       src="https://keylol.com/uc_server/data/avatar/000/97/86/83_avatar_middle.jpg?ts=1596044693">
   <p class="site-author-name" itemprop="name">Tiddler</p>
-  <div class="site-description" itemprop="description">要为真理而斗争,淦！</div>
+  <div class="site-description" itemprop="description">要为真理而斗争！</div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
@@ -291,7 +291,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://keylol.com/uc_server/data/avatar/000/97/86/83_avatar_middle.jpg?ts=1596044693">
       <meta itemprop="name" content="Tiddler">
-      <meta itemprop="description" content="要为真理而斗争,淦！">
+      <meta itemprop="description" content="要为真理而斗争！">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -299,7 +299,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Windows终端(cmd)内走v2ray代理
+          Windows 终端（cmd）内走 v2ray 代理
         </h1>
 
         <div class="post-meta-container">
@@ -317,7 +317,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-02-27 14:14:38" itemprop="dateModified" datetime="2021-02-27T14:14:38+08:00">2021-02-27</time>
+        <time title="Modified: 2021-05-17 21:13:22" itemprop="dateModified" datetime="2021-05-17T21:13:22+08:00">2021-05-17</time>
       </span>
 
   
@@ -332,22 +332,24 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="前言">前言</h1>
-<p>这个是我很久之前就准备写的一篇blog了，拖了很久到现在才动笔。起因是这样的，有次在Linux系统需要下载一个具有第三方源的软件，这个源在国内没有镜像，于是我在GitHub上找到了<a target="_blank" rel="noopener" href="https://github.com/Qv2ray/Qv2ray">Qv2ray</a>这个项目，它在Linux端也有封装好的.AppImage文件，双击即可使用，比较适合我这种Linux基础不深的偏小白用户，本以为用了v2ray之后我下载的速度能直接起飞，但用了v2ray之后发现速度并没有显著变化，在网上找了好久资料后发现v2ray的生效范围不包括终端内，想让其在终端内生效，需要配置代理，下面就对这部分内容进行说明。</p>
+<p>这个是我很久之前就准备写的一篇 blog 了，拖了很久到现在才动笔。起因是这样的，有次在 Linux 系统需要下载一个具有第三方源的软件，这个源在国内没有镜像，于是我在 GitHub 上找到了 <a target="_blank" rel="noopener" href="https://github.com/Qv2ray/Qv2ray">Qv2ray</a> 这个项目，它在 Linux 端也有封装好的 AppImage 文件，双击即可使用，比较适合我这种 Linux 基础不深的偏小白用户，本以为用了 v2ray 之后我下载的速度能直接起飞，但用了 v2ray 之后发现速度并没有显著变化，在网上找了好久资料后发现 v2ray 的生效范围不包括终端内，想让其在终端内生效，需要配置代理，下面就对这部分内容进行说明。</p>
 <h1 id="配置代理">配置代理</h1>
 <p>其实配置方法很简单</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">配置</span><br><span class="line">set http_proxy&#x3D;http:&#x2F;&#x2F;127.0.0.1:x</span><br><span class="line">set https_proxy&#x3D;http:&#x2F;&#x2F;127.0.0.1:x</span><br><span class="line"></span><br><span class="line">恢复</span><br><span class="line">set http_proxy&#x3D;</span><br><span class="line">set https_proxy&#x3D;</span><br></pre></td></tr></table></figure>
-<p>使用上面的两行命令就能完成配置，但应注意<code>http://127.0.0.1:x</code>中的x每个人可能是不一样的，这个可以在v2ray客户端主界面的最下面查到。</p>
-<p>配置完成后，可以用curl命令查看终端是否走了代理，不要用ping命令，因为ping是基于ICMP协议的，这个协议从属于IP协议，属于网络层中的协议，而v2ray不能作用在网络层上。</p>
-<p>在终端中输入<code>curl www.google.com</code>，若很快出现一大堆乱码一样的符号就说明代理配置成功了。此外，还可以在终端中输入<code>curl ip.fm</code>，这个命令会返回你当前的ip地址跟对应的归属地。</p>
-<p>Linux系统下只需要将这两行命令中的<code>set</code>改成<code>export</code>即可。</p>
+<p>使用上面的两行命令就能完成配置，但应注意 <code>http://127.0.0.1:x</code> 中的 x 每个人可能是不一样的，这个可以在 v2ray 客户端主界面的最下面查到。</p>
+<p>配置完成后，可以用 curl 命令查看终端是否走了代理，不要用 ping 命令，因为 ping 是基于 ICMP 协议的，这个协议从属于 IP 协议，属于网络层中的协议，而 v2ray 不能作用在网络层上。</p>
+<p>在终端中输入 <code>curl www.google.com</code>，若很快出现一大堆乱码一样的符号就说明代理配置成功了。此外，还可以在终端中输入 <code>curl ip.fm</code>，这个命令会返回你当前的 ip 地址跟对应的归属地。</p>
+<p>Linux 系统下只需要将这两行命令中的 <code>set</code> 改成 <code>export</code> 即可。</p>
 <h1 id="参考文献">参考文献</h1>
-<p>[1]. <a target="_blank" rel="noopener" href="https://github.com/shadowsocks/shadowsocks-windows/issues/1489">windows终端命令行下如何使用代理？ · Issue #1489 · shadowsocks/shadowsocks-windows</a></p>
-<p>[2]. <a target="_blank" rel="noopener" href="https://gist.github.com/dreamlu/cf7cbc0b8329ac145fa44342d6a1c01d">windows终端翻墙，简易方式</a></p>
-<p>[3]. <a target="_blank" rel="noopener" href="https://www.cnblogs.com/91donkey/p/11640079.html">Linux系统下终端proxy代理配置 - 龙龙小宝 - 博客园</a></p>
-<p>[4]. <a target="_blank" rel="noopener" href="https://zcdll.github.io/2018/01/27/proxy-on-windows-terminal/">给 Windows 的终端配置代理 | zcdll's Blog</a></p>
-<p>[5]. <a target="_blank" rel="noopener" href="https://www.cnblogs.com/liujizhou/p/11680329.html">HTTP TCP UDP ICMP IP ARP 协议详解（10.15 第二十一天） - 枕桃花吹长笛 - 博客园</a></p>
-<p>[6]. <a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2019/09/curl-reference.html">curl 的用法指南 - 阮一峰的网络日志</a></p>
-<p>[7]. <a target="_blank" rel="noopener" href="https://zcdll.github.io/2020/08/04/hack-ips/">深入浅出 IP | zcdll's Blog</a></p>
+<ol type="1">
+<li><p><a target="_blank" rel="noopener" href="https://github.com/shadowsocks/shadowsocks-windows/issues/1489">windows终端命令行下如何使用代理？ · Issue #1489 · shadowsocks/shadowsocks-windows</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://gist.github.com/dreamlu/cf7cbc0b8329ac145fa44342d6a1c01d">windows终端翻墙，简易方式</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/91donkey/p/11640079.html">Linux系统下终端proxy代理配置 - 龙龙小宝 - 博客园</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://zcdll.github.io/2018/01/27/proxy-on-windows-terminal/">给 Windows 的终端配置代理 | zcdll's Blog</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/liujizhou/p/11680329.html">HTTP TCP UDP ICMP IP ARP 协议详解（10.15 第二十一天） - 枕桃花吹长笛 - 博客园</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2019/09/curl-reference.html">curl 的用法指南 - 阮一峰的网络日志</a></p></li>
+<li><p><a target="_blank" rel="noopener" href="https://zcdll.github.io/2020/08/04/hack-ips/">深入浅出 IP | zcdll's Blog</a></p></li>
+</ol>
 
     </div>
 
@@ -365,8 +367,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/posts/55348/" rel="prev" title="如何使用git工具上传/克隆代码">
-                  <i class="fa fa-chevron-left"></i> 如何使用git工具上传/克隆代码
+                <a href="/posts/55348/" rel="prev" title="如何使用 git 工具上传/克隆代码">
+                  <i class="fa fa-chevron-left"></i> 如何使用 git 工具上传/克隆代码
                 </a>
             </div>
             <div class="post-nav-item">

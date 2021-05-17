@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"8.0.0","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="探究使用npm命令安装模块的安装位置">
+  <meta name="description" content="探究使用 npm 命令安装模块的安装位置">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【转载】Windows下，npm模块的安装位置">
+<meta property="og:title" content="【转载】Windows 下，npm 模块的安装位置">
 <meta property="og:url" content="http://yoursite.com/posts/52910/index.html">
 <meta property="og:site_name" content="Tiddler&#39;s blog">
-<meta property="og:description" content="探究使用npm命令安装模块的安装位置">
+<meta property="og:description" content="探究使用 npm 命令安装模块的安装位置">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-03-06T02:49:20.000Z">
-<meta property="article:modified_time" content="2021-03-08T02:19:56.803Z">
+<meta property="article:modified_time" content="2021-05-17T13:55:11.275Z">
 <meta property="article:author" content="Tiddler">
 <meta property="article:tag" content="转载">
 <meta property="article:tag" content="npm">
@@ -50,7 +50,7 @@
   };
 </script>
 
-  <title>【转载】Windows下，npm模块的安装位置 | Tiddler's blog</title>
+  <title>【转载】Windows 下，npm 模块的安装位置 | Tiddler's blog</title>
   
 
 
@@ -219,7 +219,7 @@
     <img class="site-author-image" itemprop="image" alt="Tiddler"
       src="https://keylol.com/uc_server/data/avatar/000/97/86/83_avatar_middle.jpg?ts=1596044693">
   <p class="site-author-name" itemprop="name">Tiddler</p>
-  <div class="site-description" itemprop="description">要为真理而斗争,淦！</div>
+  <div class="site-description" itemprop="description">要为真理而斗争！</div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
@@ -290,7 +290,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://keylol.com/uc_server/data/avatar/000/97/86/83_avatar_middle.jpg?ts=1596044693">
       <meta itemprop="name" content="Tiddler">
-      <meta itemprop="description" content="要为真理而斗争,淦！">
+      <meta itemprop="description" content="要为真理而斗争！">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -298,7 +298,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【转载】Windows下，npm模块的安装位置
+          【转载】Windows 下，npm 模块的安装位置
         </h1>
 
         <div class="post-meta-container">
@@ -316,13 +316,13 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-03-08 10:19:56" itemprop="dateModified" datetime="2021-03-08T10:19:56+08:00">2021-03-08</time>
+        <time title="Modified: 2021-05-17 21:55:11" itemprop="dateModified" datetime="2021-05-17T21:55:11+08:00">2021-05-17</time>
       </span>
 
   
 </div>
 
-            <div class="post-description">探究使用npm命令安装模块的安装位置</div>
+            <div class="post-description">探究使用 npm 命令安装模块的安装位置</div>
         </div>
       </header>
 
@@ -331,21 +331,21 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>本文转载自： <a target="_blank" rel="noopener" href="https://www.cnblogs.com/fannn/p/9351931.html">npm install路径 - Fannn - 博客园</a></p>
-<p>我们在webpack项目中使用npm install命令安装很多模块，但是很多时候都不知道这些模块安装在哪里，想要删除的时候找不到，所有想要明确的知道npm的安装路径</p>
+<p>我们在 webpack 项目中使用 npm install 命令安装很多模块，但是很多时候都不知道这些模块安装在哪里，想要删除的时候找不到，所有想要明确的知道 npm 的安装路径</p>
 <p>首先，npm install 安装的模块分为两种：</p>
-<p>一种是本地安装(直接在项目路径下)，使用命令：<code>npm install xxxx</code></p>
-<p>一种是全局安装(安装在nodejs的默认路径下)，使用命令：<code>npm install -g xxxx</code></p>
+<p>一种是本地安装（直接在项目路径下），使用命令：<code>npm install xxxx</code></p>
+<p>一种是全局安装（安装在 nodejs 的默认路径下），使用命令：<code>npm install -g xxxx</code></p>
 <ol type="1">
-<li><p>本地安装，会在CMD当前路径下创建node_modules文件夹，安装的模块都是放在这里。</p></li>
-<li><p>全局安装，默认npm全局安装路径的设置是在node.js的安装路径下_modules</p></li>
+<li><p>本地安装，会在 CMD 当前路径下创建 node_modules 文件夹，安装的模块都是放在这里。</p></li>
+<li><p>全局安装，默认 npm 全局安装路径的设置是在 node.js 的安装路径下 _modules的 npmrc 文件设置</p></li>
 </ol>
-<p>默认为：<code>prefix=$&#123;APPDATA&#125;\npm</code>，在Windows下，这一位置为<code>C:\Users\"Your Name"\AppData\Roaming\npm</code></p>
-<p>可以使用命令<code>npm config get prefix</code>查看npm -g 全局安装的路径命令。</p>
-<p>如果需要修改默认全局安装路径，直接修改即可，比如我想放在D盘modules文件夹中，修改npmrc为下面的值即可</p>
+<p>默认为：<code>prefix=$&#123;APPDATA&#125;\npm</code>，在 Windows 下，这一位置为 <code>C:\Users\"Your Name"\AppData\Roaming\npm</code></p>
+<p>可以使用命令 <code>npm config get prefix</code> 查看 <code>npm -g</code> 全局安装的路径命令。</p>
+<p>如果需要修改默认全局安装路径，直接修改即可，比如我想放在D盘 modules 文件夹中，修改 npmrc 为下面的值即可</p>
 <p><code>prefix=D:\modules</code></p>
 <hr />
-<p>如果你想要通过命令删除某些模块，可以在项目路径下，输入命令<code>npm uninstall xxxx</code>,比如我想要删除webpack模块，命令为：<code>npm uninstall webpack</code></p>
-<p>例外，有的时候项目路径太长，导致无法删除，可以通过安装<code>npm install rimraf -g</code>,再输入命令<code>rimraf node_modules</code>来达到删除的效果。</p>
+<p>如果你想要通过命令删除某些模块，可以在项目路径下，输入命令 <code>npm uninstall xxxx</code>，比如我想要删除 webpack 模块，命令为：<code>npm uninstall webpack</code></p>
+<p>例外，有的时候项目路径太长，导致无法删除，可以通过安装 <code>npm install rimraf -g</code>，再输入命令 <code>rimraf node_modules</code> 来达到删除的效果。</p>
 
     </div>
 
@@ -368,8 +368,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/posts/38106/" rel="next" title="【转载】快速转换FLV视频为MP4格式">
-                  【转载】快速转换FLV视频为MP4格式 <i class="fa fa-chevron-right"></i>
+                <a href="/posts/38106/" rel="next" title="【转载】快速转换 FLV 视频为 MP4 格式">
+                  【转载】快速转换 FLV 视频为 MP4 格式 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
