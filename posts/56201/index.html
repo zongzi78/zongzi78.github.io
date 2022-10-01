@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="关于如何在 NexT 主题下配置 mathjax 数学公式渲染引擎">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo 博客框架 NexT 主题配置数学公式渲染引擎">
+<meta property="og:url" content="http://yoursite.com/posts/56201/index.html">
+<meta property="og:site_name" content="Tiddler&#39;s blog">
+<meta property="og:description" content="关于如何在 NexT 主题下配置 mathjax 数学公式渲染引擎">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-10-21T01:26:20.000Z">
+<meta property="article:modified_time" content="2021-05-17T14:05:18.797Z">
+<meta property="article:author" content="Tiddler">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="NexT">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/posts/56201/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://yoursite.com/posts/56201/","path":"posts/56201/","title":"Hexo 博客框架 NexT 主题配置数学公式渲染引擎"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Hexo 博客框架 NexT 主题配置数学公式渲染引擎 | Tiddler's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tiddler's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">阿鱼的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-NexT-%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E6%B8%B2%E6%9F%93%E5%BC%95%E6%93%8E"><span class="nav-number">2.</span> <span class="nav-text">关于 NexT 中的数学公式渲染引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-markdown-%E6%B8%B2%E6%9F%93%E6%8F%92%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">关于 markdown 渲染插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo-renderer-marked"><span class="nav-number">3.1.</span> <span class="nav-text">hexo-renderer-marked</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hexo-renderer-pandoc"><span class="nav-number">3.2.</span> <span class="nav-text">hexo-renderer-pandoc</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tiddler</p>
+  <div class="site-description" itemprop="description">要为真理而斗争！</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/56201/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tiddler">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tiddler's blog">
+      <meta itemprop="description" content="要为真理而斗争！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Hexo 博客框架 NexT 主题配置数学公式渲染引擎 | Tiddler's blog">
+      <meta itemprop="description" content="关于如何在 NexT 主题下配置 mathjax 数学公式渲染引擎">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hexo 博客框架 NexT 主题配置数学公式渲染引擎
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-10-21 09:26:20" itemprop="dateCreated datePublished" datetime="2020-10-21T09:26:20+08:00">2020-10-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-05-17 22:05:18" itemprop="dateModified" datetime="2021-05-17T22:05:18+08:00">2021-05-17</time>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">关于如何在 NexT 主题下配置 mathjax 数学公式渲染引擎</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>时隔多日终于有时间更新一波了，今天要讲的还是关于 Hexo 博客框架的相关知识，具体来说是关于更换 Hexo 默认的 markdown 渲染插件以及在 <a target="_blank" rel="noopener" href="https://theme-next.js.org/">NexT 主题</a>中配置数学公式渲染引擎的相关知识。</p>
+<hr>
+<h2 id="关于-NexT-中的数学公式渲染引擎"><a href="#关于-NexT-中的数学公式渲染引擎" class="headerlink" title="关于 NexT 中的数学公式渲染引擎"></a>关于 NexT 中的数学公式渲染引擎</h2><p>NexT 给用户提供了两个数学公式渲染引擎，分别是 <a target="_blank" rel="noopener" href="https://www.mathjax.org/">MathJax</a> 和 <a target="_blank" rel="noopener" href="https://katex.org/">KaTeX</a>。</p>
+<p>MathJax 是一个 JavaScript 数学显示引擎，可以在所有浏览器中工作。它在输入和输出上高度模块化。使用 MathML、TeX 和 ASCIImath 作为输入，生成 HTML+CSS、SVG 或 MathML 作为输出。  </p>
+<p>与 MathJax 相比，KaTeX 的<a target="_blank" rel="noopener" href="https://www.intmath.com/cg5/katex-mathjax-comparison.php">渲染速度更快</a>。可以脱离 JavaScript 而单独存在。但是，目前 <a target="_blank" rel="noopener" href="https://github.com/KaTeX/KaTeX/wiki/Things-that-KaTeX-does-not-(yet)-support">KaTeX 支持的功能不如 MathJax 多</a>，下面是 KaTeX 支持的 <a target="_blank" rel="noopener" href="https://katex.org/docs/supported.html">TeX 函数列表</a>。</p>
+<p>为了启用数学公式渲染引擎，首先需要选择一个渲染引擎并将其设置为”enable”（该设置位于 NexT 主题文件夹中的 _config.yml 文件中），如下所示。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">themes/next/_config.yml</span><br><span class="line"></span><br><span class="line"># Math Formulas Render Support</span><br><span class="line">math:</span><br><span class="line">  # Default (false) will load mathjax / katex script on demand.</span><br><span class="line">  # That is it only render those page which has `mathjax: true` in front-matter.</span><br><span class="line">  # If you set it to true, it will load mathjax / katex srcipt EVERY PAGE.</span><br><span class="line">  every_page: false</span><br><span class="line"></span><br><span class="line">  mathjax:</span><br><span class="line">    enable: true</span><br><span class="line"></span><br><span class="line">  katex:</span><br><span class="line">    enable: false</span><br><span class="line">    # See: https://github.com/KaTeX/KaTeX/tree/master/contrib/copy-tex</span><br><span class="line">    copy_tex: false</span><br></pre></td></tr></table></figure>
+
+<p>其中：<br>“every_page”选项控制是否在每一页都呈现数学公式。当其设置为“every_page: false”时，需要对应的在每篇博客的头文件中进行设置才可决定是否在本页面中进行公式渲染，头文件的设置方法如下：  </p>
+<ul>
+<li><p>在本页面中<strong>启用</strong>数学公式显示</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Will Render Math</span><br><span class="line">mathjax: true</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在本页面中<strong>不启用</strong>数学公式显示</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Not Render Math</span><br><span class="line">mathjax: false</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">title: Not Render Math Either</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>注意：需要安装相应的 <strong>markdown 渲染插件</strong>来完全支持数学公式的显示（仅设置”enable”可能无法正确查看显示的公式）。</p>
+<hr>
+<h2 id="关于-markdown-渲染插件"><a href="#关于-markdown-渲染插件" class="headerlink" title="关于 markdown 渲染插件"></a>关于 markdown 渲染插件</h2><h3 id="hexo-renderer-marked"><a href="#hexo-renderer-marked" class="headerlink" title="hexo-renderer-marked"></a>hexo-renderer-marked</h3><p>在使用 <code>hexo init</code> 命令生成一个新的空白博客框架后，可以在博客根目录的“node_modulesg”文件夹中看到名为“hexo-renderer-marked”的文件夹，这就是 Hexo 默认的 markdown 渲染插件。这个插件存在一些问题，会将 markdown 原生的一些语法转换为相应的 html 标签，比如 <code>*xxx*</code> 在 mrarkdown 中表示 xxx 为斜体字，会被渲染插件转换为 <code>&lt;em&gt;xxx&lt;/em&gt;</code>，在 LaTeX 中，如果出现连乘时，比如 <code>2*36+5*89</code> 时，就会被转换为 <code>2&lt;em&gt;36+5&lt;/em&gt;89</code>，这样就会报错或者乱码。</p>
+<h3 id="hexo-renderer-pandoc"><a href="#hexo-renderer-pandoc" class="headerlink" title="hexo-renderer-pandoc"></a>hexo-renderer-pandoc</h3><p>pandoc 另一个用于 Hexo 的 markdown 渲染器插件。它可以将 markdown 转换成 HTML，也能为 textile、reStructedText 等提供渲染功能。使用 pandoc 渲染插件，就能很好的解决marked渲染插件中存在的上述问题。</p>
+<p>pandoc 在 GitHub 上的开源界面的网址为 <a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-renderer-pandoc">https://github.com/wzpan/hexo-renderer-pandoc</a>, 里面有详细的如何安装 pandoc 渲染插件的步骤，这里有三个需要注意的点：</p>
+<ul>
+<li>在安装渲染插件之前，需要先安装 <a target="_blank" rel="noopener" href="https://pandoc.org/installing.html">pandoc 软件</a>（version&gt;&#x3D;2.0）。</li>
+<li>需要安装到个人博客的根目录。</li>
+<li>安装这个之前&#x2F;之后，需要卸载掉默认的“hexo-renderer-marked”渲染插件</li>
+</ul>
+<p>下面将就如何<strong>启用 mathjax</strong> 数学公式渲染引擎并进行进行后续设置进行说明。</p>
+<ol>
+<li><p>如 pandoc 的 GitHub 界面的安装说明中所说，先安装 <a target="_blank" rel="noopener" href="https://pandoc.org/installing.html">pandoc 软件</a>（version&gt;&#x3D;2.0），直接在此界面下载 msi 文件，双击安装即可（默认路径为 <code>C:\Program Files\Pandoc</code>）。</p>
+</li>
+<li><p>在 <code>themes/next/_config.yml</code> 文件中设置启用 mathjax。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">themes/next/_config.yml</span><br><span class="line"></span><br><span class="line">math:</span><br><span class="line">  ...</span><br><span class="line">  mathjax:</span><br><span class="line">    enable: true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在博客文件的根目录下（themes 的上一级文件夹）卸载默认的 <code>hexo-renderer-marked</code> markdown 渲染插件，安装 <code>hexo-renderer-pandoc</code>。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm un hexo-renderer-marked</span><br><span class="line">npm i hexo-renderer-pandoc</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>这样就设置好了，可以 NexT 官网提供的<a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/third-party-services/math-equations.html">几个例子</a>实验一下。</p>
+<hr>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><p><a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/third-party-services/math-equations.html">Math Equations | NexT</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/wzpan/hexo-renderer-pandoc">wzpan&#x2F;hexo-renderer-pandoc: A pandoc-markdown-flavor renderer for hexo.</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.latexlive.com/">在线LaTeX公式编辑器-妈叔出品</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7ab21c7f0674">在Hexo中渲染MathJax数学公式 - 简书</a></p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+              <a href="/tags/NexT/" rel="tag"># NexT</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/40079/" rel="prev" title="Windows 下，安装 Hexo 博客框架并部署到 GitHub（2）">
+                  <i class="fa fa-chevron-left"></i> Windows 下，安装 Hexo 博客框架并部署到 GitHub（2）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/38903/" rel="next" title="使用 PPPoE 宽带拨号上网时 v2ray 无法正常工作的解决方法">
+                  使用 PPPoE 宽带拨号上网时 v2ray 无法正常工作的解决方法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tiddler</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

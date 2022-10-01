@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"yoursite.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.13.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="git 代码管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何使用 git 工具上传&#x2F;克隆代码">
+<meta property="og:url" content="http://yoursite.com/posts/55348/index.html">
+<meta property="og:site_name" content="Tiddler&#39;s blog">
+<meta property="og:description" content="git 代码管理">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-11-22T13:44:53.000Z">
+<meta property="article:modified_time" content="2021-05-17T14:15:16.283Z">
+<meta property="article:author" content="Tiddler">
+<meta property="article:tag" content="git">
+<meta property="article:tag" content="github">
+<meta property="article:tag" content="gitee">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://yoursite.com/posts/55348/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://yoursite.com/posts/55348/","path":"posts/55348/","title":"如何使用 git 工具上传/克隆代码"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>如何使用 git 工具上传/克隆代码 | Tiddler's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Tiddler's blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">阿鱼的个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90-SSH-Key"><span class="nav-number">1.</span> <span class="nav-text">生成 SSH Key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-git-%E4%BB%93%E5%BA%93%E5%B9%B6%E4%B8%8A%E4%BC%A0%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">建立 git 仓库并上传本地文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Tiddler</p>
+  <div class="site-description" itemprop="description">要为真理而斗争！</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/posts/55348/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Tiddler">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tiddler's blog">
+      <meta itemprop="description" content="要为真理而斗争！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="如何使用 git 工具上传/克隆代码 | Tiddler's blog">
+      <meta itemprop="description" content="git 代码管理">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何使用 git 工具上传/克隆代码
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-11-22 21:44:53" itemprop="dateCreated datePublished" datetime="2020-11-22T21:44:53+08:00">2020-11-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2021-05-17 22:15:16" itemprop="dateModified" datetime="2021-05-17T22:15:16+08:00">2021-05-17</time>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">git 代码管理</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>在写博客的时候，我个人选择了国内的代码托管平台 Gitee 作为自己的博客图床，但一篇博客往往会用到很多图片，一张一张上传未免太麻烦，这篇博客就是记录自己使用 git 工具将博客内截图上传到 Gitee 仓库的过程。</p>
+<h2 id="生成-SSH-Key"><a href="#生成-SSH-Key" class="headerlink" title="生成 SSH Key"></a>生成 SSH Key</h2><p>在“Windows 下，安装 Hexo 博客框架并部署到 GitHub（2）”这篇文章中已经说过，要想实现对 GitHub 仓库的控制，需要使用 SSH Key。关于如何生成 SSH Key，并将其配置至 GitHub 或者 Gitee 等代码托管平台的方法已经在上面提到的博文中详细说过，此处不再赘述。</p>
+<h2 id="建立-git-仓库并上传本地文件"><a href="#建立-git-仓库并上传本地文件" class="headerlink" title="建立 git 仓库并上传本地文件"></a>建立 git 仓库并上传本地文件</h2><p>什么是 git？git 是一个开源的分布式版本控制系统，可以有效、高速地处理从很小到非常大的项目版本管理。git 是一种工具，它能更好的让我们管理代码。很多时候如果我们需要保持本地代码和 github 代码版本一致，那么我们就会用到 git 这个工具。git 工具不仅可以让我们克隆别人的或者自己的远程代码，还可以实现本次存储远程仓库。</p>
+<p>第一步：进入 Gitee 主页，在右上角找到“新建仓库”选项，仓库名称写“个人图床”，写完仓库名称之后，系统会自动生成路径“personal-chart-bed”，自己也可以对其进行修改，我的个人图床仓库的路径是“picturebed”，下面的选项都保持默认。</p>
+<p>第二步：创建完仓库之后，需要做的是进行 Git 全局设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;your name&quot;</span><br><span class="line">git config --global user.email &quot;your email&quot;</span><br></pre></td></tr></table></figure>
+
+<p>接着在本地创建 git 仓库，并与云端进行联系</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mkdir personal-chart-bed</span><br><span class="line">// 在本地建立&quot;personal-chart-bed&quot;</span><br><span class="line">cd personal-chart-bed</span><br><span class="line">// 将当前目录设置为上一步建立的本地仓库文件夹</span><br><span class="line">git init</span><br><span class="line">// 初始化</span><br><span class="line">touch README.md</span><br><span class="line">git add README.md</span><br><span class="line">// 创建并上传README.md文件</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line">// 本次上传的commit</span><br><span class="line">git remote add origin git@gitee.com:yourName/yourRepo.git</span><br><span class="line">// 与仓库取得联系（SSH方式）</span><br><span class="line">git push -u origin master</span><br><span class="line">// 确认提交</span><br></pre></td></tr></table></figure>
+
+<p>如果感觉上面的步骤太麻烦，这里还有一个更简单的方式，就是使用 <code>git clone</code> 命令先将云端的仓库下载到本地，这样就会自带初始化信息，就不用在用 <code>git init</code> 命令去初始化了，然后想上传的文件放到 clone 下来的文件夹里，使用相关命令上传即可。注意这种方式是不需要 <code>git remote add origin git@gitee.com:yourName/yourRepo.git</code> 的，因为在 clone 过程中已经建立了本地和云端的联系。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git clone git@gitee.com:yourName/yourRepo.git</span><br><span class="line">touch README.md</span><br><span class="line">git add README.md</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+
+<p><strong>下面说一下 <code>git add</code> 的几种用法</strong></p>
+<p>除了上面使用 <code>git add &lt;文件名&gt;</code> 命令对单个文件进行上传之外，还可以用下面的方法对多个文件进行处理。</p>
+<p>git add [参数] &lt;路径&gt;</p>
+<p>作用就是将我们需要提交的代码从工作区添加到暂存区，就是告诉 git 系统，我们要提交哪些文件，之后就可以使用 git commit 命令进行提交了。<br>为了方便下面都用 . 来标识路径， . 表示当前目录，路径可以修改，下列操作的作用范围都在版本库之内。</p>
+<p><code>git add .</code></p>
+<p>不加参数默认为将修改操作的文件和未跟踪新添加的文件添加到 git 系统的暂存区，注意不包括删除</p>
+<p><code>git add -u .</code></p>
+<p>-u 表示将已跟踪文件中的修改和删除的文件添加到暂存区，不包括新增加的文件，注意这些被删除的文件被加入到暂存区再被提交并推送到服务器的版本库之后这个文件就会从 git 系统中消失了。</p>
+<p><code>git add -A .</code></p>
+<p>-A 表示将所有的已跟踪的文件的修改与删除和新增的未跟踪的文件都添加到暂存区。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/tangjian07/p/11282773.html">Git的add、commit、push命令 - akon07 - 博客园</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://gitee.com/help/articles/4122">提交第一行代码 - Gitee.com</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://gitee.com/help/articles/4192#article-header0">git clone &#x2F; 下载代码 - Gitee.com</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://gitee.com/all-about-git">Git 大全 - Gitee.com</a></p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/git/" rel="tag"># git</a>
+              <a href="/tags/github/" rel="tag"># github</a>
+              <a href="/tags/gitee/" rel="tag"># gitee</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/38677/" rel="prev" title="Ubuntu 与 Win10 双系统下更改默认启动项+更换国内源">
+                  <i class="fa fa-chevron-left"></i> Ubuntu 与 Win10 双系统下更改默认启动项+更换国内源
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/884982221/" rel="next" title="Windows 终端（cmd）内走 v2ray 代理">
+                  Windows 终端（cmd）内走 v2ray 代理 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tiddler</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
