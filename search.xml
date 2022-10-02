@@ -554,6 +554,58 @@ href="https://www.jianshu.com/p/7ab21c7f0674">在Hexo中渲染MathJax数学公�
       </tags>
   </entry>
   <entry>
+    <title>Ubuntu 与 Win10 双系统下更改默认启动项+更换国内源</title>
+    <url>/posts/38677/</url>
+    <content><![CDATA[<h2 id="前言">前言</h2>
+<p>前一段时间在一台装有 Windows 10 系统的旧电脑上又装了 Ubuntu LTS 16.04
+系统，一般这种双系统的情况会自动配置 grub
+软件作为多操作系统启动程序，这里就讲一下如何设置默认启动哪一个系统和
+Ubuntu 系统换源的一些事。</p>
+<h2 id="更换默认启动项">更换默认启动项</h2>
+<p>GNU GRUB（GRand Unified Bootloader，GRUB）是一个来自 GNU
+项目的多操作系统启动程序。GRUB
+是多启动规范的实现，它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。GRUB
+可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。</p>
+<p>一般默认启动的是 Ubuntu 系统，这里以设置默认启动 Windows
+系统为例，以下设置方法需要在 Ubuntu 中进行。</p>
+<p>第一步：在电脑开机的时候，会进入到系统手动选择界面，观察有 Windows
+字样的那个选项排在第几位（注意序号是从 0 开始计数的）。</p>
+<p>第二步：打开终端，在终端打开 <code>/etc/default/grub</code>
+文件。这里需要注意，grub
+文件需要管理员权限才能修改，因此需要打开终端，在终端里输入
+<code>sudo gedit /etc/default/grub</code>，这样就能以管理员身份打开配置文件了。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201122/1.PNG" width="50%"></p>
+</div>
+<p>如上图所示为打开 grub 后的样子，找到 <strong>GRUB_DEFAULT=0</strong>
+这一行（上图中我已经将其改成了
+GRUB_DEFAULT=2，因为我的电脑启动时，Windows 系统排在第三位），将其后面的
+0 改成第一步中 Windows 系统所在对应的序号。</p>
+<p>第三步：修改完成后，在终端中输入 <code>sudo update-grub</code>
+进行刷新，重启电脑就能发现默认启动项已经改成 Windows 了。</p>
+<h2 id="ubuntu-更换国内源">Ubuntu 更换国内源</h2>
+<p>Ubuntu
+的官方服务器在国外，国内访问的时候速度很慢，更新一些软件往往需要花费大量的时间，将其下载源更换为国内镜像源将极大的提升下载速度，国内的许多公司、高校等机构都会提供此服务。</p>
+<p>第一步：在终端输入 <code>sudo gedit /etc/apt/sources.list</code>
+对存储源地址的文件进行编辑。</p>
+<p>第二步：删除原先的内容，复制国内镜像源的地址进去，这里提供几个国内提供镜像源服务的网址。</p>
+<p>阿里源：<a
+href="https://developer.aliyun.com/mirror/ubuntu?spm=a2c6h.13651102.0.0.3e221b11vFh8D2">ubuntu镜像-ubuntu下载地址-ubuntu安装教程-阿里巴巴开源镜像站</a></p>
+<p>清华源：<a
+href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/">ubuntu |
+镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source
+Mirror</a></p>
+<p>注意一定要确认好自己安装的系统的版本，选择对应版本号的源地址。</p>
+<p>第三步：在终端内输入 <code>sudo apt update</code>
+来更新源地址，再输入 <code>sudo apt upgrade</code>
+对安装的软件包进行更新，这时就能发现速度已经得到了很大提升。</p>
+]]></content>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>双系统</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Windows 下，安装 Hexo 博客框架并部署到 GitHub（1）</title>
     <url>/posts/55439/</url>
     <content><![CDATA[<style>
@@ -732,115 +784,6 @@ href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 ]]></content>
-  </entry>
-  <entry>
-    <title>Ubuntu 与 Win10 双系统下更改默认启动项+更换国内源</title>
-    <url>/posts/38677/</url>
-    <content><![CDATA[<h2 id="前言">前言</h2>
-<p>前一段时间在一台装有 Windows 10 系统的旧电脑上又装了 Ubuntu LTS 16.04
-系统，一般这种双系统的情况会自动配置 grub
-软件作为多操作系统启动程序，这里就讲一下如何设置默认启动哪一个系统和
-Ubuntu 系统换源的一些事。</p>
-<h2 id="更换默认启动项">更换默认启动项</h2>
-<p>GNU GRUB（GRand Unified Bootloader，GRUB）是一个来自 GNU
-项目的多操作系统启动程序。GRUB
-是多启动规范的实现，它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。GRUB
-可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。</p>
-<p>一般默认启动的是 Ubuntu 系统，这里以设置默认启动 Windows
-系统为例，以下设置方法需要在 Ubuntu 中进行。</p>
-<p>第一步：在电脑开机的时候，会进入到系统手动选择界面，观察有 Windows
-字样的那个选项排在第几位（注意序号是从 0 开始计数的）。</p>
-<p>第二步：打开终端，在终端打开 <code>/etc/default/grub</code>
-文件。这里需要注意，grub
-文件需要管理员权限才能修改，因此需要打开终端，在终端里输入
-<code>sudo gedit /etc/default/grub</code>，这样就能以管理员身份打开配置文件了。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201122/1.PNG" width="50%"></p>
-</div>
-<p>如上图所示为打开 grub 后的样子，找到 <strong>GRUB_DEFAULT=0</strong>
-这一行（上图中我已经将其改成了
-GRUB_DEFAULT=2，因为我的电脑启动时，Windows 系统排在第三位），将其后面的
-0 改成第一步中 Windows 系统所在对应的序号。</p>
-<p>第三步：修改完成后，在终端中输入 <code>sudo update-grub</code>
-进行刷新，重启电脑就能发现默认启动项已经改成 Windows 了。</p>
-<h2 id="ubuntu-更换国内源">Ubuntu 更换国内源</h2>
-<p>Ubuntu
-的官方服务器在国外，国内访问的时候速度很慢，更新一些软件往往需要花费大量的时间，将其下载源更换为国内镜像源将极大的提升下载速度，国内的许多公司、高校等机构都会提供此服务。</p>
-<p>第一步：在终端输入 <code>sudo gedit /etc/apt/sources.list</code>
-对存储源地址的文件进行编辑。</p>
-<p>第二步：删除原先的内容，复制国内镜像源的地址进去，这里提供几个国内提供镜像源服务的网址。</p>
-<p>阿里源：<a
-href="https://developer.aliyun.com/mirror/ubuntu?spm=a2c6h.13651102.0.0.3e221b11vFh8D2">ubuntu镜像-ubuntu下载地址-ubuntu安装教程-阿里巴巴开源镜像站</a></p>
-<p>清华源：<a
-href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/">ubuntu |
-镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source
-Mirror</a></p>
-<p>注意一定要确认好自己安装的系统的版本，选择对应版本号的源地址。</p>
-<p>第三步：在终端内输入 <code>sudo apt update</code>
-来更新源地址，再输入 <code>sudo apt upgrade</code>
-对安装的软件包进行更新，这时就能发现速度已经得到了很大提升。</p>
-]]></content>
-      <tags>
-        <tag>ubuntu</tag>
-        <tag>双系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows 终端（cmd）内走 v2ray 代理</title>
-    <url>/posts/884982221/</url>
-    <content><![CDATA[<h2 id="前言">前言</h2>
-<p>这个是我很久之前就准备写的一篇 blog
-了，拖了很久到现在才动笔。起因是这样的，有次在 Linux
-系统需要下载一个具有第三方源的软件，这个源在国内没有镜像，于是我在
-GitHub 上找到了 <a href="https://github.com/Qv2ray/Qv2ray">Qv2ray</a>
-这个项目，它在 Linux 端也有封装好的 AppImage
-文件，双击即可使用，比较适合我这种 Linux
-基础不深的偏小白用户，本以为用了 v2ray
-之后我下载的速度能直接起飞，但用了 v2ray
-之后发现速度并没有显著变化，在网上找了好久资料后发现 v2ray
-的生效范围不包括终端内，想让其在终端内生效，需要配置代理，下面就对这部分内容进行说明。</p>
-<h2 id="配置代理">配置代理</h2>
-<p>其实配置方法很简单</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">配置</span><br><span class="line">set http_proxy=http://127.0.0.1:x</span><br><span class="line">set https_proxy=http://127.0.0.1:x</span><br><span class="line"></span><br><span class="line">恢复</span><br><span class="line">set http_proxy=</span><br><span class="line">set https_proxy=</span><br></pre></td></tr></table></figure>
-<p>使用上面的两行命令就能完成配置，但应注意
-<code>http://127.0.0.1:x</code> 中的 x 每个人可能是不一样的，这个可以在
-v2ray 客户端主界面的最下面查到。</p>
-<p>配置完成后，可以用 curl 命令查看终端是否走了代理，不要用 ping
-命令，因为 ping 是基于 ICMP 协议的，这个协议从属于 IP
-协议，属于网络层中的协议，而 v2ray 不能作用在网络层上。</p>
-<p>在终端中输入
-<code>curl www.google.com</code>，若很快出现一大堆乱码一样的符号就说明代理配置成功了。此外，还可以在终端中输入
-<code>curl ip.fm</code>，这个命令会返回你当前的 ip
-地址跟对应的归属地。</p>
-<p>Linux 系统下只需要将这两行命令中的 <code>set</code> 改成
-<code>export</code> 即可。</p>
-<h2 id="参考">参考</h2>
-<ol type="1">
-<li><p><a
-href="https://github.com/shadowsocks/shadowsocks-windows/issues/1489">windows终端命令行下如何使用代理？
-· Issue #1489 · shadowsocks/shadowsocks-windows</a></p></li>
-<li><p><a
-href="https://gist.github.com/dreamlu/cf7cbc0b8329ac145fa44342d6a1c01d">windows终端翻墙，简易方式</a></p></li>
-<li><p><a
-href="https://www.cnblogs.com/91donkey/p/11640079.html">Linux系统下终端proxy代理配置
-- 龙龙小宝 - 博客园</a></p></li>
-<li><p><a
-href="https://zcdll.github.io/2018/01/27/proxy-on-windows-terminal/">给
-Windows 的终端配置代理 | zcdll's Blog</a></p></li>
-<li><p><a href="https://www.cnblogs.com/liujizhou/p/11680329.html">HTTP
-TCP UDP ICMP IP ARP 协议详解（10.15 第二十一天） - 枕桃花吹长笛 -
-博客园</a></p></li>
-<li><p><a
-href="http://www.ruanyifeng.com/blog/2019/09/curl-reference.html">curl
-的用法指南 - 阮一峰的网络日志</a></p></li>
-<li><p><a href="https://zcdll.github.io/2020/08/04/hack-ips/">深入浅出
-IP | zcdll's Blog</a></p></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>v2ray</tag>
-        <tag>cmd</tag>
-      </tags>
   </entry>
   <entry>
     <title>Windows 下，安装 Hexo 博客框架并部署到 GitHub（2）</title>
@@ -1036,6 +979,101 @@ SSR 和 v2ray
       </tags>
   </entry>
   <entry>
+    <title>Windows 终端（cmd）内走 v2ray 代理</title>
+    <url>/posts/884982221/</url>
+    <content><![CDATA[<h2 id="前言">前言</h2>
+<p>这个是我很久之前就准备写的一篇 blog
+了，拖了很久到现在才动笔。起因是这样的，有次在 Linux
+系统需要下载一个具有第三方源的软件，这个源在国内没有镜像，于是我在
+GitHub 上找到了 <a href="https://github.com/Qv2ray/Qv2ray">Qv2ray</a>
+这个项目，它在 Linux 端也有封装好的 AppImage
+文件，双击即可使用，比较适合我这种 Linux
+基础不深的偏小白用户，本以为用了 v2ray
+之后我下载的速度能直接起飞，但用了 v2ray
+之后发现速度并没有显著变化，在网上找了好久资料后发现 v2ray
+的生效范围不包括终端内，想让其在终端内生效，需要配置代理，下面就对这部分内容进行说明。</p>
+<h2 id="配置代理">配置代理</h2>
+<p>其实配置方法很简单</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">配置</span><br><span class="line">set http_proxy=http://127.0.0.1:x</span><br><span class="line">set https_proxy=http://127.0.0.1:x</span><br><span class="line"></span><br><span class="line">恢复</span><br><span class="line">set http_proxy=</span><br><span class="line">set https_proxy=</span><br></pre></td></tr></table></figure>
+<p>使用上面的两行命令就能完成配置，但应注意
+<code>http://127.0.0.1:x</code> 中的 x 每个人可能是不一样的，这个可以在
+v2ray 客户端主界面的最下面查到。</p>
+<p>配置完成后，可以用 curl 命令查看终端是否走了代理，不要用 ping
+命令，因为 ping 是基于 ICMP 协议的，这个协议从属于 IP
+协议，属于网络层中的协议，而 v2ray 不能作用在网络层上。</p>
+<p>在终端中输入
+<code>curl www.google.com</code>，若很快出现一大堆乱码一样的符号就说明代理配置成功了。此外，还可以在终端中输入
+<code>curl ip.fm</code>，这个命令会返回你当前的 ip
+地址跟对应的归属地。</p>
+<p>Linux 系统下只需要将这两行命令中的 <code>set</code> 改成
+<code>export</code> 即可。</p>
+<h2 id="参考">参考</h2>
+<ol type="1">
+<li><p><a
+href="https://github.com/shadowsocks/shadowsocks-windows/issues/1489">windows终端命令行下如何使用代理？
+· Issue #1489 · shadowsocks/shadowsocks-windows</a></p></li>
+<li><p><a
+href="https://gist.github.com/dreamlu/cf7cbc0b8329ac145fa44342d6a1c01d">windows终端翻墙，简易方式</a></p></li>
+<li><p><a
+href="https://www.cnblogs.com/91donkey/p/11640079.html">Linux系统下终端proxy代理配置
+- 龙龙小宝 - 博客园</a></p></li>
+<li><p><a
+href="https://zcdll.github.io/2018/01/27/proxy-on-windows-terminal/">给
+Windows 的终端配置代理 | zcdll's Blog</a></p></li>
+<li><p><a href="https://www.cnblogs.com/liujizhou/p/11680329.html">HTTP
+TCP UDP ICMP IP ARP 协议详解（10.15 第二十一天） - 枕桃花吹长笛 -
+博客园</a></p></li>
+<li><p><a
+href="http://www.ruanyifeng.com/blog/2019/09/curl-reference.html">curl
+的用法指南 - 阮一峰的网络日志</a></p></li>
+<li><p><a href="https://zcdll.github.io/2020/08/04/hack-ips/">深入浅出
+IP | zcdll's Blog</a></p></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>v2ray</tag>
+        <tag>cmd</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【转载】Windows 下，npm 模块的安装位置</title>
+    <url>/posts/52910/</url>
+    <content><![CDATA[<p>本文转载自： <a
+href="https://www.cnblogs.com/fannn/p/9351931.html">npm install路径 -
+Fannn - 博客园</a></p>
+<p>我们在 webpack 项目中使用 npm install
+命令安装很多模块，但是很多时候都不知道这些模块安装在哪里，想要删除的时候找不到，所有想要明确的知道
+npm 的安装路径</p>
+<p>首先，npm install 安装的模块分为两种：</p>
+<p>一种是本地安装（直接在项目路径下），使用命令：<code>npm install xxxx</code></p>
+<p>一种是全局安装（安装在 nodejs
+的默认路径下），使用命令：<code>npm install -g xxxx</code></p>
+<ol type="1">
+<li><p>本地安装，会在 CMD 当前路径下创建 node_modules
+文件夹，安装的模块都是放在这里。</p></li>
+<li><p>全局安装，默认 npm 全局安装路径的设置是在 node.js 的安装路径下
+\node_modules\npm 的 npmrc 文件设置</p></li>
+</ol>
+<p>默认为：<code>prefix=$&#123;APPDATA&#125;\npm</code>，在 Windows 下，这一位置为
+<code>C:\Users\"Your Name"\AppData\Roaming\npm</code></p>
+<p>可以使用命令 <code>npm config get prefix</code> 查看
+<code>npm -g</code> 全局安装的路径命令。</p>
+<p>如果需要修改默认全局安装路径，直接修改即可，比如我想放在D盘 modules
+文件夹中，修改 npmrc 为 <code>prefix=D:\modules</code> 即可</p>
+<hr />
+<p>如果你想要通过命令删除某些模块，可以在项目路径下，输入命令
+<code>npm uninstall xxxx</code>，比如我想要删除 webpack
+模块，命令为：<code>npm uninstall webpack</code></p>
+<p>例外，有的时候项目路径太长，导致无法删除，可以通过安装
+<code>npm install rimraf -g</code>，再输入命令
+<code>rimraf node_modules</code> 来达到删除的效果。</p>
+]]></content>
+      <tags>
+        <tag>转载</tag>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【转载】快速转换 FLV 视频为 MP4 格式</title>
     <url>/posts/38106/</url>
     <content><![CDATA[<p>本文转载自： <a
@@ -1109,118 +1147,6 @@ FFmpeg 这个工具确实很好用，一个 1.23G 的文件只用了不超过 10
       </tags>
   </entry>
   <entry>
-    <title>使用 PPPoE 宽带拨号上网时 v2ray 无法正常工作的解决方法</title>
-    <url>/posts/38903/</url>
-    <content><![CDATA[<p>最近把路由器撤了改成了直接宽带连接上网，但遇到了一个问题，就是我的
-v2ray 不起作用了，经过观察，发现时上网时的流量没经过 v2ray
-渠道从而无法访问外网。</p>
-<p>经过个人排查与上网搜集资料，发现应该是宽带连接名称的问题，名称里如果<strong>含有中文</strong>就会出现这种现象，所以把宽带连接名称<strong>改成纯英文</strong>就好了！</p>
-<h2 id="参考">参考</h2>
-<ol type="1">
-<li><a
-href="https://zhuanlan.zhihu.com/p/106695296">PPPOE拨号上网无法使用代理问题</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>V2Ray</tag>
-        <tag>PPPoE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【转载】Windows 下，npm 模块的安装位置</title>
-    <url>/posts/52910/</url>
-    <content><![CDATA[<p>本文转载自： <a
-href="https://www.cnblogs.com/fannn/p/9351931.html">npm install路径 -
-Fannn - 博客园</a></p>
-<p>我们在 webpack 项目中使用 npm install
-命令安装很多模块，但是很多时候都不知道这些模块安装在哪里，想要删除的时候找不到，所有想要明确的知道
-npm 的安装路径</p>
-<p>首先，npm install 安装的模块分为两种：</p>
-<p>一种是本地安装（直接在项目路径下），使用命令：<code>npm install xxxx</code></p>
-<p>一种是全局安装（安装在 nodejs
-的默认路径下），使用命令：<code>npm install -g xxxx</code></p>
-<ol type="1">
-<li><p>本地安装，会在 CMD 当前路径下创建 node_modules
-文件夹，安装的模块都是放在这里。</p></li>
-<li><p>全局安装，默认 npm 全局安装路径的设置是在 node.js 的安装路径下
-\node_modules\npm 的 npmrc 文件设置</p></li>
-</ol>
-<p>默认为：<code>prefix=$&#123;APPDATA&#125;\npm</code>，在 Windows 下，这一位置为
-<code>C:\Users\"Your Name"\AppData\Roaming\npm</code></p>
-<p>可以使用命令 <code>npm config get prefix</code> 查看
-<code>npm -g</code> 全局安装的路径命令。</p>
-<p>如果需要修改默认全局安装路径，直接修改即可，比如我想放在D盘 modules
-文件夹中，修改 npmrc 为 <code>prefix=D:\modules</code> 即可</p>
-<hr />
-<p>如果你想要通过命令删除某些模块，可以在项目路径下，输入命令
-<code>npm uninstall xxxx</code>，比如我想要删除 webpack
-模块，命令为：<code>npm uninstall webpack</code></p>
-<p>例外，有的时候项目路径太长，导致无法删除，可以通过安装
-<code>npm install rimraf -g</code>，再输入命令
-<code>rimraf node_modules</code> 来达到删除的效果。</p>
-]]></content>
-      <tags>
-        <tag>转载</tag>
-        <tag>npm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>我的第一篇博客文章</title>
-    <url>/posts/15650/</url>
-    <content><![CDATA[<p>本篇博客用于测试配置与代码</p>
-<h1 id="第一章">第一章</h1>
-<h2 id="第一节">第一节</h2>
-<h2 id="第二节">第二节</h2>
-<p><span class="math display">\[\begin{equation} \label{eq1}
-e=mc^2
-\end{equation}\]</span></p>
-<p>The famous matter-energy equation <span
-class="math inline">\(\eqref{eq1}\)</span> proposed by Einstein...</p>
-<hr />
-<p><span class="math display">\[\begin{equation} \label{eq2}
-\begin{aligned}
-a &amp;= b + c \\
-  &amp;= d + e + f + g \\
-  &amp;= h + i
-\end{aligned}
-\end{equation}\]</span></p>
-<p>Equation <span class="math inline">\(\eqref{eq2}\)</span> is a
-multi-line equation.</p>
-<hr />
-<p><span class="math display">\[\begin{align}
-a &amp;= b + c \label{eq3} \\
-x &amp;= yz \label{eq4} \\
-l &amp;= m - n \label{eq5}
-\end{align}\]</span></p>
-<p>There are three aligned equations: equation <span
-class="math inline">\(\eqref{eq3}\)</span>, equation <span
-class="math inline">\(\eqref{eq4}\)</span> and equation <span
-class="math inline">\(\eqref{eq5}\)</span>.</p>
-<hr />
-<p><span class="math display">\[\begin{align}
--4 + 5x &amp;= 2 + y \nonumber \\
-w + 2 &amp;= -1 + w \\
-ab &amp;= cb \\
-\end{align}\]</span></p>
-<p>equation <span class="math inline">\(\eqref{eq3}\)</span>, equation
-<span class="math inline">\(\eqref{eq8}\)</span> and equation <span
-class="math inline">\(\eqref{eq1}\)</span>.</p>
-<hr />
-<p><span class="math display">\[x+1\over\sqrt{1-x^2}
-\tag{i}\label{eq_tag}\]</span></p>
-<p>Equation <span class="math inline">\(\eqref{eq_tag}\)</span> use
-<code>\tag&#123;&#125;</code> instead of automatic numbering.</p>
-<hr />
-<h1 id="第二章">第二章</h1>
-<h2 id="第一节-1">第一节</h2>
-<h2 id="第二节-1">第二节</h2>
-<hr />
-<h1 id="参考文献">参考文献</h1>
-<p>paper1. www.keylol.com</p>
-<p>==paper2==</p>
-]]></content>
-  </entry>
-  <entry>
     <title>如何使用 git 工具上传/克隆代码</title>
     <url>/posts/55348/</url>
     <content><![CDATA[<p>在写博客的时候，我个人选择了国内的代码托管平台 Gitee
@@ -1288,5 +1214,79 @@ Gitee.com</a></p></li>
         <tag>github</tag>
         <tag>gitee</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>使用 PPPoE 宽带拨号上网时 v2ray 无法正常工作的解决方法</title>
+    <url>/posts/38903/</url>
+    <content><![CDATA[<p>最近把路由器撤了改成了直接宽带连接上网，但遇到了一个问题，就是我的
+v2ray 不起作用了，经过观察，发现时上网时的流量没经过 v2ray
+渠道从而无法访问外网。</p>
+<p>经过个人排查与上网搜集资料，发现应该是宽带连接名称的问题，名称里如果<strong>含有中文</strong>就会出现这种现象，所以把宽带连接名称<strong>改成纯英文</strong>就好了！</p>
+<h2 id="参考">参考</h2>
+<ol type="1">
+<li><a
+href="https://zhuanlan.zhihu.com/p/106695296">PPPOE拨号上网无法使用代理问题</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>V2Ray</tag>
+        <tag>PPPoE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我的第一篇博客文章</title>
+    <url>/posts/15650/</url>
+    <content><![CDATA[<p>本篇博客用于测试配置与代码</p>
+<h1 id="第一章">第一章</h1>
+<h2 id="第一节">第一节</h2>
+<h2 id="第二节">第二节</h2>
+<p><span class="math display">\[\begin{equation} \label{eq1}
+e=mc^2
+\end{equation}\]</span></p>
+<p>The famous matter-energy equation <span
+class="math inline">\(\eqref{eq1}\)</span> proposed by Einstein...</p>
+<hr />
+<p><span class="math display">\[\begin{equation} \label{eq2}
+\begin{aligned}
+a &amp;= b + c \\
+  &amp;= d + e + f + g \\
+  &amp;= h + i
+\end{aligned}
+\end{equation}\]</span></p>
+<p>Equation <span class="math inline">\(\eqref{eq2}\)</span> is a
+multi-line equation.</p>
+<hr />
+<p><span class="math display">\[\begin{align}
+a &amp;= b + c \label{eq3} \\
+x &amp;= yz \label{eq4} \\
+l &amp;= m - n \label{eq5}
+\end{align}\]</span></p>
+<p>There are three aligned equations: equation <span
+class="math inline">\(\eqref{eq3}\)</span>, equation <span
+class="math inline">\(\eqref{eq4}\)</span> and equation <span
+class="math inline">\(\eqref{eq5}\)</span>.</p>
+<hr />
+<p><span class="math display">\[\begin{align}
+-4 + 5x &amp;= 2 + y \nonumber \\
+w + 2 &amp;= -1 + w \\
+ab &amp;= cb \\
+\end{align}\]</span></p>
+<p>equation <span class="math inline">\(\eqref{eq3}\)</span>, equation
+<span class="math inline">\(\eqref{eq8}\)</span> and equation <span
+class="math inline">\(\eqref{eq1}\)</span>.</p>
+<hr />
+<p><span class="math display">\[x+1\over\sqrt{1-x^2}
+\tag{i}\label{eq_tag}\]</span></p>
+<p>Equation <span class="math inline">\(\eqref{eq_tag}\)</span> use
+<code>\tag&#123;&#125;</code> instead of automatic numbering.</p>
+<hr />
+<h1 id="第二章">第二章</h1>
+<h2 id="第一节-1">第一节</h2>
+<h2 id="第二节-1">第二节</h2>
+<hr />
+<h1 id="参考文献">参考文献</h1>
+<p>paper1. www.keylol.com</p>
+<p>==paper2==</p>
+]]></content>
   </entry>
 </search>
