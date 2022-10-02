@@ -1,6 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>1212</title>
+    <url>/posts/1085679380/</url>
+    <content><![CDATA[
+]]></content>
+  </entry>
+  <entry>
+    <title>Hexo 博客框架 NexT 主题配置数学公式渲染引擎</title>
+    <url>/posts/56201/</url>
+    <content><![CDATA[<h2 id="前言">前言</h2>
+<p>时隔多日终于有时间更新一波了，今天要讲的还是关于 Hexo
+博客框架的相关知识，具体来说是关于更换 Hexo 默认的 markdown
+渲染插件以及在 <a href="https://theme-next.js.org/">NexT
+主题</a>中配置数学公式渲染引擎的相关知识。</p>
+<hr />
+<h2 id="关于-next-中的数学公式渲染引擎">关于 NexT
+中的数学公式渲染引擎</h2>
+<p>NexT 给用户提供了两个数学公式渲染引擎，分别是 <a
+href="https://www.mathjax.org/">MathJax</a> 和 <a
+href="https://katex.org/">KaTeX</a>。</p>
+<p>MathJax 是一个 JavaScript
+数学显示引擎，可以在所有浏览器中工作。它在输入和输出上高度模块化。使用
+MathML、TeX 和 ASCIImath 作为输入，生成 HTML+CSS、SVG 或 MathML
+作为输出。</p>
+<p>与 MathJax 相比，KaTeX 的<a
+href="https://www.intmath.com/cg5/katex-mathjax-comparison.php">渲染速度更快</a>。可以脱离
+JavaScript 而单独存在。但是，目前 <a
+href="https://github.com/KaTeX/KaTeX/wiki/Things-that-KaTeX-does-not-(yet)-support">KaTeX
+支持的功能不如 MathJax 多</a>，下面是 KaTeX 支持的 <a
+href="https://katex.org/docs/supported.html">TeX 函数列表</a>。</p>
+<p>为了启用数学公式渲染引擎，首先需要选择一个渲染引擎并将其设置为"enable"（该设置位于
+NexT 主题文件夹中的 _config.yml 文件中），如下所示。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">themes/next/_config.yml</span><br><span class="line"></span><br><span class="line"># Math Formulas Render Support</span><br><span class="line">math:</span><br><span class="line">  # Default (false) will load mathjax / katex script on demand.</span><br><span class="line">  # That is it only render those page which has `mathjax: true` in front-matter.</span><br><span class="line">  # If you set it to true, it will load mathjax / katex srcipt EVERY PAGE.</span><br><span class="line">  every_page: false</span><br><span class="line"></span><br><span class="line">  mathjax:</span><br><span class="line">    enable: true</span><br><span class="line"></span><br><span class="line">  katex:</span><br><span class="line">    enable: false</span><br><span class="line">    # See: https://github.com/KaTeX/KaTeX/tree/master/contrib/copy-tex</span><br><span class="line">    copy_tex: false</span><br></pre></td></tr></table></figure>
+<p>其中：<br />
+"every_page"选项控制是否在每一页都呈现数学公式。当其设置为“every_page:
+false”时，需要对应的在每篇博客的头文件中进行设置才可决定是否在本页面中进行公式渲染，头文件的设置方法如下：</p>
+<ul>
+<li><p>在本页面中<strong>启用</strong>数学公式显示</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Will Render Math</span><br><span class="line">mathjax: true</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p></li>
+<li><p>在本页面中<strong>不启用</strong>数学公式显示</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Not Render Math</span><br><span class="line">mathjax: false</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">title: Not Render Math Either</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p></li>
+</ul>
+<p>注意：需要安装相应的 <strong>markdown
+渲染插件</strong>来完全支持数学公式的显示（仅设置"enable"可能无法正确查看显示的公式）。</p>
+<hr />
+<h2 id="关于-markdown-渲染插件">关于 markdown 渲染插件</h2>
+<h3 id="hexo-renderer-marked">hexo-renderer-marked</h3>
+<p>在使用 <code>hexo init</code>
+命令生成一个新的空白博客框架后，可以在博客根目录的“node_modulesg”文件夹中看到名为“hexo-renderer-marked”的文件夹，这就是
+Hexo 默认的 markdown 渲染插件。这个插件存在一些问题，会将 markdown
+原生的一些语法转换为相应的 html 标签，比如 <code>*xxx*</code> 在
+mrarkdown 中表示 xxx 为斜体字，会被渲染插件转换为
+<code>&lt;em&gt;xxx&lt;/em&gt;</code>，在 LaTeX 中，如果出现连乘时，比如
+<code>2*36+5*89</code> 时，就会被转换为
+<code>2&lt;em&gt;36+5&lt;/em&gt;89</code>，这样就会报错或者乱码。</p>
+<h3 id="hexo-renderer-pandoc">hexo-renderer-pandoc</h3>
+<p>pandoc 另一个用于 Hexo 的 markdown 渲染器插件。它可以将 markdown
+转换成 HTML，也能为 textile、reStructedText 等提供渲染功能。使用 pandoc
+渲染插件，就能很好的解决marked渲染插件中存在的上述问题。</p>
+<p>pandoc 在 GitHub 上的开源界面的网址为
+https://github.com/wzpan/hexo-renderer-pandoc, 里面有详细的如何安装
+pandoc 渲染插件的步骤，这里有三个需要注意的点：</p>
+<ul>
+<li>在安装渲染插件之前，需要先安装 <a
+href="https://pandoc.org/installing.html">pandoc
+软件</a>（version&gt;=2.0）。</li>
+<li>需要安装到个人博客的根目录。</li>
+<li>安装这个之前/之后，需要卸载掉默认的“hexo-renderer-marked”渲染插件</li>
+</ul>
+<p>下面将就如何<strong>启用 mathjax</strong>
+数学公式渲染引擎并进行进行后续设置进行说明。</p>
+<ol type="1">
+<li><p>如 pandoc 的 GitHub 界面的安装说明中所说，先安装 <a
+href="https://pandoc.org/installing.html">pandoc
+软件</a>（version&gt;=2.0），直接在此界面下载 msi
+文件，双击安装即可（默认路径为
+<code>C:\Program Files\Pandoc</code>）。</p></li>
+<li><p>在 <code>themes/next/_config.yml</code> 文件中设置启用
+mathjax。</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">themes/next/_config.yml</span><br><span class="line"></span><br><span class="line">math:</span><br><span class="line">  ...</span><br><span class="line">  mathjax:</span><br><span class="line">    enable: true</span><br></pre></td></tr></table></figure></p></li>
+<li><p>在博客文件的根目录下（themes 的上一级文件夹）卸载默认的
+<code>hexo-renderer-marked</code> markdown 渲染插件，安装
+<code>hexo-renderer-pandoc</code>。</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm un hexo-renderer-marked</span><br><span class="line">npm i hexo-renderer-pandoc</span><br></pre></td></tr></table></figure></p></li>
+</ol>
+<p>这样就设置好了，可以 NexT 官网提供的<a
+href="https://theme-next.js.org/docs/third-party-services/math-equations.html">几个例子</a>实验一下。</p>
+<hr />
+<h2 id="参考">参考</h2>
+<ol type="1">
+<li><p><a
+href="https://theme-next.js.org/docs/third-party-services/math-equations.html">Math
+Equations | NexT</a></p></li>
+<li><p><a
+href="https://github.com/wzpan/hexo-renderer-pandoc">wzpan/hexo-renderer-pandoc:
+A pandoc-markdown-flavor renderer for hexo.</a></p></li>
+<li><p><a
+href="https://www.latexlive.com/">在线LaTeX公式编辑器-妈叔出品</a></p></li>
+<li><p><a
+href="https://www.jianshu.com/p/7ab21c7f0674">在Hexo中渲染MathJax数学公式
+- 简书</a></p></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>NexT</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>50L自动电加热开水桶水温水位控制系统设计开发报告</title>
     <url>/posts/941809798/</url>
     <content><![CDATA[<h1 id="项目概况">项目概况</h1>
@@ -452,340 +560,6 @@ href="https://github.com/zongzi78/Water_temperature_and_water_level/blob/master/
       </tags>
   </entry>
   <entry>
-    <title>Hexo 博客框架 NexT 主题配置数学公式渲染引擎</title>
-    <url>/posts/56201/</url>
-    <content><![CDATA[<h2 id="前言">前言</h2>
-<p>时隔多日终于有时间更新一波了，今天要讲的还是关于 Hexo
-博客框架的相关知识，具体来说是关于更换 Hexo 默认的 markdown
-渲染插件以及在 <a href="https://theme-next.js.org/">NexT
-主题</a>中配置数学公式渲染引擎的相关知识。</p>
-<hr />
-<h2 id="关于-next-中的数学公式渲染引擎">关于 NexT
-中的数学公式渲染引擎</h2>
-<p>NexT 给用户提供了两个数学公式渲染引擎，分别是 <a
-href="https://www.mathjax.org/">MathJax</a> 和 <a
-href="https://katex.org/">KaTeX</a>。</p>
-<p>MathJax 是一个 JavaScript
-数学显示引擎，可以在所有浏览器中工作。它在输入和输出上高度模块化。使用
-MathML、TeX 和 ASCIImath 作为输入，生成 HTML+CSS、SVG 或 MathML
-作为输出。</p>
-<p>与 MathJax 相比，KaTeX 的<a
-href="https://www.intmath.com/cg5/katex-mathjax-comparison.php">渲染速度更快</a>。可以脱离
-JavaScript 而单独存在。但是，目前 <a
-href="https://github.com/KaTeX/KaTeX/wiki/Things-that-KaTeX-does-not-(yet)-support">KaTeX
-支持的功能不如 MathJax 多</a>，下面是 KaTeX 支持的 <a
-href="https://katex.org/docs/supported.html">TeX 函数列表</a>。</p>
-<p>为了启用数学公式渲染引擎，首先需要选择一个渲染引擎并将其设置为"enable"（该设置位于
-NexT 主题文件夹中的 _config.yml 文件中），如下所示。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">themes/next/_config.yml</span><br><span class="line"></span><br><span class="line"># Math Formulas Render Support</span><br><span class="line">math:</span><br><span class="line">  # Default (false) will load mathjax / katex script on demand.</span><br><span class="line">  # That is it only render those page which has `mathjax: true` in front-matter.</span><br><span class="line">  # If you set it to true, it will load mathjax / katex srcipt EVERY PAGE.</span><br><span class="line">  every_page: false</span><br><span class="line"></span><br><span class="line">  mathjax:</span><br><span class="line">    enable: true</span><br><span class="line"></span><br><span class="line">  katex:</span><br><span class="line">    enable: false</span><br><span class="line">    # See: https://github.com/KaTeX/KaTeX/tree/master/contrib/copy-tex</span><br><span class="line">    copy_tex: false</span><br></pre></td></tr></table></figure>
-<p>其中：<br />
-"every_page"选项控制是否在每一页都呈现数学公式。当其设置为“every_page:
-false”时，需要对应的在每篇博客的头文件中进行设置才可决定是否在本页面中进行公式渲染，头文件的设置方法如下：</p>
-<ul>
-<li><p>在本页面中<strong>启用</strong>数学公式显示</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Will Render Math</span><br><span class="line">mathjax: true</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p></li>
-<li><p>在本页面中<strong>不启用</strong>数学公式显示</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Not Render Math</span><br><span class="line">mathjax: false</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">title: Not Render Math Either</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p></li>
-</ul>
-<p>注意：需要安装相应的 <strong>markdown
-渲染插件</strong>来完全支持数学公式的显示（仅设置"enable"可能无法正确查看显示的公式）。</p>
-<hr />
-<h2 id="关于-markdown-渲染插件">关于 markdown 渲染插件</h2>
-<h3 id="hexo-renderer-marked">hexo-renderer-marked</h3>
-<p>在使用 <code>hexo init</code>
-命令生成一个新的空白博客框架后，可以在博客根目录的“node_modulesg”文件夹中看到名为“hexo-renderer-marked”的文件夹，这就是
-Hexo 默认的 markdown 渲染插件。这个插件存在一些问题，会将 markdown
-原生的一些语法转换为相应的 html 标签，比如 <code>*xxx*</code> 在
-mrarkdown 中表示 xxx 为斜体字，会被渲染插件转换为
-<code>&lt;em&gt;xxx&lt;/em&gt;</code>，在 LaTeX 中，如果出现连乘时，比如
-<code>2*36+5*89</code> 时，就会被转换为
-<code>2&lt;em&gt;36+5&lt;/em&gt;89</code>，这样就会报错或者乱码。</p>
-<h3 id="hexo-renderer-pandoc">hexo-renderer-pandoc</h3>
-<p>pandoc 另一个用于 Hexo 的 markdown 渲染器插件。它可以将 markdown
-转换成 HTML，也能为 textile、reStructedText 等提供渲染功能。使用 pandoc
-渲染插件，就能很好的解决marked渲染插件中存在的上述问题。</p>
-<p>pandoc 在 GitHub 上的开源界面的网址为
-https://github.com/wzpan/hexo-renderer-pandoc, 里面有详细的如何安装
-pandoc 渲染插件的步骤，这里有三个需要注意的点：</p>
-<ul>
-<li>在安装渲染插件之前，需要先安装 <a
-href="https://pandoc.org/installing.html">pandoc
-软件</a>（version&gt;=2.0）。</li>
-<li>需要安装到个人博客的根目录。</li>
-<li>安装这个之前/之后，需要卸载掉默认的“hexo-renderer-marked”渲染插件</li>
-</ul>
-<p>下面将就如何<strong>启用 mathjax</strong>
-数学公式渲染引擎并进行进行后续设置进行说明。</p>
-<ol type="1">
-<li><p>如 pandoc 的 GitHub 界面的安装说明中所说，先安装 <a
-href="https://pandoc.org/installing.html">pandoc
-软件</a>（version&gt;=2.0），直接在此界面下载 msi
-文件，双击安装即可（默认路径为
-<code>C:\Program Files\Pandoc</code>）。</p></li>
-<li><p>在 <code>themes/next/_config.yml</code> 文件中设置启用
-mathjax。</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">themes/next/_config.yml</span><br><span class="line"></span><br><span class="line">math:</span><br><span class="line">  ...</span><br><span class="line">  mathjax:</span><br><span class="line">    enable: true</span><br></pre></td></tr></table></figure></p></li>
-<li><p>在博客文件的根目录下（themes 的上一级文件夹）卸载默认的
-<code>hexo-renderer-marked</code> markdown 渲染插件，安装
-<code>hexo-renderer-pandoc</code>。</p>
-<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm un hexo-renderer-marked</span><br><span class="line">npm i hexo-renderer-pandoc</span><br></pre></td></tr></table></figure></p></li>
-</ol>
-<p>这样就设置好了，可以 NexT 官网提供的<a
-href="https://theme-next.js.org/docs/third-party-services/math-equations.html">几个例子</a>实验一下。</p>
-<hr />
-<h2 id="参考">参考</h2>
-<ol type="1">
-<li><p><a
-href="https://theme-next.js.org/docs/third-party-services/math-equations.html">Math
-Equations | NexT</a></p></li>
-<li><p><a
-href="https://github.com/wzpan/hexo-renderer-pandoc">wzpan/hexo-renderer-pandoc:
-A pandoc-markdown-flavor renderer for hexo.</a></p></li>
-<li><p><a
-href="https://www.latexlive.com/">在线LaTeX公式编辑器-妈叔出品</a></p></li>
-<li><p><a
-href="https://www.jianshu.com/p/7ab21c7f0674">在Hexo中渲染MathJax数学公式
-- 简书</a></p></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>NexT</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu 与 Win10 双系统下更改默认启动项+更换国内源</title>
-    <url>/posts/38677/</url>
-    <content><![CDATA[<h2 id="前言">前言</h2>
-<p>前一段时间在一台装有 Windows 10 系统的旧电脑上又装了 Ubuntu LTS 16.04
-系统，一般这种双系统的情况会自动配置 grub
-软件作为多操作系统启动程序，这里就讲一下如何设置默认启动哪一个系统和
-Ubuntu 系统换源的一些事。</p>
-<h2 id="更换默认启动项">更换默认启动项</h2>
-<p>GNU GRUB（GRand Unified Bootloader，GRUB）是一个来自 GNU
-项目的多操作系统启动程序。GRUB
-是多启动规范的实现，它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。GRUB
-可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。</p>
-<p>一般默认启动的是 Ubuntu 系统，这里以设置默认启动 Windows
-系统为例，以下设置方法需要在 Ubuntu 中进行。</p>
-<p>第一步：在电脑开机的时候，会进入到系统手动选择界面，观察有 Windows
-字样的那个选项排在第几位（注意序号是从 0 开始计数的）。</p>
-<p>第二步：打开终端，在终端打开 <code>/etc/default/grub</code>
-文件。这里需要注意，grub
-文件需要管理员权限才能修改，因此需要打开终端，在终端里输入
-<code>sudo gedit /etc/default/grub</code>，这样就能以管理员身份打开配置文件了。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201122/1.PNG" width="50%"></p>
-</div>
-<p>如上图所示为打开 grub 后的样子，找到 <strong>GRUB_DEFAULT=0</strong>
-这一行（上图中我已经将其改成了
-GRUB_DEFAULT=2，因为我的电脑启动时，Windows 系统排在第三位），将其后面的
-0 改成第一步中 Windows 系统所在对应的序号。</p>
-<p>第三步：修改完成后，在终端中输入 <code>sudo update-grub</code>
-进行刷新，重启电脑就能发现默认启动项已经改成 Windows 了。</p>
-<h2 id="ubuntu-更换国内源">Ubuntu 更换国内源</h2>
-<p>Ubuntu
-的官方服务器在国外，国内访问的时候速度很慢，更新一些软件往往需要花费大量的时间，将其下载源更换为国内镜像源将极大的提升下载速度，国内的许多公司、高校等机构都会提供此服务。</p>
-<p>第一步：在终端输入 <code>sudo gedit /etc/apt/sources.list</code>
-对存储源地址的文件进行编辑。</p>
-<p>第二步：删除原先的内容，复制国内镜像源的地址进去，这里提供几个国内提供镜像源服务的网址。</p>
-<p>阿里源：<a
-href="https://developer.aliyun.com/mirror/ubuntu?spm=a2c6h.13651102.0.0.3e221b11vFh8D2">ubuntu镜像-ubuntu下载地址-ubuntu安装教程-阿里巴巴开源镜像站</a></p>
-<p>清华源：<a
-href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/">ubuntu |
-镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source
-Mirror</a></p>
-<p>注意一定要确认好自己安装的系统的版本，选择对应版本号的源地址。</p>
-<p>第三步：在终端内输入 <code>sudo apt update</code>
-来更新源地址，再输入 <code>sudo apt upgrade</code>
-对安装的软件包进行更新，这时就能发现速度已经得到了很大提升。</p>
-]]></content>
-      <tags>
-        <tag>ubuntu</tag>
-        <tag>双系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows 下，安装 Hexo 博客框架并部署到 GitHub（1）</title>
-    <url>/posts/55439/</url>
-    <content><![CDATA[<style>
-h1 {
-    border-bottom: none
-}
-</style>
-<style>
-h2 {
-    border-bottom: none
-}
-</style>
-<h2 id="前言">前言</h2>
-<p>8 月 30 号就搞定了 blog 的本地安装与 GitHub
-部署，拖了半个多月才想起要把部署过程写出来，在写之前，首先要感谢B站的 up
-主 <a
-href="https://space.bilibili.com/384068749">CodeSheep</a>，是在他的系列
-blog 搭建视频的帮助下才有的这篇文章。 由于安装 Node.js 和 Git，本地安装
-Hexo 以及部署到云端的整个流程较长，预计分为两次来写，本篇 blog 主要写
-Node.js 和 Git 的安装。</p>
-<span id="more"></span>
-<hr />
-<h2 id="环境配置">环境配置</h2>
-<h3 id="node.js-安装">Node.js 安装</h3>
-<p>首先进入其<a href="https://nodejs.org">官方网站</a></p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/0.PNG" width="50%"></p>
-</div>
-<p>可以看到下方的下载按钮，左侧为 LTS（Long Term
-Support）版本，右侧为最新版本，这里下载 LTS
-版本即可。下载完成后可以得到一个名为“node-v12.8.4-x64.msi”的安装包文件。</p>
-<p>由于其服务器在国外，下载速度比较慢，这里提供一个阿里淘宝的<a
-href="https://npm.taobao.org/mirrors/node/v12.18.4/">镜像下载地址</a>，里面下载的文件与官网完全一样，请大家放心下载。</p>
-<p>下载完成后，双击安装到任意位置，一路默认即可。这里不推荐安装到C盘，可以参照图中我的安装路径。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/1.PNG" width="50%"></p>
-</div>
-<p>安装完毕后，使用“win+r”调出 Windows 的运行界面，输入 <code>cmd</code>
-点击回车，进入命令行界面，输入
-<code>node -v</code>，若出现“v12.8.4”字样，说明安装成功，接着输入
-<code>npm -v</code>，若出现“6.14.6”<a href="#fn1" class="footnote-ref"
-id="fnref1" role="doc-noteref"><sup>1</sup></a>，说明 npm 安装成功。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/2.PNG" width="50%"></p>
-</div>
-<p>npm 一般是跟 nodejs 主程序一起自动安装的，至于 npm
-的含义与作用将在后文解释，这样就可以进行下一步操作了。</p>
-<hr />
-<h3 id="git-安装">Git 安装</h3>
-<p>首先进入 Git 的<a href="https://git-scm.com">官方网站</a>，接着点击
-download 按钮，进入<a
-href="https://git-scm.com/downloads">下载界面</a>。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/3.PNG" width="50%"></p>
-</div>
-<p>按照自己使用的系统下载安装包，这里选择 Windows 系统，点击 Windows
-图标之后，一般会自动开始下载名为“Git-2.28.0-64-bit.exe”的文件，这是 64
-位系统的安装包。如果你的系统是 32
-位，你可以取消默认的下载进程，在如下图所示的列表里下载 32
-位的安装包。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/4.PNG" width="50%"></p>
-</div>
-<p>上面两个链接是安装包，下面两个链接是便携版，这里推荐下载上面的版本。与
-nodejs 一样，git
-官网服务器在国外，下载速度比较慢，这里提供一个阿里淘宝的<a
-href="https://npm.taobao.org/mirrors/git-for-windows/v2.28.0.windows.1/">镜像下载地址</a>，里面下载的文件与官网完全一样，请大家放心下载。</p>
-<p>下载完成后，双击进行安装，这里还是不建议安装到C盘，安装位置可以参照我的</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/5.PNG" width="50%"></p>
-</div>
-<p>在这一步选择自己喜欢的文本编辑器，我选择的是 VS Code</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/6.PNG" width="50%"></p>
-</div>
-<p>后面没有需要注意的地方了，一路默认即可。安装完成后，桌面上将出现“Git
-Bash”快捷方式，双击就能进入 Git 的命令行界面了，由于在 Git
-的安装过程中环境变量都已自动配置好，所以也可以直接进入 cmd 界面进行 Git
-的一些操作。进入 cmd 界面，输入 <code>git --version</code>，若出现“git
-version 2.28.0.windows.1”字样，说明安装成功。</p>
-<hr />
-<h3 id="npm-换源">npm 换源</h3>
-<h4 id="npm-介绍">npm 介绍</h4>
-<p>所谓 npm，通俗理解为包管理器，这里的包就是基于 nodejs
-而开发的的一个个插件/模块，而 npm
-就是对这些包进行安装，卸载等操作的管理器。根据菜鸟教程上面的<a
-href="https://www.runoob.com/nodejs/nodejs-npm.html">介绍</a>，npm
-的主要功能有：</p>
-<ul>
-<li>允许用户从NPM服务器下载别人编写的第三方包到本地使用。</li>
-<li>允许用户从NPM服务器下载并安装别人编写的命令行程序到本地使用。</li>
-<li>允许用户将自己编写的包或命令行程序上传到NPM服务器供别人使用。</li>
-</ul>
-<p>现在的 nodejs 已经集成了 npm，所以在安装 nodejs 的时候 npm
-也会随之安装。</p>
-<h4 id="npm更换淘宝源">npm更换淘宝源</h4>
-<p>由于 nodejs 服务器在国外，许多包的源地址也在国外，国内使用 npm
-的时候速度会非常的慢，所以需要将 npm 包的源地址更换为国内的镜像地址。<a
-href="https://developer.aliyun.com/mirror/NPM?from=tnpm">这个</a>是阿里的淘宝
-npm 镜像网站。按照官方文档，有两种换源方式，一种是安装 cnpm 代替
-npm，另一种是直接更换源地址。 首先是安装 cnpm 的方式：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-<p>通过上述命令，即可安装 cnpm 包管理器以代替 npm，以后任何使用 npm
-命令的场合，都改为使用 cnpm。</p>
-<p>第二个是直接换源的方式：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm config set registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-<p>配置后进入 cmd 界面，通过下述命令来验证是否成功</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm config get registry</span><br><span class="line">or</span><br><span class="line">npm info express</span><br></pre></td></tr></table></figure>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/7.PNG" width="50%"></p>
-</div>
-<p>如图所示则表明换源成功。</p>
-<hr />
-<h2 id="本地安装-hexo">本地安装 Hexo</h2>
-<h3 id="安装-hexo">安装 Hexo</h3>
-<p>首先找到 Hexo 的<a
-href="https://hexo.io">官方网站</a>，进入“文档”界面可以看到 Hexo
-的使用说明，在安装前提一栏可以看到安装hexo的前置条件我们在环境配置一节中已经全部完成了，接下来即可使用
-npm/cnpm 进行 Hexo 框架的本地安装。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/8.PNG" width="50%"></p>
-</div>
-<p>出现如图所示的警告属于 Windows 系统下安装 Hexo 的正常现象。</p>
-<p>安装完成后，进入 cmd 界面输入 <code>hexo -v</code> 查看是否安装成功。
-如果如下图所示，则说明安装成功。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/9.PNG" width="50%"></p>
-</div>
-<hr />
-<h3 id="建立空白博客框架">建立空白博客框架</h3>
-<p>首先在计算机任意位置建立一个名为 blog 的空文件夹，这里我们选择
-~/blog<a href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a></p>
-<p>进入 cmd 命令行界面，左侧的地址为当前的路径地址，输入
-<code>cd blog</code> 将其变更到上一步建立的 blog 文件夹下。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/10.PNG" width="50%"></p>
-</div>
-<p>可以看到现在左侧的地址由 <code>C:\Users\xxx\</code> 变成了
-<code>C:\Users\xxx\blog\</code>，这一步是很重要的，它确保了跟你个人博客相关的文件，包括配置文件、博客原文、皮肤文件等等全部位于“C:”这一地址下，便于你以后管理。在
-cmd 终端中输入 <code>hexo init</code>
-安装博客框架，安装完成后，打开“C:”，可以看到里面已经多了很多文件，这些文件就是你的个人博客框架，关于这些文件各自的作用与含义，Hexo
-官网的文档界面的<a
-href="https://hexo.io/zh-cn/docs/setup">建站</a>部分解释的很清楚，可以自行查看。</p>
-<hr />
-<h3 id="创建新的博文">创建新的博文</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo n &quot;blog&#x27;s name&quot;</span><br></pre></td></tr></table></figure>
-<p>上述命令就是建立一个新的博文界面的命令，在 cmd
-界面运行上述命令后，在“C:_posts”中会出现一个名为“blog's
-name.md”的markdown文件，这个就是一篇博文的原始文件，所谓的“写博客”也是在这个
-md 文件中进行的，即使用相关软件对 md 文件进行编辑。</p>
-<p>这里推荐一个 Windows 系统下的 md 文件编辑器 <a
-href="https://www.typora.io">Typora</a>，直接在其官网下载 exe
-文件安装即可。当然也可以使用 VS Code 搭配 MPE 插件进行 md
-文档的书写。</p>
-<hr />
-<h2 id="总结">总结</h2>
-<p>到这里，在 Windows 系统下安装部署 Hexo
-博客框架的第一部分就结束了，在本篇博文中，主要介绍了 Hexo
-框架的前置两个软件 Node.js 和 Git 的安装与配置，Hexo
-框架的安装与初始化以及如何在本地建立一篇新博文并对其进行编辑的方法。在第二部分的文章中，将对如何利用
-GitHub page 建立自己的云端博客以及如何将本地的 Hexo 框架部署到 GitHub
-做详细说明。</p>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1"><p>这里的 6.14.6 是我自己电脑上安装的 npm
-的版本，不同的版本显示的数字不一样，不必追求一模一样。<a href="#fnref1"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>符号“~”表示个人文件夹的地址，在 Windows
-系统中，一般为“C:”，xxx为你的用户名。这里之所以选择在这里建立 blog
-文件夹的原因，是因为一般 cmd 界面默认就是此地址，便于以后操作。<a
-href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
-]]></content>
-  </entry>
-  <entry>
     <title>Windows 下，安装 Hexo 博客框架并部署到 GitHub（2）</title>
     <url>/posts/40079/</url>
     <content><![CDATA[<style>
@@ -979,6 +753,186 @@ SSR 和 v2ray
       </tags>
   </entry>
   <entry>
+    <title>Windows 下，安装 Hexo 博客框架并部署到 GitHub（1）</title>
+    <url>/posts/55439/</url>
+    <content><![CDATA[<style>
+h1 {
+    border-bottom: none
+}
+</style>
+<style>
+h2 {
+    border-bottom: none
+}
+</style>
+<h2 id="前言">前言</h2>
+<p>8 月 30 号就搞定了 blog 的本地安装与 GitHub
+部署，拖了半个多月才想起要把部署过程写出来，在写之前，首先要感谢B站的 up
+主 <a
+href="https://space.bilibili.com/384068749">CodeSheep</a>，是在他的系列
+blog 搭建视频的帮助下才有的这篇文章。 由于安装 Node.js 和 Git，本地安装
+Hexo 以及部署到云端的整个流程较长，预计分为两次来写，本篇 blog 主要写
+Node.js 和 Git 的安装。</p>
+<span id="more"></span>
+<hr />
+<h2 id="环境配置">环境配置</h2>
+<h3 id="node.js-安装">Node.js 安装</h3>
+<p>首先进入其<a href="https://nodejs.org">官方网站</a></p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/0.PNG" width="50%"></p>
+</div>
+<p>可以看到下方的下载按钮，左侧为 LTS（Long Term
+Support）版本，右侧为最新版本，这里下载 LTS
+版本即可。下载完成后可以得到一个名为“node-v12.8.4-x64.msi”的安装包文件。</p>
+<p>由于其服务器在国外，下载速度比较慢，这里提供一个阿里淘宝的<a
+href="https://npm.taobao.org/mirrors/node/v12.18.4/">镜像下载地址</a>，里面下载的文件与官网完全一样，请大家放心下载。</p>
+<p>下载完成后，双击安装到任意位置，一路默认即可。这里不推荐安装到C盘，可以参照图中我的安装路径。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/1.PNG" width="50%"></p>
+</div>
+<p>安装完毕后，使用“win+r”调出 Windows 的运行界面，输入 <code>cmd</code>
+点击回车，进入命令行界面，输入
+<code>node -v</code>，若出现“v12.8.4”字样，说明安装成功，接着输入
+<code>npm -v</code>，若出现“6.14.6”<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a>，说明 npm 安装成功。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/2.PNG" width="50%"></p>
+</div>
+<p>npm 一般是跟 nodejs 主程序一起自动安装的，至于 npm
+的含义与作用将在后文解释，这样就可以进行下一步操作了。</p>
+<hr />
+<h3 id="git-安装">Git 安装</h3>
+<p>首先进入 Git 的<a href="https://git-scm.com">官方网站</a>，接着点击
+download 按钮，进入<a
+href="https://git-scm.com/downloads">下载界面</a>。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/3.PNG" width="50%"></p>
+</div>
+<p>按照自己使用的系统下载安装包，这里选择 Windows 系统，点击 Windows
+图标之后，一般会自动开始下载名为“Git-2.28.0-64-bit.exe”的文件，这是 64
+位系统的安装包。如果你的系统是 32
+位，你可以取消默认的下载进程，在如下图所示的列表里下载 32
+位的安装包。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/4.PNG" width="50%"></p>
+</div>
+<p>上面两个链接是安装包，下面两个链接是便携版，这里推荐下载上面的版本。与
+nodejs 一样，git
+官网服务器在国外，下载速度比较慢，这里提供一个阿里淘宝的<a
+href="https://npm.taobao.org/mirrors/git-for-windows/v2.28.0.windows.1/">镜像下载地址</a>，里面下载的文件与官网完全一样，请大家放心下载。</p>
+<p>下载完成后，双击进行安装，这里还是不建议安装到C盘，安装位置可以参照我的</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/5.PNG" width="50%"></p>
+</div>
+<p>在这一步选择自己喜欢的文本编辑器，我选择的是 VS Code</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/6.PNG" width="50%"></p>
+</div>
+<p>后面没有需要注意的地方了，一路默认即可。安装完成后，桌面上将出现“Git
+Bash”快捷方式，双击就能进入 Git 的命令行界面了，由于在 Git
+的安装过程中环境变量都已自动配置好，所以也可以直接进入 cmd 界面进行 Git
+的一些操作。进入 cmd 界面，输入 <code>git --version</code>，若出现“git
+version 2.28.0.windows.1”字样，说明安装成功。</p>
+<hr />
+<h3 id="npm-换源">npm 换源</h3>
+<h4 id="npm-介绍">npm 介绍</h4>
+<p>所谓 npm，通俗理解为包管理器，这里的包就是基于 nodejs
+而开发的的一个个插件/模块，而 npm
+就是对这些包进行安装，卸载等操作的管理器。根据菜鸟教程上面的<a
+href="https://www.runoob.com/nodejs/nodejs-npm.html">介绍</a>，npm
+的主要功能有：</p>
+<ul>
+<li>允许用户从NPM服务器下载别人编写的第三方包到本地使用。</li>
+<li>允许用户从NPM服务器下载并安装别人编写的命令行程序到本地使用。</li>
+<li>允许用户将自己编写的包或命令行程序上传到NPM服务器供别人使用。</li>
+</ul>
+<p>现在的 nodejs 已经集成了 npm，所以在安装 nodejs 的时候 npm
+也会随之安装。</p>
+<h4 id="npm更换淘宝源">npm更换淘宝源</h4>
+<p>由于 nodejs 服务器在国外，许多包的源地址也在国外，国内使用 npm
+的时候速度会非常的慢，所以需要将 npm 包的源地址更换为国内的镜像地址。<a
+href="https://developer.aliyun.com/mirror/NPM?from=tnpm">这个</a>是阿里的淘宝
+npm 镜像网站。按照官方文档，有两种换源方式，一种是安装 cnpm 代替
+npm，另一种是直接更换源地址。 首先是安装 cnpm 的方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>通过上述命令，即可安装 cnpm 包管理器以代替 npm，以后任何使用 npm
+命令的场合，都改为使用 cnpm。</p>
+<p>第二个是直接换源的方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm config set registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>配置后进入 cmd 界面，通过下述命令来验证是否成功</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm config get registry</span><br><span class="line">or</span><br><span class="line">npm info express</span><br></pre></td></tr></table></figure>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/7.PNG" width="50%"></p>
+</div>
+<p>如图所示则表明换源成功。</p>
+<hr />
+<h2 id="本地安装-hexo">本地安装 Hexo</h2>
+<h3 id="安装-hexo">安装 Hexo</h3>
+<p>首先找到 Hexo 的<a
+href="https://hexo.io">官方网站</a>，进入“文档”界面可以看到 Hexo
+的使用说明，在安装前提一栏可以看到安装hexo的前置条件我们在环境配置一节中已经全部完成了，接下来即可使用
+npm/cnpm 进行 Hexo 框架的本地安装。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/8.PNG" width="50%"></p>
+</div>
+<p>出现如图所示的警告属于 Windows 系统下安装 Hexo 的正常现象。</p>
+<p>安装完成后，进入 cmd 界面输入 <code>hexo -v</code> 查看是否安装成功。
+如果如下图所示，则说明安装成功。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/9.PNG" width="50%"></p>
+</div>
+<hr />
+<h3 id="建立空白博客框架">建立空白博客框架</h3>
+<p>首先在计算机任意位置建立一个名为 blog 的空文件夹，这里我们选择
+~/blog<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a></p>
+<p>进入 cmd 命令行界面，左侧的地址为当前的路径地址，输入
+<code>cd blog</code> 将其变更到上一步建立的 blog 文件夹下。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/10.PNG" width="50%"></p>
+</div>
+<p>可以看到现在左侧的地址由 <code>C:\Users\xxx\</code> 变成了
+<code>C:\Users\xxx\blog\</code>，这一步是很重要的，它确保了跟你个人博客相关的文件，包括配置文件、博客原文、皮肤文件等等全部位于“C:”这一地址下，便于你以后管理。在
+cmd 终端中输入 <code>hexo init</code>
+安装博客框架，安装完成后，打开“C:”，可以看到里面已经多了很多文件，这些文件就是你的个人博客框架，关于这些文件各自的作用与含义，Hexo
+官网的文档界面的<a
+href="https://hexo.io/zh-cn/docs/setup">建站</a>部分解释的很清楚，可以自行查看。</p>
+<hr />
+<h3 id="创建新的博文">创建新的博文</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo n &quot;blog&#x27;s name&quot;</span><br></pre></td></tr></table></figure>
+<p>上述命令就是建立一个新的博文界面的命令，在 cmd
+界面运行上述命令后，在“C:_posts”中会出现一个名为“blog's
+name.md”的markdown文件，这个就是一篇博文的原始文件，所谓的“写博客”也是在这个
+md 文件中进行的，即使用相关软件对 md 文件进行编辑。</p>
+<p>这里推荐一个 Windows 系统下的 md 文件编辑器 <a
+href="https://www.typora.io">Typora</a>，直接在其官网下载 exe
+文件安装即可。当然也可以使用 VS Code 搭配 MPE 插件进行 md
+文档的书写。</p>
+<hr />
+<h2 id="总结">总结</h2>
+<p>到这里，在 Windows 系统下安装部署 Hexo
+博客框架的第一部分就结束了，在本篇博文中，主要介绍了 Hexo
+框架的前置两个软件 Node.js 和 Git 的安装与配置，Hexo
+框架的安装与初始化以及如何在本地建立一篇新博文并对其进行编辑的方法。在第二部分的文章中，将对如何利用
+GitHub page 建立自己的云端博客以及如何将本地的 Hexo 框架部署到 GitHub
+做详细说明。</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>这里的 6.14.6 是我自己电脑上安装的 npm
+的版本，不同的版本显示的数字不一样，不必追求一模一样。<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>符号“~”表示个人文件夹的地址，在 Windows
+系统中，一般为“C:”，xxx为你的用户名。这里之所以选择在这里建立 blog
+文件夹的原因，是因为一般 cmd 界面默认就是此地址，便于以后操作。<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+]]></content>
+  </entry>
+  <entry>
     <title>Windows 终端（cmd）内走 v2ray 代理</title>
     <url>/posts/884982221/</url>
     <content><![CDATA[<h2 id="前言">前言</h2>
@@ -1033,6 +987,58 @@ IP | zcdll's Blog</a></p></li>
       <tags>
         <tag>v2ray</tag>
         <tag>cmd</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu 与 Win10 双系统下更改默认启动项+更换国内源</title>
+    <url>/posts/38677/</url>
+    <content><![CDATA[<h2 id="前言">前言</h2>
+<p>前一段时间在一台装有 Windows 10 系统的旧电脑上又装了 Ubuntu LTS 16.04
+系统，一般这种双系统的情况会自动配置 grub
+软件作为多操作系统启动程序，这里就讲一下如何设置默认启动哪一个系统和
+Ubuntu 系统换源的一些事。</p>
+<h2 id="更换默认启动项">更换默认启动项</h2>
+<p>GNU GRUB（GRand Unified Bootloader，GRUB）是一个来自 GNU
+项目的多操作系统启动程序。GRUB
+是多启动规范的实现，它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。GRUB
+可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。</p>
+<p>一般默认启动的是 Ubuntu 系统，这里以设置默认启动 Windows
+系统为例，以下设置方法需要在 Ubuntu 中进行。</p>
+<p>第一步：在电脑开机的时候，会进入到系统手动选择界面，观察有 Windows
+字样的那个选项排在第几位（注意序号是从 0 开始计数的）。</p>
+<p>第二步：打开终端，在终端打开 <code>/etc/default/grub</code>
+文件。这里需要注意，grub
+文件需要管理员权限才能修改，因此需要打开终端，在终端里输入
+<code>sudo gedit /etc/default/grub</code>，这样就能以管理员身份打开配置文件了。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201122/1.PNG" width="50%"></p>
+</div>
+<p>如上图所示为打开 grub 后的样子，找到 <strong>GRUB_DEFAULT=0</strong>
+这一行（上图中我已经将其改成了
+GRUB_DEFAULT=2，因为我的电脑启动时，Windows 系统排在第三位），将其后面的
+0 改成第一步中 Windows 系统所在对应的序号。</p>
+<p>第三步：修改完成后，在终端中输入 <code>sudo update-grub</code>
+进行刷新，重启电脑就能发现默认启动项已经改成 Windows 了。</p>
+<h2 id="ubuntu-更换国内源">Ubuntu 更换国内源</h2>
+<p>Ubuntu
+的官方服务器在国外，国内访问的时候速度很慢，更新一些软件往往需要花费大量的时间，将其下载源更换为国内镜像源将极大的提升下载速度，国内的许多公司、高校等机构都会提供此服务。</p>
+<p>第一步：在终端输入 <code>sudo gedit /etc/apt/sources.list</code>
+对存储源地址的文件进行编辑。</p>
+<p>第二步：删除原先的内容，复制国内镜像源的地址进去，这里提供几个国内提供镜像源服务的网址。</p>
+<p>阿里源：<a
+href="https://developer.aliyun.com/mirror/ubuntu?spm=a2c6h.13651102.0.0.3e221b11vFh8D2">ubuntu镜像-ubuntu下载地址-ubuntu安装教程-阿里巴巴开源镜像站</a></p>
+<p>清华源：<a
+href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/">ubuntu |
+镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source
+Mirror</a></p>
+<p>注意一定要确认好自己安装的系统的版本，选择对应版本号的源地址。</p>
+<p>第三步：在终端内输入 <code>sudo apt update</code>
+来更新源地址，再输入 <code>sudo apt upgrade</code>
+对安装的软件包进行更新，这时就能发现速度已经得到了很大提升。</p>
+]]></content>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>双系统</tag>
       </tags>
   </entry>
   <entry>
@@ -1147,6 +1153,24 @@ FFmpeg 这个工具确实很好用，一个 1.23G 的文件只用了不超过 10
       </tags>
   </entry>
   <entry>
+    <title>使用 PPPoE 宽带拨号上网时 v2ray 无法正常工作的解决方法</title>
+    <url>/posts/38903/</url>
+    <content><![CDATA[<p>最近把路由器撤了改成了直接宽带连接上网，但遇到了一个问题，就是我的
+v2ray 不起作用了，经过观察，发现时上网时的流量没经过 v2ray
+渠道从而无法访问外网。</p>
+<p>经过个人排查与上网搜集资料，发现应该是宽带连接名称的问题，名称里如果<strong>含有中文</strong>就会出现这种现象，所以把宽带连接名称<strong>改成纯英文</strong>就好了！</p>
+<h2 id="参考">参考</h2>
+<ol type="1">
+<li><a
+href="https://zhuanlan.zhihu.com/p/106695296">PPPOE拨号上网无法使用代理问题</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>V2Ray</tag>
+        <tag>PPPoE</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>如何使用 git 工具上传/克隆代码</title>
     <url>/posts/55348/</url>
     <content><![CDATA[<p>在写博客的时候，我个人选择了国内的代码托管平台 Gitee
@@ -1216,24 +1240,6 @@ Gitee.com</a></p></li>
       </tags>
   </entry>
   <entry>
-    <title>使用 PPPoE 宽带拨号上网时 v2ray 无法正常工作的解决方法</title>
-    <url>/posts/38903/</url>
-    <content><![CDATA[<p>最近把路由器撤了改成了直接宽带连接上网，但遇到了一个问题，就是我的
-v2ray 不起作用了，经过观察，发现时上网时的流量没经过 v2ray
-渠道从而无法访问外网。</p>
-<p>经过个人排查与上网搜集资料，发现应该是宽带连接名称的问题，名称里如果<strong>含有中文</strong>就会出现这种现象，所以把宽带连接名称<strong>改成纯英文</strong>就好了！</p>
-<h2 id="参考">参考</h2>
-<ol type="1">
-<li><a
-href="https://zhuanlan.zhihu.com/p/106695296">PPPOE拨号上网无法使用代理问题</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>V2Ray</tag>
-        <tag>PPPoE</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>我的第一篇博客文章</title>
     <url>/posts/15650/</url>
     <content><![CDATA[<p>本篇博客用于测试配置与代码</p>
@@ -1280,7 +1286,136 @@ class="math inline">\(\eqref{eq1}\)</span>.</p>
 <p>Equation <span class="math inline">\(\eqref{eq_tag}\)</span> use
 <code>\tag&#123;&#125;</code> instead of automatic numbering.</p>
 <hr />
+<p><span class="math display">\[
+f(x)=
+\left\{\begin{matrix}
+     1 &amp; x≥0 \\
+     0 &amp; \text{other} \\
+\end{matrix}\right.
+\]</span></p>
+<p><span class="math display">\[
+\left\{\begin{aligned}
+a_5 &amp; = sigmoid(w_{51}x_1 + w_{52}x_2 + w_{53}x_3 + w_{5b})\\
+a_6 &amp; = sigmoid(w_{61}x_1 + w_{62}x_2 + w_{63}x_3 + w_{6b})\\
+a_7 &amp; = sigmoid(w_{71}x_1 + w_{72}x_2 + w_{73}x_3 + w_{7b})
+\end{aligned}\right.
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathrm{o}_t&amp;=g(V\mathrm{s}_t)\\
+&amp;=Vf(U\mathrm{x}_t+W\mathrm{s}_{t-1})\\
+&amp;=Vf(U\mathrm{x}_t+Wf(U\mathrm{x}_{t-1}+W\mathrm{s}_{t-2}))\\
+&amp;=Vf(U\mathrm{x}_t+Wf(U\mathrm{x}_{t-1}+Wf(U\mathrm{x}_{t-2}+W\mathrm{s}_{t-3})))\\
+&amp;=Vf(U\mathrm{x}_t+Wf(U\mathrm{x}_{t-1}+Wf(U\mathrm{x}_{t-2}+Wf(U\mathrm{x}_{t-3}+...))))
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{detail} &amp;= \text{original} - \text{smoothed} \\
+&amp;= \text{original} * e - \text{original} * 1/9
+\begin{bmatrix}
+1 &amp; 1 &amp; 1 \\
+1 &amp; 1 &amp; 1 \\
+1 &amp; 1 &amp; 1
+\end{bmatrix} \\
+&amp;= \text{original} * 1/9
+\begin{bmatrix}
+-1 &amp; -1 &amp; -1 \\
+-1 &amp; 8 &amp; -1 \\
+-1 &amp; -1 &amp; -1
+\end{bmatrix} \\
+\end{aligned}
+\]</span></p>
+<hr />
 <h1 id="第二章">第二章</h1>
+<p>1、横向流程图：</p>
+<pre><code class="highlight mermaid">graph LR
+
+id1(圆角矩形)--普通线--&gt;id2[矩形];
+subgraph 子图
+    id2==粗线==&gt;id3&#123;菱形&#125;
+    id3-.虚线.-&gt;id4&gt;右向旗帜]
+    id3--无箭头---id5((圆形))
+end
+F[横向流程图]</code></pre>
+<p>2、竖向流程图：</p>
+<pre><code class="highlight mermaid">flowchart TB
+
+A[矩形]--&gt; 
+B(圆角矩形)---
+K[[K]]---
+C([半圆矩形])
+
+D[(柱)]-.-&gt;
+E((圆形))-.-
+F&gt;右向旗帜]
+
+G&#123;text&#125;===
+H&#123;&#123;text&#125;&#125;
+
+I[/text/]==&gt;
+J[\text\]---
+L[/L\]---
+M[\M/]</code></pre>
+<p>3、UML标准时序图样例：</p>
+<pre><code class="highlight mermaid">sequenceDiagram
+
+participant 张三
+participant 李四
+    张三-&gt;王五: 王五你好吗？
+    loop 健康检查
+        王五-&gt;王五: 与疾病战斗
+    end
+    Note right of 王五: 合理 食物 &lt;br/&gt;看医生...
+    李四--&gt;&gt;张三: 很好!
+    王五-&gt;李四: 你怎么样?
+    李四--&gt;王五: 很好!</code></pre>
+<ol start="4" type="1">
+<li>甘特图</li>
+</ol>
+<pre><code class="highlight mermaid">gantt
+
+section Section
+    Completed: done,   des1,       2014-01-06, 2014-01-08
+    Active   : active, des2,       2014-01-07, 3d
+    Parallel 1        : des3,   after des1, 1d
+    Parallel 2        : des4,   after des1, 1d
+    Parallel 3        : des5,   after des3, 1d
+    Parallel 4        : des6,   after des4, 1d</code></pre>
+<ol start="5" type="1">
+<li>饼图</li>
+</ol>
+<pre><code class="highlight mermaid">pie
+
+  title Key elements in Product X
+  &quot;Calcium&quot; : 42.96
+  &quot;Potassium&quot; : 50.05
+  &quot;Magnesium&quot; : 10.01
+  &quot;Iron&quot; :  5</code></pre>
+<ol start="6" type="1">
+<li>class 类图 <pre><code class="highlight mermaid">classDiagram
+    Animal &lt;|-- Duck
+    Animal &lt;|-- Fish
+    Animal &lt;|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck&#123;
+        +String beakColor
+        +swim()
+        +quack()
+    &#125;
+    class Fish&#123;
+        -int sizeInFeet
+        -canEat()
+    &#125;
+    class Zebra&#123;
+        +bool is_wild
+        +run()
+    &#125;</code></pre></li>
+</ol>
+<pre><code class="highlight mermaid"></code></pre>
 <h2 id="第一节-1">第一节</h2>
 <h2 id="第二节-1">第二节</h2>
 <hr />

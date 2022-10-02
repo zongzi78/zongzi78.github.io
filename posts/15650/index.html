@@ -30,7 +30,7 @@
 <meta property="og:description" content="本篇博客用于测试配置与代码">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-08-30T10:46:23.000Z">
-<meta property="article:modified_time" content="2022-10-02T08:05:48.079Z">
+<meta property="article:modified_time" content="2022-10-02T08:28:05.694Z">
 <meta property="article:author" content="Tiddler">
 <meta name="twitter:card" content="summary">
 
@@ -89,7 +89,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">21</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">11</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags<span class="badge">21</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">12</span></a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -161,7 +161,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -257,7 +257,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2022-10-02 16:05:48" itemprop="dateModified" datetime="2022-10-02T16:05:48+08:00">2022-10-02</time>
+      <time title="Modified: 2022-10-02 16:28:05" itemprop="dateModified" datetime="2022-10-02T16:28:05+08:00">2022-10-02</time>
     </span>
 
   
@@ -315,7 +315,136 @@ class="math inline">\(\eqref{eq1}\)</span>.</p>
 <p>Equation <span class="math inline">\(\eqref{eq_tag}\)</span> use
 <code>\tag&#123;&#125;</code> instead of automatic numbering.</p>
 <hr />
+<p><span class="math display">\[
+f(x)=
+\left\{\begin{matrix}
+     1 &amp; x≥0 \\
+     0 &amp; \text{other} \\
+\end{matrix}\right.
+\]</span></p>
+<p><span class="math display">\[
+\left\{\begin{aligned}
+a_5 &amp; = sigmoid(w_{51}x_1 + w_{52}x_2 + w_{53}x_3 + w_{5b})\\
+a_6 &amp; = sigmoid(w_{61}x_1 + w_{62}x_2 + w_{63}x_3 + w_{6b})\\
+a_7 &amp; = sigmoid(w_{71}x_1 + w_{72}x_2 + w_{73}x_3 + w_{7b})
+\end{aligned}\right.
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathrm{o}_t&amp;=g(V\mathrm{s}_t)\\
+&amp;=Vf(U\mathrm{x}_t+W\mathrm{s}_{t-1})\\
+&amp;=Vf(U\mathrm{x}_t+Wf(U\mathrm{x}_{t-1}+W\mathrm{s}_{t-2}))\\
+&amp;=Vf(U\mathrm{x}_t+Wf(U\mathrm{x}_{t-1}+Wf(U\mathrm{x}_{t-2}+W\mathrm{s}_{t-3})))\\
+&amp;=Vf(U\mathrm{x}_t+Wf(U\mathrm{x}_{t-1}+Wf(U\mathrm{x}_{t-2}+Wf(U\mathrm{x}_{t-3}+...))))
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{detail} &amp;= \text{original} - \text{smoothed} \\
+&amp;= \text{original} * e - \text{original} * 1/9
+\begin{bmatrix}
+1 &amp; 1 &amp; 1 \\
+1 &amp; 1 &amp; 1 \\
+1 &amp; 1 &amp; 1
+\end{bmatrix} \\
+&amp;= \text{original} * 1/9
+\begin{bmatrix}
+-1 &amp; -1 &amp; -1 \\
+-1 &amp; 8 &amp; -1 \\
+-1 &amp; -1 &amp; -1
+\end{bmatrix} \\
+\end{aligned}
+\]</span></p>
+<hr />
 <h1 id="第二章">第二章</h1>
+<p>1、横向流程图：</p>
+<pre><code class="highlight mermaid">graph LR
+
+id1(圆角矩形)--普通线--&gt;id2[矩形];
+subgraph 子图
+    id2==粗线==&gt;id3&#123;菱形&#125;
+    id3-.虚线.-&gt;id4&gt;右向旗帜]
+    id3--无箭头---id5((圆形))
+end
+F[横向流程图]</code></pre>
+<p>2、竖向流程图：</p>
+<pre><code class="highlight mermaid">flowchart TB
+
+A[矩形]--&gt; 
+B(圆角矩形)---
+K[[K]]---
+C([半圆矩形])
+
+D[(柱)]-.-&gt;
+E((圆形))-.-
+F&gt;右向旗帜]
+
+G&#123;text&#125;===
+H&#123;&#123;text&#125;&#125;
+
+I[/text/]==&gt;
+J[\text\]---
+L[/L\]---
+M[\M/]</code></pre>
+<p>3、UML标准时序图样例：</p>
+<pre><code class="highlight mermaid">sequenceDiagram
+
+participant 张三
+participant 李四
+    张三-&gt;王五: 王五你好吗？
+    loop 健康检查
+        王五-&gt;王五: 与疾病战斗
+    end
+    Note right of 王五: 合理 食物 &lt;br/&gt;看医生...
+    李四--&gt;&gt;张三: 很好!
+    王五-&gt;李四: 你怎么样?
+    李四--&gt;王五: 很好!</code></pre>
+<ol start="4" type="1">
+<li>甘特图</li>
+</ol>
+<pre><code class="highlight mermaid">gantt
+
+section Section
+    Completed: done,   des1,       2014-01-06, 2014-01-08
+    Active   : active, des2,       2014-01-07, 3d
+    Parallel 1        : des3,   after des1, 1d
+    Parallel 2        : des4,   after des1, 1d
+    Parallel 3        : des5,   after des3, 1d
+    Parallel 4        : des6,   after des4, 1d</code></pre>
+<ol start="5" type="1">
+<li>饼图</li>
+</ol>
+<pre><code class="highlight mermaid">pie
+
+  title Key elements in Product X
+  &quot;Calcium&quot; : 42.96
+  &quot;Potassium&quot; : 50.05
+  &quot;Magnesium&quot; : 10.01
+  &quot;Iron&quot; :  5</code></pre>
+<ol start="6" type="1">
+<li>class 类图 <pre><code class="highlight mermaid">classDiagram
+    Animal &lt;|-- Duck
+    Animal &lt;|-- Fish
+    Animal &lt;|-- Zebra
+    Animal : +int age
+    Animal : +String gender
+    Animal: +isMammal()
+    Animal: +mate()
+    class Duck&#123;
+        +String beakColor
+        +swim()
+        +quack()
+    &#125;
+    class Fish&#123;
+        -int sizeInFeet
+        -canEat()
+    &#125;
+    class Zebra&#123;
+        +bool is_wild
+        +run()
+    &#125;</code></pre></li>
+</ol>
+<pre><code class="highlight mermaid"></code></pre>
 <h2 id="第一节-1">第一节</h2>
 <h2 id="第二节-1">第二节</h2>
 <hr />
