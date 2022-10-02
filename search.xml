@@ -1,0 +1,1292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>50L自动电加热开水桶水温水位控制系统设计开发报告</title>
+    <url>/posts/941809798/</url>
+    <content><![CDATA[<h1 id="项目概况">项目概况</h1>
+<p>本项目要为容量为50升的电加热开水桶设计一个单片机控制系统。
+系统功能与技术指标：能实时检测桶内水位高度和水温，自动控制加水和电阻丝加热。
+水位分为低、中、高三档，采用2个开关式水位计检测，对于水位的控制原则为：（1）水位为低水位时，启动加水开关并且停止加热；（2）水位由低水位达到高水位时，启动加热开关；（3）水位达到高水位时，关闭加水开关。对于水温的控制原则为：（1）水温低于80℃时启动加热开关（水位为非低水位）；（2）水温位于80~100℃之间为保温阶段；（3）水温达到100℃时停止加热。</p>
+<h1 id="需求分析">需求分析</h1>
+<h2 id="输入输出的有效信号">输入/输出的有效信号</h2>
+<p>单片机通过输入信号判断系统运行状态，通过输出信号控制系统进行状态改变。其中，输入信号包括热水温度和高低水位检测计的触点开关状态；输出信号包括加水设备的启动与停止信号，电加热设备的启动和停止信号以及保温设备的启动与停止信号。</p>
+<h2 id="水位信号的检测">水位信号的检测</h2>
+<p>本设计拟采用浮球开关进行水位检测，如图2-1所示为不同材料的浮球开关产品图。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/2-1.jpg" width="30%"></p>
+</div>
+<center>
+图2-1 不同材料浮球开关
+</center>
+<p>浮球开关按材料可分为不锈钢类和塑料类，表2-1为各种浮球开关的产品分类说明。</p>
+<center>
+表2-1 浮球开关产品分类说明
+</center>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">系列</th>
+<th style="text-align: center;">组合形式</th>
+<th style="text-align: center;">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">塑胶类</td>
+<td style="text-align: center;">全PP材料</td>
+<td
+style="text-align: center;">无毒辣，食品级，适用于水类、食用油类介质的液体,家用电器等产品，温度：-10~+85℃</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">塑胶类</td>
+<td style="text-align: center;">PP+NBR浮球</td>
+<td
+style="text-align: center;">耐温比全PP材料高，比重低，适用于柴油、机油产品</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">塑胶类</td>
+<td style="text-align: center;">PVDF</td>
+<td
+style="text-align: center;">耐温120℃，耐酸碱腐蚀强，结构精巧耐用</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">不锈钢类</td>
+<td style="text-align: center;">全不锈钢（耐高温）</td>
+<td
+style="text-align: center;">耐温最高达200℃，适用于油类、水类高温环境</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">不锈钢类</td>
+<td style="text-align: center;">不锈钢+PP浮球</td>
+<td
+style="text-align: center;">无毒，食品级，适用于特定杆长的水类介质产品</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">不锈钢类</td>
+<td style="text-align: center;">不锈钢+NBR浮球</td>
+<td
+style="text-align: center;">可耐较高温度，比重低,适用于特定杆长的油类介质产品</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">不锈钢类</td>
+<td style="text-align: center;">不锈钢+防爆型接线盒</td>
+<td
+style="text-align: center;">温度最高160℃，用于大型水池、油箱、压力罐，杆长可做4米，多点液位控制，外接防爆型接线盒</td>
+</tr>
+</tbody>
+</table>
+<p>考虑到本系统为电加热开水桶，水温长时间处于较高状态（&gt;80℃）且水密度较低，故选用PVDF材料的浮球开关作为本系统的水位传感器。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/2-2.png" width="50%"></p>
+</div>
+<center>
+图2-2 浮球开关原理图
+</center>
+<p>如图2-2为浮球开关的原理图，浮球开关由磁簧开关和环装磁铁组成，利用磁铁的吸力使触头闭合或断开。当水位上升时，触头闭合，处于“0”状态；当水位下降时，触头断开，处于“1”状态。在开发过程中，用两个独立按键模拟两个浮子开关，实际水位与两个独立按键开闭状态对应关系如表2-2所示。</p>
+<center>
+表2-2 水位与开关状态对应
+</center>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">水位状态</th>
+<th style="text-align: center;">低水位按键状态</th>
+<th style="text-align: center;">高水位按键状态</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">低水位</td>
+<td style="text-align: center;">OFF(1)</td>
+<td style="text-align: center;">OFF(1)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">中水位</td>
+<td style="text-align: center;">ON(0)</td>
+<td style="text-align: center;">OFF(1)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">高水位</td>
+<td style="text-align: center;">ON(0)</td>
+<td style="text-align: center;">ON(0)</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">故障1</td>
+<td style="text-align: center;">OFF(1)</td>
+<td style="text-align: center;">ON(0)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="温度信号的检测">温度信号的检测</h2>
+<p>本设计的采用的温度传感器为DS18B20数字温度传感器，这款传感器接线方便，封装后可应用于多种场合，如管道式，螺纹式，磁铁吸附式，不锈钢封装式，主要根据应用场合的不同而改变其外观。如图2-3(a)为DS18B20的原始封装外观及其管脚说明，图2-3(b)为本设计中采用的封装样式。其中红线为VCC电源线，黑线为GND地线，黄线为数据线。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/2-3a.png" width="40%"></p>
+</div>
+<center>
+<ol type="a">
+<li>原始封装及管脚
+</center></li>
+</ol>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/2-3b.jpg" width="40%"></p>
+</div>
+<center>
+<ol start="2" type="a">
+<li>防水封装样式
+</center></li>
+</ol>
+<center>
+图2-3 DS18B20封装样式示意图
+</center>
+<p>DS18B20在使用中不需要任何外围元件，全部传感元件及转换电路集成在形如一只三极管的集成电路内。测温范围－55℃～+125℃，最高分辨率为12位，可达0.0625℃。测量结果直接输出数字温度信号，以“一根总线”串行传送给CPU，同时可传送CRC校验码，具有极强的抗干扰纠错能力。</p>
+<h2 id="单片机的选择">单片机的选择</h2>
+<p>本设计选择STC89C516单片机作为MCU，这款单片机是宏晶科技生产的使用MCS-51内核的微控制器，片内集成了62KB的Flash
+ROM和1280字节的RAM，3个16位定时器/计数器和6个中断源，存储空间大，扩展性较强。</p>
+<h2 id="附加功能">附加功能</h2>
+<p>（1）采用8个LED数码管实时显示水温，其中第一个数码管用来显示正负温度，后面七个数码管显示水温的百位、十位、个位以及小数点后四位。
+（2）采用六个信号灯分别用于指示系统运行中的加热、加水、缺水、有水、报警和保温等工作状态。
+（3）通过测量水温的变化来间接检测断丝故障。具体做法是：在对电阻丝通电加热过程中，在设定时间内，检查水温变化情况（升高与否）来判断电阻丝是否发生故障，故障报警采用信号灯实现。</p>
+<h1 id="系统设计">系统设计</h1>
+<h2 id="硬件电路图设计">硬件电路图设计</h2>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-1.PNG" width="70%"></p>
+</div>
+<center>
+图3-1 控制系统电路图
+</center>
+<p>根据需求分析，设计控制系统电路图如图3-1所示，整个系统由12MHz时钟电路、复位电路、P0口上拉电阻电路、动态数码管显示电路、温度检测电路和水位检测电路等组成。各个端口安排如下：
+（1）P0口接数码管段选，P0.0~P0.7分别接A~Dp。
+（2）P2.4、P2.3、P2.2分别接74HC138译码器的3、2、1号管脚，控制数码管进行位选。
+（3）P2.1、P2.0为输入端口，接模拟水位情况的独立按键，分别输入低水位和高水位开关信号，根据表2-2判断水位高低。
+（4）P1.7~P1.2为输出端口，分别控制表示保温、报警、有水、缺水、加水和加热的六个LED信号灯。
+（5）P1.1、P1.0为输出端口，控制模拟加水电磁阀和加热电阻丝工作情况的LED灯。
+电路各组成部分如图3-2~3-6所示。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-2.PNG" width="40%"></p>
+</div>
+<center>
+图3-2 12MHz晶振电路与复位电路
+</center>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-3.PNG" width="50%"></p>
+</div>
+<center>
+图3-3 指示电路
+</center>
+<p>如图3-3为指示电路，由8个共阳极的LED指示灯与保护电阻RN3组成，由P1口进行控制。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-4.PNG" width="35%"></p>
+</div>
+<center>
+图3-4 P0口上拉电路
+</center>
+<p>在51系列的单片机中，P1~P3口有内部上拉电阻，P0口无内部上拉电阻，故需要外界上拉电阻使其电平保持高电平状态。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-5.PNG" width="50%"></p>
+</div>
+<center>
+图3-5 动态数码管显示电路
+</center>
+<p>如图3-5为数码管显示电路，负责显示测量出的温度。最上面是一个8位共阴极数码管。上方芯片为74HC245，它是一种三态输出、八路信号收发器，主要应用于大屏显示，以及其它的消费类电子产品中增加驱动，由于单片机的P口驱动能力较弱，故选择其来增强驱动。下方芯片为74HC138，它是一种三通道输入、八通道输出的译码器。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-6.PNG" width="50%"></p>
+</div>
+<center>
+图3-6 水位模拟电路与温度检测电路
+</center>
+<p>如图3-6为水位模拟电路（非真实水位测量电路，仅用独立按键模拟水位）和DS18B20温度传感器检测温度电路。</p>
+<h2 id="软件模块设计">软件模块设计</h2>
+<p>如图3-7为本设计的软件模块组织结构图，根据设计需求与硬件电路，本设计的软件部分主要分成4个功能模块，分别是：
+（1）初始化模块：分为系统初始化和定时器初始化，负责上电检查各LED与数码管的显示状况、判断开机时系统状态并做出相应的调整、进行第一次温度采集以及进行定时器/计数器中断的初始化。
+（2）数据采集模块：主要负责通过水位检测计判断水位情况，以及通过定时器设定间隔时间，定时对系统进行温度采集并将数据存入相应的变量。
+（3）控制输出模块：分为继电器控制与指示灯显示控制两个方向，根据采集到的水位水温数据，控制加热电阻丝和加水电磁阀的启动关闭，以及相关指示灯的点亮熄灭，并将当前采集到的温度显示到动态数码管上。
+（4）故障判断与显示模块：分为水位检测故障和电阻丝故障两方面，通过监测水位计的状况判断水位检测模块是否发生故障，在系统加热时，比较定时期间内水温的变化，来判断电阻丝是否发生故障。确定故障类型后进行显示与报警。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-7.png" width="40%"></p>
+</div>
+<center>
+图3-7 软件模块组织结构图
+</center>
+<h2 id="程序设计">程序设计</h2>
+<p>根据任务划分与系统功能需求，本设计的程序由11个部分组成，分别为：主程序、系统初始化子程序、高水位处理子程序、中水位处理子程序、低水位处理子程序、温度测量与转换子程序、温度控制子程序、温度显示子程序、故障显示子程序、定时器T0中断服务子程序和定时器T1中断服务子程序。主程序与各个子程序的源代码见附录1、2。</p>
+<p>3.2.1 全局变量与参数设置</p>
+<p>设置加热(uptemp)、高水位(hlevel)、低水位(llevel)、保温(holdtenp)和故障(fault)五个标志位，使用bit命令进行定义，系统编译时随机分配地址。
+12MHz晶振下，51单片机定时器最大定时为65536us，若要达到设计的20s和3min的定时，需要设置控制定时器进行多次循环的变量。
+设计要求连续加热3分钟时需要将当前温度与3分钟之前的温度作比较，且每次进行温度采样时需要取8次平均值，故需要设置数据存储区存储当前温度(nowtemp)，3分钟前温度(threeminsagotemp)，采样次数(samplingnumber)以及8次采样累加温度(tempcache)，其中当前温度与3分钟前温度定义为int型，采样次数定义为unsigned
+char型，8次采样累加温度定义为long型，变量地址由系统编译时随机分配。
+数码管需要显示当前温度以及在故障发生时显示故障类型，需要定义3个不同的数码管表，数码管表各个元素均定义为unsigned
+char型，存储在片内ROM区。</p>
+<p>定义全局变量的源代码见附录1，表3-1为程序变量表。</p>
+<center>
+表3-1 程序变量表
+</center>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">符号</th>
+<th style="text-align: center;">变量类型</th>
+<th style="text-align: center;">数据类型</th>
+<th style="text-align: center;">注释</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">i</td>
+<td style="text-align: center;">全局</td>
+<td style="text-align: center;">unsigned int</td>
+<td style="text-align: center;">用于控制定时器多次定时</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">j</td>
+<td style="text-align: center;">全局</td>
+<td style="text-align: center;">unsigned int</td>
+<td style="text-align: center;">用于控制定时器多次定时</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">nowtemp</td>
+<td style="text-align: center;">全局</td>
+<td style="text-align: center;">int</td>
+<td style="text-align: center;">存储当前温度</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">threeminsagotemp</td>
+<td style="text-align: center;">全局</td>
+<td style="text-align: center;">int</td>
+<td style="text-align: center;">存储3分钟前温度，用以故障判断</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">samplingnumber</td>
+<td style="text-align: center;">全局</td>
+<td style="text-align: center;">unsigned char</td>
+<td style="text-align: center;">存储采样次数</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">tempcache</td>
+<td style="text-align: center;">全局</td>
+<td style="text-align: center;">long</td>
+<td style="text-align: center;">8次测温缓冲区</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">nixietubemoon</td>
+<td style="text-align: center;">数组</td>
+<td style="text-align: center;">unsigned char</td>
+<td style="text-align: center;">共阴数码管表</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">tp</td>
+<td style="text-align: center;">局部</td>
+<td style="text-align: center;">float</td>
+<td
+style="text-align: center;">用在温度显示子函数中，存储DS18B20传输的16位数字量温度</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">templong</td>
+<td style="text-align: center;">局部</td>
+<td style="text-align: center;">long</td>
+<td
+style="text-align: center;">用在温度显示子函数中，存储无小数的温度值</td>
+</tr>
+</tbody>
+</table>
+<p>3.2.2 程序设计</p>
+<ol type="1">
+<li>主程序</li>
+</ol>
+<p>主程序是被CPU首先执行的程序模块，负责调用四个功能模块，如图3-8为主程序的流程图。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-8.png" width="65%"></p>
+</div>
+<center>
+图3-8 主程序流程图
+</center>
+<p>主程序在完成初始化之后，循环检测水位并根据相应子程序进行水位控制、水温控制并在数码管上实时显示当前温度。</p>
+<ol start="2" type="1">
+<li>系统初始化子程序</li>
+</ol>
+<p>系统初始化子程序流程图如图3-9所示。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-9.png" width="25%"></p>
+</div>
+<center>
+图3-9 系统初始化子程序流程图
+</center>
+<p>开机通电之后，设置全部指示灯亮起，全部数码管亮起以查看显示部分是否发生故障，确认显示正常之后，熄灭所有显示和指示装置，将5个标志位清0并进行第一次温度采集。</p>
+<ol start="3" type="1">
+<li>高水位处理子程序</li>
+</ol>
+<p>高水位处理子程序流程图如图3-10所示。当水位检测计检测高水位信号后，进入高水位处理子程序，判断是否是第一次进入此子程序，若是，则说明是由于电磁阀打开水位由中水位涨到了高水位，此时应停止加水避免溢出；若不是，则说明水位一直处于高水位且电磁阀已经关闭，此时应保持系统状态不做任何改变。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-10.png" width="20%"></p>
+</div>
+<center>
+图3-10 高水位处理子程序
+</center>
+<ol start="4" type="1">
+<li>中水位处理子程序</li>
+</ol>
+<p>中水位处理子程序流程图如图3-11所示。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-11.png" width="50%"></p>
+</div>
+<center>
+图3-11 中水位处理子程序流程图
+</center>
+<p>中水位的情况有3种，由低水位进入中水位、由高水位进入中水位或者一直处于中水位。流程图中的两次判断就确定了这三种情况，当llevel=1时，说明是从低水位进入到了中水位，此时应熄灭缺水指示灯，点亮有水、加热指示灯并启动加热；当hlevel=1时，说明是从高水位进入到了中水位，按照设计要求，系统此时不做变化，仅将高水位标志位hlevel清0即可。</p>
+<ol start="5" type="1">
+<li>低水位处理子程序</li>
+</ol>
+<p>低水位处理子程序流程图如图3-12所示。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-12.png" width="25%"></p>
+</div>
+<center>
+图3-12 低水位处理子程序流程图
+</center>
+<p>若水位是由中水位变为低水位，说明热水器内开始缺水，此时应将llevel置1，开始加水并点亮加水、缺水指示灯，停止加热并熄灭加热、有水指示灯。</p>
+<ol start="6" type="1">
+<li>温度控制子程序</li>
+</ol>
+<p>图3-13为温度控制子程序流程图。此程序分支较多，在非低水位情况下，首先要判断当前水温，若水温到达了100℃则停止加热并熄灭加热指示灯，点亮保温指示灯并将保温标志位holdtemp置1；若水温处于80~100℃之间，且保温标志位为1，则不对系统进行调整，否则开始加热；若水温低于80℃且加热标志位不为1，则开始加热并调整相关指示灯。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-13.png" width="50%"></p>
+</div>
+<center>
+图3-13 温度控制子程序流程图
+</center>
+<ol start="7" type="1">
+<li>定时器T0中断服务子程序</li>
+</ol>
+<p>如图3-14为定时器T0中断服务子程序流程图。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-14.png" width="50%"></p>
+</div>
+<center>
+图3-14 定时器T0中断服务子程序流程图
+</center>
+<p>当系统处于连续加热状态时，将当前温度送入变量threeminsagotemp，定时器T0启动计时，大约50s后比较nowtemp与threeminsagotemp的大小，若nowtemp不比threeminsagotemp大则说明加热电阻丝出现故障，进行故障显示并报警。</p>
+<ol start="8" type="1">
+<li>定时器T1中断服务子程序</li>
+</ol>
+<p>如图3-15为定时器T1中断服务子程序流程图。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-15.png" width="20%"></p>
+</div>
+<center>
+图3-15 定时器T1中断服务子程序流程图
+</center>
+<p>如图 3-16 所示为各个子函数的函数调用图。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-15.5.png" width="65%"></p>
+</div>
+<center>
+图3-16 函数调用图
+</center>
+<p>3.2 系统调试</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-16.jpg" width="80%"></p>
+</div>
+<center>
+图3-17 Proteus仿真电路
+</center>
+<p>如图3-17为在Proteus软件中绘制的仿真电路截图，将程序下载到单片机中，几个不同状态下的系统仿真情况如图3-18~3-23所示。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-17.jpg" width="80%"></p>
+</div>
+<center>
+图3-18 低水位不加热
+</center>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-18.jpg" width="80%"></p>
+</div>
+<center>
+图3-19 中水位开机加热
+</center>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-19.jpg" width="80%"></p>
+</div>
+<center>
+图3-20 中水位加热到100℃保温
+</center>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-20.jpg" width="80%"></p>
+</div>
+<center>
+图3-21 中水位加水加热
+</center>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-21.jpg" width="80%"></p>
+</div>
+<center>
+图3-22 水位检测计故障报警
+</center>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201126/3-22.jpg" width="80%"></p>
+</div>
+<center>
+图3-23 加热电阻丝故障报警
+</center>
+<hr />
+<h1 id="附录">附录</h1>
+<p>附录1：<a
+href="https://github.com/zongzi78/Water_temperature_and_water_level/blob/master/main.c">main.c</a></p>
+<p>附录2：<a
+href="https://github.com/zongzi78/Water_temperature_and_water_level/blob/master/temp.c">temp.c</a></p>
+<p>附录3：<a
+href="https://github.com/zongzi78/Water_temperature_and_water_level/blob/master/temp.h">temp.h</a></p>
+]]></content>
+      <tags>
+        <tag>C51</tag>
+        <tag>单片机</tag>
+        <tag>Proteus</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hexo 博客框架 NexT 主题配置数学公式渲染引擎</title>
+    <url>/posts/56201/</url>
+    <content><![CDATA[<h2 id="前言">前言</h2>
+<p>时隔多日终于有时间更新一波了，今天要讲的还是关于 Hexo
+博客框架的相关知识，具体来说是关于更换 Hexo 默认的 markdown
+渲染插件以及在 <a href="https://theme-next.js.org/">NexT
+主题</a>中配置数学公式渲染引擎的相关知识。</p>
+<hr />
+<h2 id="关于-next-中的数学公式渲染引擎">关于 NexT
+中的数学公式渲染引擎</h2>
+<p>NexT 给用户提供了两个数学公式渲染引擎，分别是 <a
+href="https://www.mathjax.org/">MathJax</a> 和 <a
+href="https://katex.org/">KaTeX</a>。</p>
+<p>MathJax 是一个 JavaScript
+数学显示引擎，可以在所有浏览器中工作。它在输入和输出上高度模块化。使用
+MathML、TeX 和 ASCIImath 作为输入，生成 HTML+CSS、SVG 或 MathML
+作为输出。</p>
+<p>与 MathJax 相比，KaTeX 的<a
+href="https://www.intmath.com/cg5/katex-mathjax-comparison.php">渲染速度更快</a>。可以脱离
+JavaScript 而单独存在。但是，目前 <a
+href="https://github.com/KaTeX/KaTeX/wiki/Things-that-KaTeX-does-not-(yet)-support">KaTeX
+支持的功能不如 MathJax 多</a>，下面是 KaTeX 支持的 <a
+href="https://katex.org/docs/supported.html">TeX 函数列表</a>。</p>
+<p>为了启用数学公式渲染引擎，首先需要选择一个渲染引擎并将其设置为"enable"（该设置位于
+NexT 主题文件夹中的 _config.yml 文件中），如下所示。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">themes/next/_config.yml</span><br><span class="line"></span><br><span class="line"># Math Formulas Render Support</span><br><span class="line">math:</span><br><span class="line">  # Default (false) will load mathjax / katex script on demand.</span><br><span class="line">  # That is it only render those page which has `mathjax: true` in front-matter.</span><br><span class="line">  # If you set it to true, it will load mathjax / katex srcipt EVERY PAGE.</span><br><span class="line">  every_page: false</span><br><span class="line"></span><br><span class="line">  mathjax:</span><br><span class="line">    enable: true</span><br><span class="line"></span><br><span class="line">  katex:</span><br><span class="line">    enable: false</span><br><span class="line">    # See: https://github.com/KaTeX/KaTeX/tree/master/contrib/copy-tex</span><br><span class="line">    copy_tex: false</span><br></pre></td></tr></table></figure>
+<p>其中：<br />
+"every_page"选项控制是否在每一页都呈现数学公式。当其设置为“every_page:
+false”时，需要对应的在每篇博客的头文件中进行设置才可决定是否在本页面中进行公式渲染，头文件的设置方法如下：</p>
+<ul>
+<li><p>在本页面中<strong>启用</strong>数学公式显示</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Will Render Math</span><br><span class="line">mathjax: true</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p></li>
+<li><p>在本页面中<strong>不启用</strong>数学公式显示</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: Not Render Math</span><br><span class="line">mathjax: false</span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">title: Not Render Math Either</span><br><span class="line">---</span><br></pre></td></tr></table></figure></p></li>
+</ul>
+<p>注意：需要安装相应的 <strong>markdown
+渲染插件</strong>来完全支持数学公式的显示（仅设置"enable"可能无法正确查看显示的公式）。</p>
+<hr />
+<h2 id="关于-markdown-渲染插件">关于 markdown 渲染插件</h2>
+<h3 id="hexo-renderer-marked">hexo-renderer-marked</h3>
+<p>在使用 <code>hexo init</code>
+命令生成一个新的空白博客框架后，可以在博客根目录的“node_modulesg”文件夹中看到名为“hexo-renderer-marked”的文件夹，这就是
+Hexo 默认的 markdown 渲染插件。这个插件存在一些问题，会将 markdown
+原生的一些语法转换为相应的 html 标签，比如 <code>*xxx*</code> 在
+mrarkdown 中表示 xxx 为斜体字，会被渲染插件转换为
+<code>&lt;em&gt;xxx&lt;/em&gt;</code>，在 LaTeX 中，如果出现连乘时，比如
+<code>2*36+5*89</code> 时，就会被转换为
+<code>2&lt;em&gt;36+5&lt;/em&gt;89</code>，这样就会报错或者乱码。</p>
+<h3 id="hexo-renderer-pandoc">hexo-renderer-pandoc</h3>
+<p>pandoc 另一个用于 Hexo 的 markdown 渲染器插件。它可以将 markdown
+转换成 HTML，也能为 textile、reStructedText 等提供渲染功能。使用 pandoc
+渲染插件，就能很好的解决marked渲染插件中存在的上述问题。</p>
+<p>pandoc 在 GitHub 上的开源界面的网址为
+https://github.com/wzpan/hexo-renderer-pandoc, 里面有详细的如何安装
+pandoc 渲染插件的步骤，这里有三个需要注意的点：</p>
+<ul>
+<li>在安装渲染插件之前，需要先安装 <a
+href="https://pandoc.org/installing.html">pandoc
+软件</a>（version&gt;=2.0）。</li>
+<li>需要安装到个人博客的根目录。</li>
+<li>安装这个之前/之后，需要卸载掉默认的“hexo-renderer-marked”渲染插件</li>
+</ul>
+<p>下面将就如何<strong>启用 mathjax</strong>
+数学公式渲染引擎并进行进行后续设置进行说明。</p>
+<ol type="1">
+<li><p>如 pandoc 的 GitHub 界面的安装说明中所说，先安装 <a
+href="https://pandoc.org/installing.html">pandoc
+软件</a>（version&gt;=2.0），直接在此界面下载 msi
+文件，双击安装即可（默认路径为
+<code>C:\Program Files\Pandoc</code>）。</p></li>
+<li><p>在 <code>themes/next/_config.yml</code> 文件中设置启用
+mathjax。</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">themes/next/_config.yml</span><br><span class="line"></span><br><span class="line">math:</span><br><span class="line">  ...</span><br><span class="line">  mathjax:</span><br><span class="line">    enable: true</span><br></pre></td></tr></table></figure></p></li>
+<li><p>在博客文件的根目录下（themes 的上一级文件夹）卸载默认的
+<code>hexo-renderer-marked</code> markdown 渲染插件，安装
+<code>hexo-renderer-pandoc</code>。</p>
+<p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm un hexo-renderer-marked</span><br><span class="line">npm i hexo-renderer-pandoc</span><br></pre></td></tr></table></figure></p></li>
+</ol>
+<p>这样就设置好了，可以 NexT 官网提供的<a
+href="https://theme-next.js.org/docs/third-party-services/math-equations.html">几个例子</a>实验一下。</p>
+<hr />
+<h2 id="参考">参考</h2>
+<ol type="1">
+<li><p><a
+href="https://theme-next.js.org/docs/third-party-services/math-equations.html">Math
+Equations | NexT</a></p></li>
+<li><p><a
+href="https://github.com/wzpan/hexo-renderer-pandoc">wzpan/hexo-renderer-pandoc:
+A pandoc-markdown-flavor renderer for hexo.</a></p></li>
+<li><p><a
+href="https://www.latexlive.com/">在线LaTeX公式编辑器-妈叔出品</a></p></li>
+<li><p><a
+href="https://www.jianshu.com/p/7ab21c7f0674">在Hexo中渲染MathJax数学公式
+- 简书</a></p></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>NexT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu 与 Win10 双系统下更改默认启动项+更换国内源</title>
+    <url>/posts/38677/</url>
+    <content><![CDATA[<h2 id="前言">前言</h2>
+<p>前一段时间在一台装有 Windows 10 系统的旧电脑上又装了 Ubuntu LTS 16.04
+系统，一般这种双系统的情况会自动配置 grub
+软件作为多操作系统启动程序，这里就讲一下如何设置默认启动哪一个系统和
+Ubuntu 系统换源的一些事。</p>
+<h2 id="更换默认启动项">更换默认启动项</h2>
+<p>GNU GRUB（GRand Unified Bootloader，GRUB）是一个来自 GNU
+项目的多操作系统启动程序。GRUB
+是多启动规范的实现，它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。GRUB
+可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。</p>
+<p>一般默认启动的是 Ubuntu 系统，这里以设置默认启动 Windows
+系统为例，以下设置方法需要在 Ubuntu 中进行。</p>
+<p>第一步：在电脑开机的时候，会进入到系统手动选择界面，观察有 Windows
+字样的那个选项排在第几位（注意序号是从 0 开始计数的）。</p>
+<p>第二步：打开终端，在终端打开 <code>/etc/default/grub</code>
+文件。这里需要注意，grub
+文件需要管理员权限才能修改，因此需要打开终端，在终端里输入
+<code>sudo gedit /etc/default/grub</code>，这样就能以管理员身份打开配置文件了。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201122/1.PNG" width="50%"></p>
+</div>
+<p>如上图所示为打开 grub 后的样子，找到 <strong>GRUB_DEFAULT=0</strong>
+这一行（上图中我已经将其改成了
+GRUB_DEFAULT=2，因为我的电脑启动时，Windows 系统排在第三位），将其后面的
+0 改成第一步中 Windows 系统所在对应的序号。</p>
+<p>第三步：修改完成后，在终端中输入 <code>sudo update-grub</code>
+进行刷新，重启电脑就能发现默认启动项已经改成 Windows 了。</p>
+<h2 id="ubuntu-更换国内源">Ubuntu 更换国内源</h2>
+<p>Ubuntu
+的官方服务器在国外，国内访问的时候速度很慢，更新一些软件往往需要花费大量的时间，将其下载源更换为国内镜像源将极大的提升下载速度，国内的许多公司、高校等机构都会提供此服务。</p>
+<p>第一步：在终端输入 <code>sudo gedit /etc/apt/sources.list</code>
+对存储源地址的文件进行编辑。</p>
+<p>第二步：删除原先的内容，复制国内镜像源的地址进去，这里提供几个国内提供镜像源服务的网址。</p>
+<p>阿里源：<a
+href="https://developer.aliyun.com/mirror/ubuntu?spm=a2c6h.13651102.0.0.3e221b11vFh8D2">ubuntu镜像-ubuntu下载地址-ubuntu安装教程-阿里巴巴开源镜像站</a></p>
+<p>清华源：<a
+href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/">ubuntu |
+镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source
+Mirror</a></p>
+<p>注意一定要确认好自己安装的系统的版本，选择对应版本号的源地址。</p>
+<p>第三步：在终端内输入 <code>sudo apt update</code>
+来更新源地址，再输入 <code>sudo apt upgrade</code>
+对安装的软件包进行更新，这时就能发现速度已经得到了很大提升。</p>
+]]></content>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>双系统</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows 下，安装 Hexo 博客框架并部署到 GitHub（2）</title>
+    <url>/posts/40079/</url>
+    <content><![CDATA[<style>
+h1 {
+    border-bottom: none
+}
+</style>
+<style>
+h2 {
+    border-bottom: none
+}
+</style>
+<h2 id="前言">前言</h2>
+<p>在上一篇博客中，针对 Hexo 的前置软件的安装与配置，Hexo
+框架的安装与初始化做了介绍，在本篇博客中，将针对如何利用 GitHub Page
+将本地博客部署到云端做详细介绍。</p>
+<span id="more"></span>
+<hr />
+<h2 id="github-page">GitHub Page</h2>
+<p>GitHub 官方对 GitHub Page 有说明文档，其中文版的链接为 <a
+href="https://docs.github.com/cn/github/working-with-github-pages">Github
+Page docs</a>，此界面详细描述了关于 GitHub Page
+的相关知识。在往下阅读之前，请务必仔细阅读上述页面，同时，在 GitHub
+的云端部署 Hexo
+遇到的大部分问题都可以在此找到解决方案。本文将仅作操作性说明而不涉及
+GitHub Page 的技术或理论层面的知识。</p>
+<h3 id="github-page-站点的类型">GitHub Page 站点的类型</h3>
+<p>GitHub Page
+站点分为三种类型，分别是项目站点、用户站点和组织站点。其中，用户站点和组织站点与特定账户链接，项目站点与特定项目链接。</p>
+<p>要发布用户站点，必须创建名为 <code>&lt;user&gt;.github.io</code>
+的用户帐户所拥有的仓库，其中 &lt;user&gt; 为你的个人账户
+id（注意不是昵称，是 id），比如这是我的<a
+href="https://github.com/zongzi78">个人主页</a>，点进这个链接就可以发现我的
+id 是“zongzi78”，而不是“Tiddler”；要发布组织站点，必须创建名为
+<code>&lt;organization&gt;.github.io</code>
+的组织所拥有的仓库，与上面类似，&lt;organization&gt; 表示组织的
+id，比如这是腾讯的<a href="https://github.com/Tencent">组织主页</a>
+，则其 id 为“Tencent”。除非使用自定义域，否则用户和组织站点位于
+<code>http(s)://&lt;user&gt;.github.io</code> 或
+<code>http(s)://&lt;organization&gt;.github.io</code>。</p>
+<p>项目站点的源文件与其项目存储在同一个仓库中。
+除非使用自定义域，否则项目站点位于
+<code>http(s)://&lt;user&gt;.github.io/&lt;repository&gt;</code> 或
+<code>http(s)://&lt;organization&gt;.github.io/&lt;repository&gt;</code>。</p>
+<p>由于用户/组织站点与账户链接，因此每个账户只能拥有一个用户/组织站点，而项目站点与项目链接，所以一个账户可以拥有多个项目站点。</p>
+<h3 id="创建-github-page-站点仓库">创建 GitHub Page 站点仓库</h3>
+<p>必须先在 GitHub 上有站点的仓库，然后才可创建站点。</p>
+<p>先转到个人仓库页面
+<code>https://github.com/&lt;user&gt;?tab=repositories</code>，点击右上角的“New”按钮，进入新建仓库的界面。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200919/1.PNG" width="50%"></p>
+</div>
+<p>在 Repository name 中填入你自己的用户名，仓库的 Description
+可以不用写，仓库的可见性应选择“public”，其余保持默认，上述步骤完成后，点击“Create
+repository”完成新仓库的建立。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200919/2.PNG" width="50%"></p>
+</div>
+<hr />
+<h2 id="本地-blog-文件夹中的操作">本地 blog 文件夹中的操作</h2>
+<h3 id="在-blog-文件夹中安装-git-插件">在 blog 文件夹中安装 git
+插件</h3>
+<p>进入 cmd 中，将当前路径设置为 blog 所在文件夹，输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure>
+<p>等待安装完成。</p>
+<h3 id="设置-_config.yml">设置 _config.yml</h3>
+<p>在上一篇博文的“建立空白博客框架”一节中提到过，初始化之后的 Hexo
+框架自动生成了一堆文件，这些文件各自的作用在 Hexo 官网的文档界面的<a
+href="https://hexo.io/zh-cn/docs/setup">建站</a>部分都有解释，在本节中，我们就要对“_config.yml”这一文件进行设置。先来看看官方对这一文件的定义</p>
+<blockquote>
+<p>网站的配置信息，您可以在此配置大部分的参数。</p>
+</blockquote>
+<p>找到 Hexo 官网的文档界面的<a
+href="https://hexo.io/zh-cn/docs/configuration">配置</a>部分，可以看到“_config.yml”文件中各个部分分别代表的含义，在这里我们主要修改的是
+deploy 部分，即部署部分的设置。</p>
+<p>刚完成初始化的“_config.yml”文件中，关于 deploy 部分应该是这样的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: &#x27;&#x27;</span><br></pre></td></tr></table></figure>
+<p>将其修改为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: &#x27;git&#x27;</span><br><span class="line">  repo: git@github.com:zongzi78/zongzi78.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+<p>其中最主要的就是 <code>repo</code> 部分，repo
+后面跟着的一串网址是前面我们新建的站点仓库的 SSH
+地址，该地址位置如下</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200919/3.PNG" width="50%"></p>
+</div>
+<hr />
+<h2 id="云端操作">云端操作</h2>
+<h3 id="尝试上传本地文件到-github">尝试上传本地文件到 GitHub</h3>
+<p>在 Hexo 官方网站提供的说明文档的<a
+href="https://hexo.io/zh-cn/docs/commands">命令</a>部分，有如何使用 Hexo
+的详细说明，最常用的几个命令如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo init [folder];</span><br><span class="line">//新建（初始化）一个网站，如果不指明folder，则默认在当前文件夹中建立</span><br><span class="line"></span><br><span class="line">hexo new;</span><br><span class="line">//创建一个新博客，可简写为hexo n</span><br><span class="line"></span><br><span class="line">hexo clean;</span><br><span class="line">//清除缓存文件 (db.json) 和已生成的静态文件 (public)。在某些情况（尤其是更换主题后），如果发现对站点的更改无论如何也不生效，可能需要运行该命令。</span><br><span class="line"></span><br><span class="line">hexo generate;</span><br><span class="line">//生成静态文件（等待上传的文件），可简写为hexo g</span><br><span class="line"></span><br><span class="line">hexo server;</span><br><span class="line">//启动（本地）服务器，默认情况下，访问网址为：http://localhost:4000/。通过此命令，在浏览器中输入上述网址，可以在本地查看你的博客上传到云端之后的样子，可简写为hexo s。</span><br><span class="line"></span><br><span class="line">hexo deploy;</span><br><span class="line">//部署网站，即将本地的静态文件上传到github上，任何人可以通过https://&lt;user&gt;.github.io访问你的个人博客。</span><br></pre></td></tr></table></figure>
+<p>一般写完一个博客之后，先运行 <code>hexo clean</code> 清除缓存，再运行
+<code>hexo g</code> 生成本地静态文件，再运行 <code>hexo s</code>
+看看自己的博客上传到云端是什么样子的，如果没有问题，最后运行
+<code>hexo d</code> 将本地的静态文件上传到云端。</p>
+<p>现在我们尝试一下将前面弄好的博客框架上传一下，依次输入
+<code>hexo clean</code>，<code>hexo g</code>，<code>hexo s</code>
+之后，在浏览器中访问 http://localhost:4000，效果如下图</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200919/4.PNG" width="50%"></p>
+</div>
+<p>可以看到，我们已经成功搭建好了自己的个人博客，下一步就是上传云端了。</p>
+<p>输入 <code>hexo d</code>，发现有如下错误提示</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200919/5.PNG" width="50%"></p>
+</div>
+<p>这些提示是什么意思呢？大家想一想这其中缺少了那一步重要步骤，对了，从始至终都没要过我们的账号密码！试想一下，如果所有人都可以不用账密就能更改你的
+GitHub 仓库内容，那是不是很可怕，这里就要引入另一个概念————SSH
+keys。</p>
+<h3 id="配置-ssh-keys">配置 SSH keys</h3>
+<p>还记得前面我们修改 _config.yml
+文件时添加的“repo”吗？它后面跟着的一串网址就是咱们前面建立的站点仓库的
+SSH 地址。</p>
+<p>所谓 SSH，是“Secure
+Shell”的英文简写，中文名是“安全外壳协议”，它是建立在应用层基础上的<strong>安全协议</strong>，主要用于远程登录会话，如果一个用户从本地计算机，使用
+SSH
+协议登录另一台远程计算机，我们就可以认为，这种登录是安全的，即使被中途截获，密码也不会泄露。这里演示
+GitHub 如何建立自己的 SSH 公钥，不会对 SSH
+的原理做更多说明，想要了解更多，可以去阮一峰老师的<a
+href="http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html">个人博客</a>中查看相关知识。</p>
+<p>首先查看自己电脑中有无 SSH key，先进入 Git Bash 界面，输入
+<code>cd .ssh</code>，进入到 ssh 文件夹，再输入 <code>ls</code></p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200919/6.PNG" width="35%">
+<img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200919/7.PNG" width="35%"></p>
+</div>
+<p>如左图所示则表明电脑中无 SSH key，如右图所示则表明有 SSH
+key，就可以跳过下一步生成 SSH key 的步骤了。</p>
+<p>进入 Git Bash 界面，输入</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;yourEmail@example.com&quot;</span><br></pre></td></tr></table></figure>
+<p>其中的参数含义如下：</p>
+<p>-t 指定密钥类型，默认是 rsa ，可以省略。</p>
+<p>-C 设置注释文字，比如邮箱。</p>
+<p>后面的 yourEmail@example.com 只是作为你这个 ssh key
+的注释或者名字，不一定非要填写你的真实邮箱，之后所有的选项均直接点击回车默认，最后看到有一个方形图案输出在命令行中，说明生成
+ssh key 成功。</p>
+<p>进入 ~/.ssh
+文件夹，用记事本打开“id_rsa.pub”文件，复制里面的所有内容。</p>
+<p>在浏览器中登录你的 GitHub 账号，进入 setting 后进入 SSH and GPG
+keys</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200919/9.PNG" width="50%"></p>
+</div>
+<p>如图，点击 New SSH key，title
+任意填写，下面方框中填入前面我们在“id_rsa.pub”这一文件中复制的内容，现在再次尝试使用
+<code>hexo d</code> 命令上传本地文件至 GitHub 仓库就能成功了。</p>
+<p>进入站点仓库页面，就可以看到本地文件已经成功上传了</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200919/10.PNG" width="50%"></p>
+</div>
+<p>访问网址
+<code>https://&lt;user&gt;.github.io</code>，可以看到界面与我们之前访问
+<code>http://localhost:4000</code> 看到的界面是一模一样的，至此，Windows
+下安装 Hexo 博客框架并将其部署到 GitHub page 云端的教程结束。</p>
+<h2 id="参考">参考</h2>
+<ol type="1">
+<li><p><a
+href="https://www.bilibili.com/video/BV1Yb411a7ty">手把手教你从0开始搭建自己的个人博客
+|无坑版视频教程| hexo_哔哩哔哩 (゜-゜)つロ 干杯~-bilibili</a></p></li>
+<li><p><a
+href="https://caiyantao.gitee.io/">日复一日，来日方长_kajskj753的个人blog</a></p></li>
+<li><p><a
+href="https://www.runoob.com/markdown/md-tutorial.html">Markdown 教程 |
+菜鸟教程</a></p></li>
+<li><p><a
+href="https://www.cnblogs.com/fsong/p/11425669.html">使用Github当作自己个人博客的图床</a></p></li>
+<li><p><a
+href="http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html">SSH原理与运用（一）：远程登录
+- 阮一峰的网络日志</a></p></li>
+</ol>
+<h2 id="总结">总结</h2>
+<p>终于完成了本教程，正如我在前一篇博客的开头所言，自己搭建博客的过程，我在
+8 月 30
+号就完成了，但由于开学的原因，一直没有时间把自己的心得写成文字。这是我的第一篇正经教程性文章，也是我的第一篇博客文章。本来以为会很简单的一上午或一天就能完成的，没想到竟然断断续续写了一周的时间，拖延症真是要不得。其实本篇文章并没有多少我自己的东西，大部分是把羊哥视频里的东西用
+Windows
+复现了一下然后转成了文字，尽管如此，看着自己写的东西能发布在网上还是有着很大的成就感的。</p>
+<p>我对程序设计也没什么概念，本科学过的一点 c++
+现在也差不多全还给老师了。本来计划着今年好好学一下 c++
+的。可今年学校课程要求用开发板开发一个温控烧水系统，看了看，好像对c语言要求比较高，就暂停了
+c++ 的学习计划，转去学c语言了，此外还得自学 51
+单片机，唉，想想就头大。现在后悔暑假没有好好的学习了。。。后边我应该会经常在博客里分享一些我学习c语言和
+51 中的心得体会与有趣的事情。本来我还计划写一下 Ubuntu 系统中部署 Hexo
+并且上传到 GitHub 的教程的，但想到能用 Ubuntu
+系统的人应该也不需要我写的这种水货教程，而且写这个的难度已经远远超过了我原先设想的难度，所以可能就暂时不会写这一部分了。此外，还想写一下如何让
+SSR 和 v2ray
+在终端中也生效的教程的，这个早晚会写的，看我的时间安排吧。</p>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows 终端（cmd）内走 v2ray 代理</title>
+    <url>/posts/884982221/</url>
+    <content><![CDATA[<h2 id="前言">前言</h2>
+<p>这个是我很久之前就准备写的一篇 blog
+了，拖了很久到现在才动笔。起因是这样的，有次在 Linux
+系统需要下载一个具有第三方源的软件，这个源在国内没有镜像，于是我在
+GitHub 上找到了 <a href="https://github.com/Qv2ray/Qv2ray">Qv2ray</a>
+这个项目，它在 Linux 端也有封装好的 AppImage
+文件，双击即可使用，比较适合我这种 Linux
+基础不深的偏小白用户，本以为用了 v2ray
+之后我下载的速度能直接起飞，但用了 v2ray
+之后发现速度并没有显著变化，在网上找了好久资料后发现 v2ray
+的生效范围不包括终端内，想让其在终端内生效，需要配置代理，下面就对这部分内容进行说明。</p>
+<h2 id="配置代理">配置代理</h2>
+<p>其实配置方法很简单</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">配置</span><br><span class="line">set http_proxy=http://127.0.0.1:x</span><br><span class="line">set https_proxy=http://127.0.0.1:x</span><br><span class="line"></span><br><span class="line">恢复</span><br><span class="line">set http_proxy=</span><br><span class="line">set https_proxy=</span><br></pre></td></tr></table></figure>
+<p>使用上面的两行命令就能完成配置，但应注意
+<code>http://127.0.0.1:x</code> 中的 x 每个人可能是不一样的，这个可以在
+v2ray 客户端主界面的最下面查到。</p>
+<p>配置完成后，可以用 curl 命令查看终端是否走了代理，不要用 ping
+命令，因为 ping 是基于 ICMP 协议的，这个协议从属于 IP
+协议，属于网络层中的协议，而 v2ray 不能作用在网络层上。</p>
+<p>在终端中输入
+<code>curl www.google.com</code>，若很快出现一大堆乱码一样的符号就说明代理配置成功了。此外，还可以在终端中输入
+<code>curl ip.fm</code>，这个命令会返回你当前的 ip
+地址跟对应的归属地。</p>
+<p>Linux 系统下只需要将这两行命令中的 <code>set</code> 改成
+<code>export</code> 即可。</p>
+<h2 id="参考">参考</h2>
+<ol type="1">
+<li><p><a
+href="https://github.com/shadowsocks/shadowsocks-windows/issues/1489">windows终端命令行下如何使用代理？
+· Issue #1489 · shadowsocks/shadowsocks-windows</a></p></li>
+<li><p><a
+href="https://gist.github.com/dreamlu/cf7cbc0b8329ac145fa44342d6a1c01d">windows终端翻墙，简易方式</a></p></li>
+<li><p><a
+href="https://www.cnblogs.com/91donkey/p/11640079.html">Linux系统下终端proxy代理配置
+- 龙龙小宝 - 博客园</a></p></li>
+<li><p><a
+href="https://zcdll.github.io/2018/01/27/proxy-on-windows-terminal/">给
+Windows 的终端配置代理 | zcdll's Blog</a></p></li>
+<li><p><a href="https://www.cnblogs.com/liujizhou/p/11680329.html">HTTP
+TCP UDP ICMP IP ARP 协议详解（10.15 第二十一天） - 枕桃花吹长笛 -
+博客园</a></p></li>
+<li><p><a
+href="http://www.ruanyifeng.com/blog/2019/09/curl-reference.html">curl
+的用法指南 - 阮一峰的网络日志</a></p></li>
+<li><p><a href="https://zcdll.github.io/2020/08/04/hack-ips/">深入浅出
+IP | zcdll's Blog</a></p></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>v2ray</tag>
+        <tag>cmd</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows 下，安装 Hexo 博客框架并部署到 GitHub（1）</title>
+    <url>/posts/55439/</url>
+    <content><![CDATA[<style>
+h1 {
+    border-bottom: none
+}
+</style>
+<style>
+h2 {
+    border-bottom: none
+}
+</style>
+<h2 id="前言">前言</h2>
+<p>8 月 30 号就搞定了 blog 的本地安装与 GitHub
+部署，拖了半个多月才想起要把部署过程写出来，在写之前，首先要感谢B站的 up
+主 <a
+href="https://space.bilibili.com/384068749">CodeSheep</a>，是在他的系列
+blog 搭建视频的帮助下才有的这篇文章。 由于安装 Node.js 和 Git，本地安装
+Hexo 以及部署到云端的整个流程较长，预计分为两次来写，本篇 blog 主要写
+Node.js 和 Git 的安装。</p>
+<span id="more"></span>
+<hr />
+<h2 id="环境配置">环境配置</h2>
+<h3 id="node.js-安装">Node.js 安装</h3>
+<p>首先进入其<a href="https://nodejs.org">官方网站</a></p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/0.PNG" width="50%"></p>
+</div>
+<p>可以看到下方的下载按钮，左侧为 LTS（Long Term
+Support）版本，右侧为最新版本，这里下载 LTS
+版本即可。下载完成后可以得到一个名为“node-v12.8.4-x64.msi”的安装包文件。</p>
+<p>由于其服务器在国外，下载速度比较慢，这里提供一个阿里淘宝的<a
+href="https://npm.taobao.org/mirrors/node/v12.18.4/">镜像下载地址</a>，里面下载的文件与官网完全一样，请大家放心下载。</p>
+<p>下载完成后，双击安装到任意位置，一路默认即可。这里不推荐安装到C盘，可以参照图中我的安装路径。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/1.PNG" width="50%"></p>
+</div>
+<p>安装完毕后，使用“win+r”调出 Windows 的运行界面，输入 <code>cmd</code>
+点击回车，进入命令行界面，输入
+<code>node -v</code>，若出现“v12.8.4”字样，说明安装成功，接着输入
+<code>npm -v</code>，若出现“6.14.6”<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a>，说明 npm 安装成功。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/2.PNG" width="50%"></p>
+</div>
+<p>npm 一般是跟 nodejs 主程序一起自动安装的，至于 npm
+的含义与作用将在后文解释，这样就可以进行下一步操作了。</p>
+<hr />
+<h3 id="git-安装">Git 安装</h3>
+<p>首先进入 Git 的<a href="https://git-scm.com">官方网站</a>，接着点击
+download 按钮，进入<a
+href="https://git-scm.com/downloads">下载界面</a>。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/3.PNG" width="50%"></p>
+</div>
+<p>按照自己使用的系统下载安装包，这里选择 Windows 系统，点击 Windows
+图标之后，一般会自动开始下载名为“Git-2.28.0-64-bit.exe”的文件，这是 64
+位系统的安装包。如果你的系统是 32
+位，你可以取消默认的下载进程，在如下图所示的列表里下载 32
+位的安装包。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/4.PNG" width="50%"></p>
+</div>
+<p>上面两个链接是安装包，下面两个链接是便携版，这里推荐下载上面的版本。与
+nodejs 一样，git
+官网服务器在国外，下载速度比较慢，这里提供一个阿里淘宝的<a
+href="https://npm.taobao.org/mirrors/git-for-windows/v2.28.0.windows.1/">镜像下载地址</a>，里面下载的文件与官网完全一样，请大家放心下载。</p>
+<p>下载完成后，双击进行安装，这里还是不建议安装到C盘，安装位置可以参照我的</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/5.PNG" width="50%"></p>
+</div>
+<p>在这一步选择自己喜欢的文本编辑器，我选择的是 VS Code</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/6.PNG" width="50%"></p>
+</div>
+<p>后面没有需要注意的地方了，一路默认即可。安装完成后，桌面上将出现“Git
+Bash”快捷方式，双击就能进入 Git 的命令行界面了，由于在 Git
+的安装过程中环境变量都已自动配置好，所以也可以直接进入 cmd 界面进行 Git
+的一些操作。进入 cmd 界面，输入 <code>git --version</code>，若出现“git
+version 2.28.0.windows.1”字样，说明安装成功。</p>
+<hr />
+<h3 id="npm-换源">npm 换源</h3>
+<h4 id="npm-介绍">npm 介绍</h4>
+<p>所谓 npm，通俗理解为包管理器，这里的包就是基于 nodejs
+而开发的的一个个插件/模块，而 npm
+就是对这些包进行安装，卸载等操作的管理器。根据菜鸟教程上面的<a
+href="https://www.runoob.com/nodejs/nodejs-npm.html">介绍</a>，npm
+的主要功能有：</p>
+<ul>
+<li>允许用户从NPM服务器下载别人编写的第三方包到本地使用。</li>
+<li>允许用户从NPM服务器下载并安装别人编写的命令行程序到本地使用。</li>
+<li>允许用户将自己编写的包或命令行程序上传到NPM服务器供别人使用。</li>
+</ul>
+<p>现在的 nodejs 已经集成了 npm，所以在安装 nodejs 的时候 npm
+也会随之安装。</p>
+<h4 id="npm更换淘宝源">npm更换淘宝源</h4>
+<p>由于 nodejs 服务器在国外，许多包的源地址也在国外，国内使用 npm
+的时候速度会非常的慢，所以需要将 npm 包的源地址更换为国内的镜像地址。<a
+href="https://developer.aliyun.com/mirror/NPM?from=tnpm">这个</a>是阿里的淘宝
+npm 镜像网站。按照官方文档，有两种换源方式，一种是安装 cnpm 代替
+npm，另一种是直接更换源地址。 首先是安装 cnpm 的方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>通过上述命令，即可安装 cnpm 包管理器以代替 npm，以后任何使用 npm
+命令的场合，都改为使用 cnpm。</p>
+<p>第二个是直接换源的方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm config set registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>配置后进入 cmd 界面，通过下述命令来验证是否成功</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm config get registry</span><br><span class="line">or</span><br><span class="line">npm info express</span><br></pre></td></tr></table></figure>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/7.PNG" width="50%"></p>
+</div>
+<p>如图所示则表明换源成功。</p>
+<hr />
+<h2 id="本地安装-hexo">本地安装 Hexo</h2>
+<h3 id="安装-hexo">安装 Hexo</h3>
+<p>首先找到 Hexo 的<a
+href="https://hexo.io">官方网站</a>，进入“文档”界面可以看到 Hexo
+的使用说明，在安装前提一栏可以看到安装hexo的前置条件我们在环境配置一节中已经全部完成了，接下来即可使用
+npm/cnpm 进行 Hexo 框架的本地安装。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/8.PNG" width="50%"></p>
+</div>
+<p>出现如图所示的警告属于 Windows 系统下安装 Hexo 的正常现象。</p>
+<p>安装完成后，进入 cmd 界面输入 <code>hexo -v</code> 查看是否安装成功。
+如果如下图所示，则说明安装成功。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/9.PNG" width="50%"></p>
+</div>
+<hr />
+<h3 id="建立空白博客框架">建立空白博客框架</h3>
+<p>首先在计算机任意位置建立一个名为 blog 的空文件夹，这里我们选择
+~/blog<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a></p>
+<p>进入 cmd 命令行界面，左侧的地址为当前的路径地址，输入
+<code>cd blog</code> 将其变更到上一步建立的 blog 文件夹下。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/10.PNG" width="50%"></p>
+</div>
+<p>可以看到现在左侧的地址由 <code>C:\Users\xxx\</code> 变成了
+<code>C:\Users\xxx\blog\</code>，这一步是很重要的，它确保了跟你个人博客相关的文件，包括配置文件、博客原文、皮肤文件等等全部位于“C:”这一地址下，便于你以后管理。在
+cmd 终端中输入 <code>hexo init</code>
+安装博客框架，安装完成后，打开“C:”，可以看到里面已经多了很多文件，这些文件就是你的个人博客框架，关于这些文件各自的作用与含义，Hexo
+官网的文档界面的<a
+href="https://hexo.io/zh-cn/docs/setup">建站</a>部分解释的很清楚，可以自行查看。</p>
+<hr />
+<h3 id="创建新的博文">创建新的博文</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo n &quot;blog&#x27;s name&quot;</span><br></pre></td></tr></table></figure>
+<p>上述命令就是建立一个新的博文界面的命令，在 cmd
+界面运行上述命令后，在“C:_posts”中会出现一个名为“blog's
+name.md”的markdown文件，这个就是一篇博文的原始文件，所谓的“写博客”也是在这个
+md 文件中进行的，即使用相关软件对 md 文件进行编辑。</p>
+<p>这里推荐一个 Windows 系统下的 md 文件编辑器 <a
+href="https://www.typora.io">Typora</a>，直接在其官网下载 exe
+文件安装即可。当然也可以使用 VS Code 搭配 MPE 插件进行 md
+文档的书写。</p>
+<hr />
+<h2 id="总结">总结</h2>
+<p>到这里，在 Windows 系统下安装部署 Hexo
+博客框架的第一部分就结束了，在本篇博文中，主要介绍了 Hexo
+框架的前置两个软件 Node.js 和 Git 的安装与配置，Hexo
+框架的安装与初始化以及如何在本地建立一篇新博文并对其进行编辑的方法。在第二部分的文章中，将对如何利用
+GitHub page 建立自己的云端博客以及如何将本地的 Hexo 框架部署到 GitHub
+做详细说明。</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>这里的 6.14.6 是我自己电脑上安装的 npm
+的版本，不同的版本显示的数字不一样，不必追求一模一样。<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>符号“~”表示个人文件夹的地址，在 Windows
+系统中，一般为“C:”，xxx为你的用户名。这里之所以选择在这里建立 blog
+文件夹的原因，是因为一般 cmd 界面默认就是此地址，便于以后操作。<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+]]></content>
+  </entry>
+  <entry>
+    <title>【转载】快速转换 FLV 视频为 MP4 格式</title>
+    <url>/posts/38106/</url>
+    <content><![CDATA[<p>本文转载自： <a
+href="https://www.zhihu.com/question/65224766/answer/252226264">怎样快速的转换FLV视频为MP4格式？
+- 知乎</a></p>
+<p>无需安装来路不明的软件，直接使用几乎所有格式转换的软件都需要用到的
+FFmpeg 就可以实现题主的目的。</p>
+<p>前往 FFmpeg 官网下载软件：<a
+href="https://www.ffmpeg.org/download.html">Download FFmpeg</a></p>
+<p>找到对应的平台，这里我使用的是 Windows，就点击 Windows
+Build，然后出现的页面里找到自己的 Windows 版本，如我使用的是
+64-bit，选择 Static 的封装就好。</p>
+<p>解压下载回来的压缩包，在解压后的文件夹中找到 bin
+文件夹，把里面的三个后缀是 exe 的文件拷贝到
+<code>C:\Windows\System32\</code></p>
+<p>可能会弹出窗口要求权限，点击允许即可。</p>
+<p>然后在 Windows 开始菜单中点击 运行，</p>
+<p>输入 CMD</p>
+<p>进入你的 FLV 文件所在的文件夹</p>
+<p>如果是单个文件，就用如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ffmpeg -i &quot;input.flv&quot; -c copy &quot;output.mp4&quot;</span><br></pre></td></tr></table></figure>
+<p>将这里的 input 改为你的文件名，output 改为你想得到的文件名即可。</p>
+<p>如果是整个文件夹中的所有 flv 文件需要批量转成
+mp4，那么使用以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for %i in (*.flv) do ffmpeg -i &quot;%i&quot; -c copy &quot;%~ni.mp4&quot;</span><br></pre></td></tr></table></figure>
+<p>注：新生成的 mp4 文件会沿用原文件名。</p>
+<p>限于时间，就不上图了，祝使用愉快。</p>
+<p>补充一：</p>
+<p>对于某些 flv 文件，转换成 mp4
+的时候会报错，这时候可以用以下的代码来尝试：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ffmpeg -i filename.flv -c:v libx264 -crf 19 -strict experimental filename.mp4</span><br></pre></td></tr></table></figure>
+<p>将这里的 filrename 改为你的文件名即可</p>
+<p>补充二：</p>
+<p>flv/mp4 文件的合并</p>
+<p>有时候通过某些下载工具得到的 flv/mp4
+文件是多段的，比如B站视频上下载一集 40 分钟左右的纪录片实际上是 8
+个小片段，这时候可以新建一个 txt 文本文件，把你需要合并的 flv/mp4 和这个
+txt 放在同一个文件夹里面，然后把需要合并的 flv/mp4
+文件的名字按照顺序写在 txt 文件中并保存，格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[00].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[01].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[02].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[03].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[04].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[05].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[06].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[07].mp4&#x27;</span><br></pre></td></tr></table></figure>
+<p>注：本例中将该 txt 文件命名为 file.txt</p>
+<p>在 cmd 里面进入该 txt 和视频文件所在的文件夹，然后输入以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ffmpeg -f concat -safe 0 -i files.txt -c copy output.mp4</span><br></pre></td></tr></table></figure>
+<p>即可得到一个完整的 mp4 文件</p>
+<p>如需合并 flv，方法同上</p>
+<hr />
+<p>PS.</p>
+<p>最近在使用油猴脚本 <a
+href="https://github.com/the1812/Bilibili-Evolved">Bilibili Evolved</a>
+下载B站视频的时候，发现只有 FLV 和 DASH 两种下载模式。其中 DASH
+是下载一个无声的 mp4 视频文件和一个 m4a 音频文件，而 FLV 模式是下载一个
+flv 视频文件。百度了一下关于 flv
+文件的说明，下面是百度百科上面的介绍：</p>
+<blockquote>
+<p>FLV 是FLASH VIDEO的简称，FLV流媒体格式是随着Flash
+MX的推出发展而来的视频格式。由于它形成的文件极小、加载速度极快，使得网络观看视频文件成为可能，它的出现有效地解决了视频文件导入Flash后，使导出的SWF文件体积庞大，不能在网络上很好的使用等问题。</p>
+</blockquote>
+<p>猜测这两种下载模式应该是B站两种不同的播放器（flash 播放器，html5
+播放器）下对应的视频文件。</p>
+<p>但 flv 文件存在一个问题，就是并不是每个播放器都支持解码，我自己用的
+potplayer 可以很流畅的播放，但用 Windows media player 和 win10
+自带的电影和电视都不能播放，于是才有了今天的问题。本来想着下载一个格式工厂，但在搜索界面推送了今天转载的这篇文章，按照文章试了一下发现
+FFmpeg 这个工具确实很好用，一个 1.23G 的文件只用了不超过 10
+秒就转换好了，而且清晰度也很高，所以才把这么好的文章转载过来，以作记录。</p>
+]]></content>
+      <tags>
+        <tag>视频格式转换</tag>
+        <tag>flv</tag>
+        <tag>mp4</tag>
+        <tag>ffmpeg</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【转载】Windows 下，npm 模块的安装位置</title>
+    <url>/posts/52910/</url>
+    <content><![CDATA[<p>本文转载自： <a
+href="https://www.cnblogs.com/fannn/p/9351931.html">npm install路径 -
+Fannn - 博客园</a></p>
+<p>我们在 webpack 项目中使用 npm install
+命令安装很多模块，但是很多时候都不知道这些模块安装在哪里，想要删除的时候找不到，所有想要明确的知道
+npm 的安装路径</p>
+<p>首先，npm install 安装的模块分为两种：</p>
+<p>一种是本地安装（直接在项目路径下），使用命令：<code>npm install xxxx</code></p>
+<p>一种是全局安装（安装在 nodejs
+的默认路径下），使用命令：<code>npm install -g xxxx</code></p>
+<ol type="1">
+<li><p>本地安装，会在 CMD 当前路径下创建 node_modules
+文件夹，安装的模块都是放在这里。</p></li>
+<li><p>全局安装，默认 npm 全局安装路径的设置是在 node.js 的安装路径下
+\node_modules\npm 的 npmrc 文件设置</p></li>
+</ol>
+<p>默认为：<code>prefix=$&#123;APPDATA&#125;\npm</code>，在 Windows 下，这一位置为
+<code>C:\Users\"Your Name"\AppData\Roaming\npm</code></p>
+<p>可以使用命令 <code>npm config get prefix</code> 查看
+<code>npm -g</code> 全局安装的路径命令。</p>
+<p>如果需要修改默认全局安装路径，直接修改即可，比如我想放在D盘 modules
+文件夹中，修改 npmrc 为 <code>prefix=D:\modules</code> 即可</p>
+<hr />
+<p>如果你想要通过命令删除某些模块，可以在项目路径下，输入命令
+<code>npm uninstall xxxx</code>，比如我想要删除 webpack
+模块，命令为：<code>npm uninstall webpack</code></p>
+<p>例外，有的时候项目路径太长，导致无法删除，可以通过安装
+<code>npm install rimraf -g</code>，再输入命令
+<code>rimraf node_modules</code> 来达到删除的效果。</p>
+]]></content>
+      <tags>
+        <tag>转载</tag>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用 PPPoE 宽带拨号上网时 v2ray 无法正常工作的解决方法</title>
+    <url>/posts/38903/</url>
+    <content><![CDATA[<p>最近把路由器撤了改成了直接宽带连接上网，但遇到了一个问题，就是我的
+v2ray 不起作用了，经过观察，发现时上网时的流量没经过 v2ray
+渠道从而无法访问外网。</p>
+<p>经过个人排查与上网搜集资料，发现应该是宽带连接名称的问题，名称里如果<strong>含有中文</strong>就会出现这种现象，所以把宽带连接名称<strong>改成纯英文</strong>就好了！</p>
+<h2 id="参考">参考</h2>
+<ol type="1">
+<li><a
+href="https://zhuanlan.zhihu.com/p/106695296">PPPOE拨号上网无法使用代理问题</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>V2Ray</tag>
+        <tag>PPPoE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>如何使用 git 工具上传/克隆代码</title>
+    <url>/posts/55348/</url>
+    <content><![CDATA[<p>在写博客的时候，我个人选择了国内的代码托管平台 Gitee
+作为自己的博客图床，但一篇博客往往会用到很多图片，一张一张上传未免太麻烦，这篇博客就是记录自己使用
+git 工具将博客内截图上传到 Gitee 仓库的过程。</p>
+<h2 id="生成-ssh-key">生成 SSH Key</h2>
+<p>在“Windows 下，安装 Hexo 博客框架并部署到
+GitHub（2）”这篇文章中已经说过，要想实现对 GitHub 仓库的控制，需要使用
+SSH Key。关于如何生成 SSH Key，并将其配置至 GitHub 或者 Gitee
+等代码托管平台的方法已经在上面提到的博文中详细说过，此处不再赘述。</p>
+<h2 id="建立-git-仓库并上传本地文件">建立 git 仓库并上传本地文件</h2>
+<p>什么是 git？git
+是一个开源的分布式版本控制系统，可以有效、高速地处理从很小到非常大的项目版本管理。git
+是一种工具，它能更好的让我们管理代码。很多时候如果我们需要保持本地代码和
+github 代码版本一致，那么我们就会用到 git 这个工具。git
+工具不仅可以让我们克隆别人的或者自己的远程代码，还可以实现本次存储远程仓库。</p>
+<p>第一步：进入 Gitee
+主页，在右上角找到“新建仓库”选项，仓库名称写“个人图床”，写完仓库名称之后，系统会自动生成路径“personal-chart-bed”，自己也可以对其进行修改，我的个人图床仓库的路径是“picturebed”，下面的选项都保持默认。</p>
+<p>第二步：创建完仓库之后，需要做的是进行 Git 全局设置</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;your name&quot;</span><br><span class="line">git config --global user.email &quot;your email&quot;</span><br></pre></td></tr></table></figure>
+<p>接着在本地创建 git 仓库，并与云端进行联系</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir personal-chart-bed</span><br><span class="line">// 在本地建立&quot;personal-chart-bed&quot;</span><br><span class="line">cd personal-chart-bed</span><br><span class="line">// 将当前目录设置为上一步建立的本地仓库文件夹</span><br><span class="line">git init</span><br><span class="line">// 初始化</span><br><span class="line">touch README.md</span><br><span class="line">git add README.md</span><br><span class="line">// 创建并上传README.md文件</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line">// 本次上传的commit</span><br><span class="line">git remote add origin git@gitee.com:yourName/yourRepo.git</span><br><span class="line">// 与仓库取得联系（SSH方式）</span><br><span class="line">git push -u origin master</span><br><span class="line">// 确认提交</span><br></pre></td></tr></table></figure>
+<p>如果感觉上面的步骤太麻烦，这里还有一个更简单的方式，就是使用
+<code>git clone</code>
+命令先将云端的仓库下载到本地，这样就会自带初始化信息，就不用在用
+<code>git init</code> 命令去初始化了，然后想上传的文件放到 clone
+下来的文件夹里，使用相关命令上传即可。注意这种方式是不需要
+<code>git remote add origin git@gitee.com:yourName/yourRepo.git</code>
+的，因为在 clone 过程中已经建立了本地和云端的联系。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git clone git@gitee.com:yourName/yourRepo.git</span><br><span class="line">touch README.md</span><br><span class="line">git add README.md</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+<p><strong>下面说一下 <code>git add</code> 的几种用法</strong></p>
+<p>除了上面使用 <code>git add &lt;文件名&gt;</code>
+命令对单个文件进行上传之外，还可以用下面的方法对多个文件进行处理。</p>
+<p>git add [参数] <路径></p>
+<p>作用就是将我们需要提交的代码从工作区添加到暂存区，就是告诉 git
+系统，我们要提交哪些文件，之后就可以使用 git commit 命令进行提交了。
+为了方便下面都用 . 来标识路径， .
+表示当前目录，路径可以修改，下列操作的作用范围都在版本库之内。</p>
+<p><code>git add .</code></p>
+<p>不加参数默认为将修改操作的文件和未跟踪新添加的文件添加到 git
+系统的暂存区，注意不包括删除</p>
+<p><code>git add -u .</code></p>
+<p>-u
+表示将已跟踪文件中的修改和删除的文件添加到暂存区，不包括新增加的文件，注意这些被删除的文件被加入到暂存区再被提交并推送到服务器的版本库之后这个文件就会从
+git 系统中消失了。</p>
+<p><code>git add -A .</code></p>
+<p>-A
+表示将所有的已跟踪的文件的修改与删除和新增的未跟踪的文件都添加到暂存区。</p>
+<h2 id="参考">参考</h2>
+<ol type="1">
+<li><p><a
+href="https://www.cnblogs.com/tangjian07/p/11282773.html">Git的add、commit、push命令
+- akon07 - 博客园</a></p></li>
+<li><p><a href="https://gitee.com/help/articles/4122">提交第一行代码 -
+Gitee.com</a></p></li>
+<li><p><a
+href="https://gitee.com/help/articles/4192#article-header0">git clone /
+下载代码 - Gitee.com</a></p></li>
+<li><p><a href="https://gitee.com/all-about-git">Git 大全 -
+Gitee.com</a></p></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>git</tag>
+        <tag>github</tag>
+        <tag>gitee</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我的第一篇博客文章</title>
+    <url>/posts/15650/</url>
+    <content><![CDATA[<p>本篇博客用于测试配置与代码</p>
+<h1 id="第一章">第一章</h1>
+<h2 id="第一节">第一节</h2>
+<h2 id="第二节">第二节</h2>
+<p><span class="math display">\[\begin{equation} \label{eq1}
+e=mc^2
+\end{equation}\]</span></p>
+<p>The famous matter-energy equation <span
+class="math inline">\(\eqref{eq1}\)</span> proposed by Einstein...</p>
+<hr />
+<p><span class="math display">\[\begin{equation} \label{eq2}
+\begin{aligned}
+a &amp;= b + c \\
+  &amp;= d + e + f + g \\
+  &amp;= h + i
+\end{aligned}
+\end{equation}\]</span></p>
+<p>Equation <span class="math inline">\(\eqref{eq2}\)</span> is a
+multi-line equation.</p>
+<hr />
+<p><span class="math display">\[\begin{align}
+a &amp;= b + c \label{eq3} \\
+x &amp;= yz \label{eq4} \\
+l &amp;= m - n \label{eq5}
+\end{align}\]</span></p>
+<p>There are three aligned equations: equation <span
+class="math inline">\(\eqref{eq3}\)</span>, equation <span
+class="math inline">\(\eqref{eq4}\)</span> and equation <span
+class="math inline">\(\eqref{eq5}\)</span>.</p>
+<hr />
+<p><span class="math display">\[\begin{align}
+-4 + 5x &amp;= 2 + y \nonumber \\
+w + 2 &amp;= -1 + w \\
+ab &amp;= cb \\
+\end{align}\]</span></p>
+<p>equation <span class="math inline">\(\eqref{eq3}\)</span>, equation
+<span class="math inline">\(\eqref{eq8}\)</span> and equation <span
+class="math inline">\(\eqref{eq1}\)</span>.</p>
+<hr />
+<p><span class="math display">\[x+1\over\sqrt{1-x^2}
+\tag{i}\label{eq_tag}\]</span></p>
+<p>Equation <span class="math inline">\(\eqref{eq_tag}\)</span> use
+<code>\tag&#123;&#125;</code> instead of automatic numbering.</p>
+<hr />
+<h1 id="第二章">第二章</h1>
+<h2 id="第一节-1">第一节</h2>
+<h2 id="第二节-1">第二节</h2>
+<hr />
+<h1 id="参考文献">参考文献</h1>
+<p>paper1. www.keylol.com</p>
+<p>==paper2==</p>
+]]></content>
+  </entry>
+</search>
