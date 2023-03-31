@@ -554,6 +554,186 @@ href="https://github.com/zongzi78/Water_temperature_and_water_level/blob/master/
       </tags>
   </entry>
   <entry>
+    <title>Windows 下，安装 Hexo 博客框架并部署到 GitHub（1）</title>
+    <url>/posts/55439/</url>
+    <content><![CDATA[<style>
+h1 {
+    border-bottom: none
+}
+</style>
+<style>
+h2 {
+    border-bottom: none
+}
+</style>
+<h2 id="前言">前言</h2>
+<p>8 月 30 号就搞定了 blog 的本地安装与 GitHub
+部署，拖了半个多月才想起要把部署过程写出来，在写之前，首先要感谢B站的 up
+主 <a
+href="https://space.bilibili.com/384068749">CodeSheep</a>，是在他的系列
+blog 搭建视频的帮助下才有的这篇文章。 由于安装 Node.js 和 Git，本地安装
+Hexo 以及部署到云端的整个流程较长，预计分为两次来写，本篇 blog 主要写
+Node.js 和 Git 的安装。</p>
+<span id="more"></span>
+<hr />
+<h2 id="环境配置">环境配置</h2>
+<h3 id="node.js-安装">Node.js 安装</h3>
+<p>首先进入其<a href="https://nodejs.org">官方网站</a></p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/0.PNG" width="50%"></p>
+</div>
+<p>可以看到下方的下载按钮，左侧为 LTS（Long Term
+Support）版本，右侧为最新版本，这里下载 LTS
+版本即可。下载完成后可以得到一个名为“node-v12.8.4-x64.msi”的安装包文件。</p>
+<p>由于其服务器在国外，下载速度比较慢，这里提供一个阿里淘宝的<a
+href="https://npm.taobao.org/mirrors/node/v12.18.4/">镜像下载地址</a>，里面下载的文件与官网完全一样，请大家放心下载。</p>
+<p>下载完成后，双击安装到任意位置，一路默认即可。这里不推荐安装到C盘，可以参照图中我的安装路径。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/1.PNG" width="50%"></p>
+</div>
+<p>安装完毕后，使用“win+r”调出 Windows 的运行界面，输入 <code>cmd</code>
+点击回车，进入命令行界面，输入
+<code>node -v</code>，若出现“v12.8.4”字样，说明安装成功，接着输入
+<code>npm -v</code>，若出现“6.14.6”<a href="#fn1" class="footnote-ref"
+id="fnref1" role="doc-noteref"><sup>1</sup></a>，说明 npm 安装成功。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/2.PNG" width="50%"></p>
+</div>
+<p>npm 一般是跟 nodejs 主程序一起自动安装的，至于 npm
+的含义与作用将在后文解释，这样就可以进行下一步操作了。</p>
+<hr />
+<h3 id="git-安装">Git 安装</h3>
+<p>首先进入 Git 的<a href="https://git-scm.com">官方网站</a>，接着点击
+download 按钮，进入<a
+href="https://git-scm.com/downloads">下载界面</a>。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/3.PNG" width="50%"></p>
+</div>
+<p>按照自己使用的系统下载安装包，这里选择 Windows 系统，点击 Windows
+图标之后，一般会自动开始下载名为“Git-2.28.0-64-bit.exe”的文件，这是 64
+位系统的安装包。如果你的系统是 32
+位，你可以取消默认的下载进程，在如下图所示的列表里下载 32
+位的安装包。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/4.PNG" width="50%"></p>
+</div>
+<p>上面两个链接是安装包，下面两个链接是便携版，这里推荐下载上面的版本。与
+nodejs 一样，git
+官网服务器在国外，下载速度比较慢，这里提供一个阿里淘宝的<a
+href="https://npm.taobao.org/mirrors/git-for-windows/v2.28.0.windows.1/">镜像下载地址</a>，里面下载的文件与官网完全一样，请大家放心下载。</p>
+<p>下载完成后，双击进行安装，这里还是不建议安装到C盘，安装位置可以参照我的</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/5.PNG" width="50%"></p>
+</div>
+<p>在这一步选择自己喜欢的文本编辑器，我选择的是 VS Code</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/6.PNG" width="50%"></p>
+</div>
+<p>后面没有需要注意的地方了，一路默认即可。安装完成后，桌面上将出现“Git
+Bash”快捷方式，双击就能进入 Git 的命令行界面了，由于在 Git
+的安装过程中环境变量都已自动配置好，所以也可以直接进入 cmd 界面进行 Git
+的一些操作。进入 cmd 界面，输入 <code>git --version</code>，若出现“git
+version 2.28.0.windows.1”字样，说明安装成功。</p>
+<hr />
+<h3 id="npm-换源">npm 换源</h3>
+<h4 id="npm-介绍">npm 介绍</h4>
+<p>所谓 npm，通俗理解为包管理器，这里的包就是基于 nodejs
+而开发的的一个个插件/模块，而 npm
+就是对这些包进行安装，卸载等操作的管理器。根据菜鸟教程上面的<a
+href="https://www.runoob.com/nodejs/nodejs-npm.html">介绍</a>，npm
+的主要功能有：</p>
+<ul>
+<li>允许用户从NPM服务器下载别人编写的第三方包到本地使用。</li>
+<li>允许用户从NPM服务器下载并安装别人编写的命令行程序到本地使用。</li>
+<li>允许用户将自己编写的包或命令行程序上传到NPM服务器供别人使用。</li>
+</ul>
+<p>现在的 nodejs 已经集成了 npm，所以在安装 nodejs 的时候 npm
+也会随之安装。</p>
+<h4 id="npm更换淘宝源">npm更换淘宝源</h4>
+<p>由于 nodejs 服务器在国外，许多包的源地址也在国外，国内使用 npm
+的时候速度会非常的慢，所以需要将 npm 包的源地址更换为国内的镜像地址。<a
+href="https://developer.aliyun.com/mirror/NPM?from=tnpm">这个</a>是阿里的淘宝
+npm 镜像网站。按照官方文档，有两种换源方式，一种是安装 cnpm 代替
+npm，另一种是直接更换源地址。 首先是安装 cnpm 的方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>通过上述命令，即可安装 cnpm 包管理器以代替 npm，以后任何使用 npm
+命令的场合，都改为使用 cnpm。</p>
+<p>第二个是直接换源的方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm config set registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<p>配置后进入 cmd 界面，通过下述命令来验证是否成功</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm config get registry</span><br><span class="line">or</span><br><span class="line">npm info express</span><br></pre></td></tr></table></figure>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/7.PNG" width="50%"></p>
+</div>
+<p>如图所示则表明换源成功。</p>
+<hr />
+<h2 id="本地安装-hexo">本地安装 Hexo</h2>
+<h3 id="安装-hexo">安装 Hexo</h3>
+<p>首先找到 Hexo 的<a
+href="https://hexo.io">官方网站</a>，进入“文档”界面可以看到 Hexo
+的使用说明，在安装前提一栏可以看到安装hexo的前置条件我们在环境配置一节中已经全部完成了，接下来即可使用
+npm/cnpm 进行 Hexo 框架的本地安装。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/8.PNG" width="50%"></p>
+</div>
+<p>出现如图所示的警告属于 Windows 系统下安装 Hexo 的正常现象。</p>
+<p>安装完成后，进入 cmd 界面输入 <code>hexo -v</code> 查看是否安装成功。
+如果如下图所示，则说明安装成功。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/9.PNG" width="50%"></p>
+</div>
+<hr />
+<h3 id="建立空白博客框架">建立空白博客框架</h3>
+<p>首先在计算机任意位置建立一个名为 blog 的空文件夹，这里我们选择
+~/blog<a href="#fn2" class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a></p>
+<p>进入 cmd 命令行界面，左侧的地址为当前的路径地址，输入
+<code>cd blog</code> 将其变更到上一步建立的 blog 文件夹下。</p>
+<div data-align="center">
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/10.PNG" width="50%"></p>
+</div>
+<p>可以看到现在左侧的地址由 <code>C:\Users\xxx\</code> 变成了
+<code>C:\Users\xxx\blog\</code>，这一步是很重要的，它确保了跟你个人博客相关的文件，包括配置文件、博客原文、皮肤文件等等全部位于“C:”这一地址下，便于你以后管理。在
+cmd 终端中输入 <code>hexo init</code>
+安装博客框架，安装完成后，打开“C:”，可以看到里面已经多了很多文件，这些文件就是你的个人博客框架，关于这些文件各自的作用与含义，Hexo
+官网的文档界面的<a
+href="https://hexo.io/zh-cn/docs/setup">建站</a>部分解释的很清楚，可以自行查看。</p>
+<hr />
+<h3 id="创建新的博文">创建新的博文</h3>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo n &quot;blog&#x27;s name&quot;</span><br></pre></td></tr></table></figure>
+<p>上述命令就是建立一个新的博文界面的命令，在 cmd
+界面运行上述命令后，在“C:_posts”中会出现一个名为“blog's
+name.md”的markdown文件，这个就是一篇博文的原始文件，所谓的“写博客”也是在这个
+md 文件中进行的，即使用相关软件对 md 文件进行编辑。</p>
+<p>这里推荐一个 Windows 系统下的 md 文件编辑器 <a
+href="https://www.typora.io">Typora</a>，直接在其官网下载 exe
+文件安装即可。当然也可以使用 VS Code 搭配 MPE 插件进行 md
+文档的书写。</p>
+<hr />
+<h2 id="总结">总结</h2>
+<p>到这里，在 Windows 系统下安装部署 Hexo
+博客框架的第一部分就结束了，在本篇博文中，主要介绍了 Hexo
+框架的前置两个软件 Node.js 和 Git 的安装与配置，Hexo
+框架的安装与初始化以及如何在本地建立一篇新博文并对其进行编辑的方法。在第二部分的文章中，将对如何利用
+GitHub page 建立自己的云端博客以及如何将本地的 Hexo 框架部署到 GitHub
+做详细说明。</p>
+<aside id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>这里的 6.14.6 是我自己电脑上安装的 npm
+的版本，不同的版本显示的数字不一样，不必追求一模一样。<a href="#fnref1"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>符号“~”表示个人文件夹的地址，在 Windows
+系统中，一般为“C:”，xxx为你的用户名。这里之所以选择在这里建立 blog
+文件夹的原因，是因为一般 cmd 界面默认就是此地址，便于以后操作。<a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
+]]></content>
+  </entry>
+  <entry>
     <title>Windows 下，安装 Hexo 博客框架并部署到 GitHub（2）</title>
     <url>/posts/40079/</url>
     <content><![CDATA[<style>
@@ -747,184 +927,56 @@ SSR 和 v2ray
       </tags>
   </entry>
   <entry>
-    <title>Windows 下，安装 Hexo 博客框架并部署到 GitHub（1）</title>
-    <url>/posts/55439/</url>
-    <content><![CDATA[<style>
-h1 {
-    border-bottom: none
-}
-</style>
-<style>
-h2 {
-    border-bottom: none
-}
-</style>
-<h2 id="前言">前言</h2>
-<p>8 月 30 号就搞定了 blog 的本地安装与 GitHub
-部署，拖了半个多月才想起要把部署过程写出来，在写之前，首先要感谢B站的 up
-主 <a
-href="https://space.bilibili.com/384068749">CodeSheep</a>，是在他的系列
-blog 搭建视频的帮助下才有的这篇文章。 由于安装 Node.js 和 Git，本地安装
-Hexo 以及部署到云端的整个流程较长，预计分为两次来写，本篇 blog 主要写
-Node.js 和 Git 的安装。</p>
-<span id="more"></span>
-<hr />
-<h2 id="环境配置">环境配置</h2>
-<h3 id="node.js-安装">Node.js 安装</h3>
-<p>首先进入其<a href="https://nodejs.org">官方网站</a></p>
+    <title>Ubuntu 与 Win10 双系统下更改默认启动项+更换国内源</title>
+    <url>/posts/38677/</url>
+    <content><![CDATA[<h2 id="前言">前言</h2>
+<p>前一段时间在一台装有 Windows 10 系统的旧电脑上又装了 Ubuntu LTS 16.04
+系统，一般这种双系统的情况会自动配置 grub
+软件作为多操作系统启动程序，这里就讲一下如何设置默认启动哪一个系统和
+Ubuntu 系统换源的一些事。</p>
+<h2 id="更换默认启动项">更换默认启动项</h2>
+<p>GNU GRUB（GRand Unified Bootloader，GRUB）是一个来自 GNU
+项目的多操作系统启动程序。GRUB
+是多启动规范的实现，它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。GRUB
+可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。</p>
+<p>一般默认启动的是 Ubuntu 系统，这里以设置默认启动 Windows
+系统为例，以下设置方法需要在 Ubuntu 中进行。</p>
+<p>第一步：在电脑开机的时候，会进入到系统手动选择界面，观察有 Windows
+字样的那个选项排在第几位（注意序号是从 0 开始计数的）。</p>
+<p>第二步：打开终端，在终端打开 <code>/etc/default/grub</code>
+文件。这里需要注意，grub
+文件需要管理员权限才能修改，因此需要打开终端，在终端里输入
+<code>sudo gedit /etc/default/grub</code>，这样就能以管理员身份打开配置文件了。</p>
 <div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/0.PNG" width="50%"></p>
+<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201122/1.PNG" width="50%"></p>
 </div>
-<p>可以看到下方的下载按钮，左侧为 LTS（Long Term
-Support）版本，右侧为最新版本，这里下载 LTS
-版本即可。下载完成后可以得到一个名为“node-v12.8.4-x64.msi”的安装包文件。</p>
-<p>由于其服务器在国外，下载速度比较慢，这里提供一个阿里淘宝的<a
-href="https://npm.taobao.org/mirrors/node/v12.18.4/">镜像下载地址</a>，里面下载的文件与官网完全一样，请大家放心下载。</p>
-<p>下载完成后，双击安装到任意位置，一路默认即可。这里不推荐安装到C盘，可以参照图中我的安装路径。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/1.PNG" width="50%"></p>
-</div>
-<p>安装完毕后，使用“win+r”调出 Windows 的运行界面，输入 <code>cmd</code>
-点击回车，进入命令行界面，输入
-<code>node -v</code>，若出现“v12.8.4”字样，说明安装成功，接着输入
-<code>npm -v</code>，若出现“6.14.6”<a href="#fn1" class="footnote-ref"
-id="fnref1" role="doc-noteref"><sup>1</sup></a>，说明 npm 安装成功。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/2.PNG" width="50%"></p>
-</div>
-<p>npm 一般是跟 nodejs 主程序一起自动安装的，至于 npm
-的含义与作用将在后文解释，这样就可以进行下一步操作了。</p>
-<hr />
-<h3 id="git-安装">Git 安装</h3>
-<p>首先进入 Git 的<a href="https://git-scm.com">官方网站</a>，接着点击
-download 按钮，进入<a
-href="https://git-scm.com/downloads">下载界面</a>。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/3.PNG" width="50%"></p>
-</div>
-<p>按照自己使用的系统下载安装包，这里选择 Windows 系统，点击 Windows
-图标之后，一般会自动开始下载名为“Git-2.28.0-64-bit.exe”的文件，这是 64
-位系统的安装包。如果你的系统是 32
-位，你可以取消默认的下载进程，在如下图所示的列表里下载 32
-位的安装包。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/4.PNG" width="50%"></p>
-</div>
-<p>上面两个链接是安装包，下面两个链接是便携版，这里推荐下载上面的版本。与
-nodejs 一样，git
-官网服务器在国外，下载速度比较慢，这里提供一个阿里淘宝的<a
-href="https://npm.taobao.org/mirrors/git-for-windows/v2.28.0.windows.1/">镜像下载地址</a>，里面下载的文件与官网完全一样，请大家放心下载。</p>
-<p>下载完成后，双击进行安装，这里还是不建议安装到C盘，安装位置可以参照我的</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/5.PNG" width="50%"></p>
-</div>
-<p>在这一步选择自己喜欢的文本编辑器，我选择的是 VS Code</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/6.PNG" width="50%"></p>
-</div>
-<p>后面没有需要注意的地方了，一路默认即可。安装完成后，桌面上将出现“Git
-Bash”快捷方式，双击就能进入 Git 的命令行界面了，由于在 Git
-的安装过程中环境变量都已自动配置好，所以也可以直接进入 cmd 界面进行 Git
-的一些操作。进入 cmd 界面，输入 <code>git --version</code>，若出现“git
-version 2.28.0.windows.1”字样，说明安装成功。</p>
-<hr />
-<h3 id="npm-换源">npm 换源</h3>
-<h4 id="npm-介绍">npm 介绍</h4>
-<p>所谓 npm，通俗理解为包管理器，这里的包就是基于 nodejs
-而开发的的一个个插件/模块，而 npm
-就是对这些包进行安装，卸载等操作的管理器。根据菜鸟教程上面的<a
-href="https://www.runoob.com/nodejs/nodejs-npm.html">介绍</a>，npm
-的主要功能有：</p>
-<ul>
-<li>允许用户从NPM服务器下载别人编写的第三方包到本地使用。</li>
-<li>允许用户从NPM服务器下载并安装别人编写的命令行程序到本地使用。</li>
-<li>允许用户将自己编写的包或命令行程序上传到NPM服务器供别人使用。</li>
-</ul>
-<p>现在的 nodejs 已经集成了 npm，所以在安装 nodejs 的时候 npm
-也会随之安装。</p>
-<h4 id="npm更换淘宝源">npm更换淘宝源</h4>
-<p>由于 nodejs 服务器在国外，许多包的源地址也在国外，国内使用 npm
-的时候速度会非常的慢，所以需要将 npm 包的源地址更换为国内的镜像地址。<a
-href="https://developer.aliyun.com/mirror/NPM?from=tnpm">这个</a>是阿里的淘宝
-npm 镜像网站。按照官方文档，有两种换源方式，一种是安装 cnpm 代替
-npm，另一种是直接更换源地址。 首先是安装 cnpm 的方式：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-<p>通过上述命令，即可安装 cnpm 包管理器以代替 npm，以后任何使用 npm
-命令的场合，都改为使用 cnpm。</p>
-<p>第二个是直接换源的方式：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm config set registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-<p>配置后进入 cmd 界面，通过下述命令来验证是否成功</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm config get registry</span><br><span class="line">or</span><br><span class="line">npm info express</span><br></pre></td></tr></table></figure>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/7.PNG" width="50%"></p>
-</div>
-<p>如图所示则表明换源成功。</p>
-<hr />
-<h2 id="本地安装-hexo">本地安装 Hexo</h2>
-<h3 id="安装-hexo">安装 Hexo</h3>
-<p>首先找到 Hexo 的<a
-href="https://hexo.io">官方网站</a>，进入“文档”界面可以看到 Hexo
-的使用说明，在安装前提一栏可以看到安装hexo的前置条件我们在环境配置一节中已经全部完成了，接下来即可使用
-npm/cnpm 进行 Hexo 框架的本地安装。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/8.PNG" width="50%"></p>
-</div>
-<p>出现如图所示的警告属于 Windows 系统下安装 Hexo 的正常现象。</p>
-<p>安装完成后，进入 cmd 界面输入 <code>hexo -v</code> 查看是否安装成功。
-如果如下图所示，则说明安装成功。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/9.PNG" width="50%"></p>
-</div>
-<hr />
-<h3 id="建立空白博客框架">建立空白博客框架</h3>
-<p>首先在计算机任意位置建立一个名为 blog 的空文件夹，这里我们选择
-~/blog<a href="#fn2" class="footnote-ref" id="fnref2"
-role="doc-noteref"><sup>2</sup></a></p>
-<p>进入 cmd 命令行界面，左侧的地址为当前的路径地址，输入
-<code>cd blog</code> 将其变更到上一步建立的 blog 文件夹下。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/200911/10.PNG" width="50%"></p>
-</div>
-<p>可以看到现在左侧的地址由 <code>C:\Users\xxx\</code> 变成了
-<code>C:\Users\xxx\blog\</code>，这一步是很重要的，它确保了跟你个人博客相关的文件，包括配置文件、博客原文、皮肤文件等等全部位于“C:”这一地址下，便于你以后管理。在
-cmd 终端中输入 <code>hexo init</code>
-安装博客框架，安装完成后，打开“C:”，可以看到里面已经多了很多文件，这些文件就是你的个人博客框架，关于这些文件各自的作用与含义，Hexo
-官网的文档界面的<a
-href="https://hexo.io/zh-cn/docs/setup">建站</a>部分解释的很清楚，可以自行查看。</p>
-<hr />
-<h3 id="创建新的博文">创建新的博文</h3>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo n &quot;blog&#x27;s name&quot;</span><br></pre></td></tr></table></figure>
-<p>上述命令就是建立一个新的博文界面的命令，在 cmd
-界面运行上述命令后，在“C:_posts”中会出现一个名为“blog's
-name.md”的markdown文件，这个就是一篇博文的原始文件，所谓的“写博客”也是在这个
-md 文件中进行的，即使用相关软件对 md 文件进行编辑。</p>
-<p>这里推荐一个 Windows 系统下的 md 文件编辑器 <a
-href="https://www.typora.io">Typora</a>，直接在其官网下载 exe
-文件安装即可。当然也可以使用 VS Code 搭配 MPE 插件进行 md
-文档的书写。</p>
-<hr />
-<h2 id="总结">总结</h2>
-<p>到这里，在 Windows 系统下安装部署 Hexo
-博客框架的第一部分就结束了，在本篇博文中，主要介绍了 Hexo
-框架的前置两个软件 Node.js 和 Git 的安装与配置，Hexo
-框架的安装与初始化以及如何在本地建立一篇新博文并对其进行编辑的方法。在第二部分的文章中，将对如何利用
-GitHub page 建立自己的云端博客以及如何将本地的 Hexo 框架部署到 GitHub
-做详细说明。</p>
-<section id="footnotes" class="footnotes footnotes-end-of-document"
-role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1"><p>这里的 6.14.6 是我自己电脑上安装的 npm
-的版本，不同的版本显示的数字不一样，不必追求一模一样。<a href="#fnref1"
-class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>符号“~”表示个人文件夹的地址，在 Windows
-系统中，一般为“C:”，xxx为你的用户名。这里之所以选择在这里建立 blog
-文件夹的原因，是因为一般 cmd 界面默认就是此地址，便于以后操作。<a
-href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
+<p>如上图所示为打开 grub 后的样子，找到 <strong>GRUB_DEFAULT=0</strong>
+这一行（上图中我已经将其改成了
+GRUB_DEFAULT=2，因为我的电脑启动时，Windows 系统排在第三位），将其后面的
+0 改成第一步中 Windows 系统所在对应的序号。</p>
+<p>第三步：修改完成后，在终端中输入 <code>sudo update-grub</code>
+进行刷新，重启电脑就能发现默认启动项已经改成 Windows 了。</p>
+<h2 id="ubuntu-更换国内源">Ubuntu 更换国内源</h2>
+<p>Ubuntu
+的官方服务器在国外，国内访问的时候速度很慢，更新一些软件往往需要花费大量的时间，将其下载源更换为国内镜像源将极大的提升下载速度，国内的许多公司、高校等机构都会提供此服务。</p>
+<p>第一步：在终端输入 <code>sudo gedit /etc/apt/sources.list</code>
+对存储源地址的文件进行编辑。</p>
+<p>第二步：删除原先的内容，复制国内镜像源的地址进去，这里提供几个国内提供镜像源服务的网址。</p>
+<p>阿里源：<a
+href="https://developer.aliyun.com/mirror/ubuntu?spm=a2c6h.13651102.0.0.3e221b11vFh8D2">ubuntu镜像-ubuntu下载地址-ubuntu安装教程-阿里巴巴开源镜像站</a></p>
+<p>清华源：<a
+href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/">ubuntu |
+镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source
+Mirror</a></p>
+<p>注意一定要确认好自己安装的系统的版本，选择对应版本号的源地址。</p>
+<p>第三步：在终端内输入 <code>sudo apt update</code>
+来更新源地址，再输入 <code>sudo apt upgrade</code>
+对安装的软件包进行更新，这时就能发现速度已经得到了很大提升。</p>
 ]]></content>
+      <tags>
+        <tag>ubuntu</tag>
+        <tag>双系统</tag>
+      </tags>
   </entry>
   <entry>
     <title>Windows 终端（cmd）内走 v2ray 代理</title>
@@ -981,187 +1033,6 @@ IP | zcdll's Blog</a></p></li>
       <tags>
         <tag>v2ray</tag>
         <tag>cmd</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Ubuntu 与 Win10 双系统下更改默认启动项+更换国内源</title>
-    <url>/posts/38677/</url>
-    <content><![CDATA[<h2 id="前言">前言</h2>
-<p>前一段时间在一台装有 Windows 10 系统的旧电脑上又装了 Ubuntu LTS 16.04
-系统，一般这种双系统的情况会自动配置 grub
-软件作为多操作系统启动程序，这里就讲一下如何设置默认启动哪一个系统和
-Ubuntu 系统换源的一些事。</p>
-<h2 id="更换默认启动项">更换默认启动项</h2>
-<p>GNU GRUB（GRand Unified Bootloader，GRUB）是一个来自 GNU
-项目的多操作系统启动程序。GRUB
-是多启动规范的实现，它允许用户可以在计算机内同时拥有多个操作系统，并在计算机启动时选择希望运行的操作系统。GRUB
-可用于选择操作系统分区上的不同内核，也可用于向这些内核传递启动参数。</p>
-<p>一般默认启动的是 Ubuntu 系统，这里以设置默认启动 Windows
-系统为例，以下设置方法需要在 Ubuntu 中进行。</p>
-<p>第一步：在电脑开机的时候，会进入到系统手动选择界面，观察有 Windows
-字样的那个选项排在第几位（注意序号是从 0 开始计数的）。</p>
-<p>第二步：打开终端，在终端打开 <code>/etc/default/grub</code>
-文件。这里需要注意，grub
-文件需要管理员权限才能修改，因此需要打开终端，在终端里输入
-<code>sudo gedit /etc/default/grub</code>，这样就能以管理员身份打开配置文件了。</p>
-<div data-align="center">
-<p><img src="https://msdrive.tiddler.cc/api/raw/?path=/images/blogimages/2020/201122/1.PNG" width="50%"></p>
-</div>
-<p>如上图所示为打开 grub 后的样子，找到 <strong>GRUB_DEFAULT=0</strong>
-这一行（上图中我已经将其改成了
-GRUB_DEFAULT=2，因为我的电脑启动时，Windows 系统排在第三位），将其后面的
-0 改成第一步中 Windows 系统所在对应的序号。</p>
-<p>第三步：修改完成后，在终端中输入 <code>sudo update-grub</code>
-进行刷新，重启电脑就能发现默认启动项已经改成 Windows 了。</p>
-<h2 id="ubuntu-更换国内源">Ubuntu 更换国内源</h2>
-<p>Ubuntu
-的官方服务器在国外，国内访问的时候速度很慢，更新一些软件往往需要花费大量的时间，将其下载源更换为国内镜像源将极大的提升下载速度，国内的许多公司、高校等机构都会提供此服务。</p>
-<p>第一步：在终端输入 <code>sudo gedit /etc/apt/sources.list</code>
-对存储源地址的文件进行编辑。</p>
-<p>第二步：删除原先的内容，复制国内镜像源的地址进去，这里提供几个国内提供镜像源服务的网址。</p>
-<p>阿里源：<a
-href="https://developer.aliyun.com/mirror/ubuntu?spm=a2c6h.13651102.0.0.3e221b11vFh8D2">ubuntu镜像-ubuntu下载地址-ubuntu安装教程-阿里巴巴开源镜像站</a></p>
-<p>清华源：<a
-href="https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/">ubuntu |
-镜像站使用帮助 | 清华大学开源软件镜像站 | Tsinghua Open Source
-Mirror</a></p>
-<p>注意一定要确认好自己安装的系统的版本，选择对应版本号的源地址。</p>
-<p>第三步：在终端内输入 <code>sudo apt update</code>
-来更新源地址，再输入 <code>sudo apt upgrade</code>
-对安装的软件包进行更新，这时就能发现速度已经得到了很大提升。</p>
-]]></content>
-      <tags>
-        <tag>ubuntu</tag>
-        <tag>双系统</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【转载】Windows 下，npm 模块的安装位置</title>
-    <url>/posts/52910/</url>
-    <content><![CDATA[<p>本文转载自： <a
-href="https://www.cnblogs.com/fannn/p/9351931.html">npm install路径 -
-Fannn - 博客园</a></p>
-<p>我们在 webpack 项目中使用 npm install
-命令安装很多模块，但是很多时候都不知道这些模块安装在哪里，想要删除的时候找不到，所有想要明确的知道
-npm 的安装路径</p>
-<p>首先，npm install 安装的模块分为两种：</p>
-<p>一种是本地安装（直接在项目路径下），使用命令：<code>npm install xxxx</code></p>
-<p>一种是全局安装（安装在 nodejs
-的默认路径下），使用命令：<code>npm install -g xxxx</code></p>
-<ol type="1">
-<li><p>本地安装，会在 CMD 当前路径下创建 node_modules
-文件夹，安装的模块都是放在这里。</p></li>
-<li><p>全局安装，默认 npm 全局安装路径的设置是在 node.js 的安装路径下
-\node_modules\npm 的 npmrc 文件设置</p></li>
-</ol>
-<p>默认为：<code>prefix=$&#123;APPDATA&#125;\npm</code>，在 Windows 下，这一位置为
-<code>C:\Users\"Your Name"\AppData\Roaming\npm</code></p>
-<p>可以使用命令 <code>npm config get prefix</code> 查看
-<code>npm -g</code> 全局安装的路径命令。</p>
-<p>如果需要修改默认全局安装路径，直接修改即可，比如我想放在D盘 modules
-文件夹中，修改 npmrc 为 <code>prefix=D:\modules</code> 即可</p>
-<hr />
-<p>如果你想要通过命令删除某些模块，可以在项目路径下，输入命令
-<code>npm uninstall xxxx</code>，比如我想要删除 webpack
-模块，命令为：<code>npm uninstall webpack</code></p>
-<p>例外，有的时候项目路径太长，导致无法删除，可以通过安装
-<code>npm install rimraf -g</code>，再输入命令
-<code>rimraf node_modules</code> 来达到删除的效果。</p>
-]]></content>
-      <tags>
-        <tag>转载</tag>
-        <tag>npm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【转载】快速转换 FLV 视频为 MP4 格式</title>
-    <url>/posts/38106/</url>
-    <content><![CDATA[<p>本文转载自： <a
-href="https://www.zhihu.com/question/65224766/answer/252226264">怎样快速的转换FLV视频为MP4格式？
-- 知乎</a></p>
-<p>无需安装来路不明的软件，直接使用几乎所有格式转换的软件都需要用到的
-FFmpeg 就可以实现题主的目的。</p>
-<p>前往 FFmpeg 官网下载软件：<a
-href="https://www.ffmpeg.org/download.html">Download FFmpeg</a></p>
-<p>找到对应的平台，这里我使用的是 Windows，就点击 Windows
-Build，然后出现的页面里找到自己的 Windows 版本，如我使用的是
-64-bit，选择 Static 的封装就好。</p>
-<p>解压下载回来的压缩包，在解压后的文件夹中找到 bin
-文件夹，把里面的三个后缀是 exe 的文件拷贝到
-<code>C:\Windows\System32\</code></p>
-<p>可能会弹出窗口要求权限，点击允许即可。</p>
-<p>然后在 Windows 开始菜单中点击 运行，</p>
-<p>输入 CMD</p>
-<p>进入你的 FLV 文件所在的文件夹</p>
-<p>如果是单个文件，就用如下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ffmpeg -i &quot;input.flv&quot; -c copy &quot;output.mp4&quot;</span><br></pre></td></tr></table></figure>
-<p>将这里的 input 改为你的文件名，output 改为你想得到的文件名即可。</p>
-<p>如果是整个文件夹中的所有 flv 文件需要批量转成
-mp4，那么使用以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for %i in (*.flv) do ffmpeg -i &quot;%i&quot; -c copy &quot;%~ni.mp4&quot;</span><br></pre></td></tr></table></figure>
-<p>注：新生成的 mp4 文件会沿用原文件名。</p>
-<p>限于时间，就不上图了，祝使用愉快。</p>
-<p>补充一：</p>
-<p>对于某些 flv 文件，转换成 mp4
-的时候会报错，这时候可以用以下的代码来尝试：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ffmpeg -i filename.flv -c:v libx264 -crf 19 -strict experimental filename.mp4</span><br></pre></td></tr></table></figure>
-<p>将这里的 filrename 改为你的文件名即可</p>
-<p>补充二：</p>
-<p>flv/mp4 文件的合并</p>
-<p>有时候通过某些下载工具得到的 flv/mp4
-文件是多段的，比如B站视频上下载一集 40 分钟左右的纪录片实际上是 8
-个小片段，这时候可以新建一个 txt 文本文件，把你需要合并的 flv/mp4 和这个
-txt 放在同一个文件夹里面，然后把需要合并的 flv/mp4
-文件的名字按照顺序写在 txt 文件中并保存，格式如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[00].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[01].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[02].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[03].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[04].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[05].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[06].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[07].mp4&#x27;</span><br></pre></td></tr></table></figure>
-<p>注：本例中将该 txt 文件命名为 file.txt</p>
-<p>在 cmd 里面进入该 txt 和视频文件所在的文件夹，然后输入以下命令：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ffmpeg -f concat -safe 0 -i files.txt -c copy output.mp4</span><br></pre></td></tr></table></figure>
-<p>即可得到一个完整的 mp4 文件</p>
-<p>如需合并 flv，方法同上</p>
-<hr />
-<p>PS.</p>
-<p>最近在使用油猴脚本 <a
-href="https://github.com/the1812/Bilibili-Evolved">Bilibili Evolved</a>
-下载B站视频的时候，发现只有 FLV 和 DASH 两种下载模式。其中 DASH
-是下载一个无声的 mp4 视频文件和一个 m4a 音频文件，而 FLV 模式是下载一个
-flv 视频文件。百度了一下关于 flv
-文件的说明，下面是百度百科上面的介绍：</p>
-<blockquote>
-<p>FLV 是FLASH VIDEO的简称，FLV流媒体格式是随着Flash
-MX的推出发展而来的视频格式。由于它形成的文件极小、加载速度极快，使得网络观看视频文件成为可能，它的出现有效地解决了视频文件导入Flash后，使导出的SWF文件体积庞大，不能在网络上很好的使用等问题。</p>
-</blockquote>
-<p>猜测这两种下载模式应该是B站两种不同的播放器（flash 播放器，html5
-播放器）下对应的视频文件。</p>
-<p>但 flv 文件存在一个问题，就是并不是每个播放器都支持解码，我自己用的
-potplayer 可以很流畅的播放，但用 Windows media player 和 win10
-自带的电影和电视都不能播放，于是才有了今天的问题。本来想着下载一个格式工厂，但在搜索界面推送了今天转载的这篇文章，按照文章试了一下发现
-FFmpeg 这个工具确实很好用，一个 1.23G 的文件只用了不超过 10
-秒就转换好了，而且清晰度也很高，所以才把这么好的文章转载过来，以作记录。</p>
-]]></content>
-      <tags>
-        <tag>视频格式转换</tag>
-        <tag>flv</tag>
-        <tag>mp4</tag>
-        <tag>ffmpeg</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>使用 PPPoE 宽带拨号上网时 v2ray 无法正常工作的解决方法</title>
-    <url>/posts/38903/</url>
-    <content><![CDATA[<p>最近把路由器撤了改成了直接宽带连接上网，但遇到了一个问题，就是我的
-v2ray 不起作用了，经过观察，发现时上网时的流量没经过 v2ray
-渠道从而无法访问外网。</p>
-<p>经过个人排查与上网搜集资料，发现应该是宽带连接名称的问题，名称里如果<strong>含有中文</strong>就会出现这种现象，所以把宽带连接名称<strong>改成纯英文</strong>就好了！</p>
-<h2 id="参考">参考</h2>
-<ol type="1">
-<li><a
-href="https://zhuanlan.zhihu.com/p/106695296">PPPOE拨号上网无法使用代理问题</a></li>
-</ol>
-]]></content>
-      <tags>
-        <tag>V2Ray</tag>
-        <tag>PPPoE</tag>
       </tags>
   </entry>
   <entry>
@@ -1231,6 +1102,24 @@ Gitee.com</a></p></li>
         <tag>git</tag>
         <tag>github</tag>
         <tag>gitee</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用 PPPoE 宽带拨号上网时 v2ray 无法正常工作的解决方法</title>
+    <url>/posts/38903/</url>
+    <content><![CDATA[<p>最近把路由器撤了改成了直接宽带连接上网，但遇到了一个问题，就是我的
+v2ray 不起作用了，经过观察，发现时上网时的流量没经过 v2ray
+渠道从而无法访问外网。</p>
+<p>经过个人排查与上网搜集资料，发现应该是宽带连接名称的问题，名称里如果<strong>含有中文</strong>就会出现这种现象，所以把宽带连接名称<strong>改成纯英文</strong>就好了！</p>
+<h2 id="参考">参考</h2>
+<ol type="1">
+<li><a
+href="https://zhuanlan.zhihu.com/p/106695296">PPPOE拨号上网无法使用代理问题</a></li>
+</ol>
+]]></content>
+      <tags>
+        <tag>V2Ray</tag>
+        <tag>PPPoE</tag>
       </tags>
   </entry>
   <entry>
@@ -1417,5 +1306,116 @@ section Section
 <p>paper1. www.keylol.com</p>
 <p>==paper2==</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>【转载】Windows 下，npm 模块的安装位置</title>
+    <url>/posts/52910/</url>
+    <content><![CDATA[<p>本文转载自： <a
+href="https://www.cnblogs.com/fannn/p/9351931.html">npm install路径 -
+Fannn - 博客园</a></p>
+<p>我们在 webpack 项目中使用 npm install
+命令安装很多模块，但是很多时候都不知道这些模块安装在哪里，想要删除的时候找不到，所有想要明确的知道
+npm 的安装路径</p>
+<p>首先，npm install 安装的模块分为两种：</p>
+<p>一种是本地安装（直接在项目路径下），使用命令：<code>npm install xxxx</code></p>
+<p>一种是全局安装（安装在 nodejs
+的默认路径下），使用命令：<code>npm install -g xxxx</code></p>
+<ol type="1">
+<li><p>本地安装，会在 CMD 当前路径下创建 node_modules
+文件夹，安装的模块都是放在这里。</p></li>
+<li><p>全局安装，默认 npm 全局安装路径的设置是在 node.js 的安装路径下
+\node_modules\npm 的 npmrc 文件设置</p></li>
+</ol>
+<p>默认为：<code>prefix=$&#123;APPDATA&#125;\npm</code>，在 Windows 下，这一位置为
+<code>C:\Users\"Your Name"\AppData\Roaming\npm</code></p>
+<p>可以使用命令 <code>npm config get prefix</code> 查看
+<code>npm -g</code> 全局安装的路径命令。</p>
+<p>如果需要修改默认全局安装路径，直接修改即可，比如我想放在D盘 modules
+文件夹中，修改 npmrc 为 <code>prefix=D:\modules</code> 即可</p>
+<hr />
+<p>如果你想要通过命令删除某些模块，可以在项目路径下，输入命令
+<code>npm uninstall xxxx</code>，比如我想要删除 webpack
+模块，命令为：<code>npm uninstall webpack</code></p>
+<p>例外，有的时候项目路径太长，导致无法删除，可以通过安装
+<code>npm install rimraf -g</code>，再输入命令
+<code>rimraf node_modules</code> 来达到删除的效果。</p>
+]]></content>
+      <tags>
+        <tag>转载</tag>
+        <tag>npm</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【转载】快速转换 FLV 视频为 MP4 格式</title>
+    <url>/posts/38106/</url>
+    <content><![CDATA[<p>本文转载自： <a
+href="https://www.zhihu.com/question/65224766/answer/252226264">怎样快速的转换FLV视频为MP4格式？
+- 知乎</a></p>
+<p>无需安装来路不明的软件，直接使用几乎所有格式转换的软件都需要用到的
+FFmpeg 就可以实现题主的目的。</p>
+<p>前往 FFmpeg 官网下载软件：<a
+href="https://www.ffmpeg.org/download.html">Download FFmpeg</a></p>
+<p>找到对应的平台，这里我使用的是 Windows，就点击 Windows
+Build，然后出现的页面里找到自己的 Windows 版本，如我使用的是
+64-bit，选择 Static 的封装就好。</p>
+<p>解压下载回来的压缩包，在解压后的文件夹中找到 bin
+文件夹，把里面的三个后缀是 exe 的文件拷贝到
+<code>C:\Windows\System32\</code></p>
+<p>可能会弹出窗口要求权限，点击允许即可。</p>
+<p>然后在 Windows 开始菜单中点击 运行，</p>
+<p>输入 CMD</p>
+<p>进入你的 FLV 文件所在的文件夹</p>
+<p>如果是单个文件，就用如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ffmpeg -i &quot;input.flv&quot; -c copy &quot;output.mp4&quot;</span><br></pre></td></tr></table></figure>
+<p>将这里的 input 改为你的文件名，output 改为你想得到的文件名即可。</p>
+<p>如果是整个文件夹中的所有 flv 文件需要批量转成
+mp4，那么使用以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">for %i in (*.flv) do ffmpeg -i &quot;%i&quot; -c copy &quot;%~ni.mp4&quot;</span><br></pre></td></tr></table></figure>
+<p>注：新生成的 mp4 文件会沿用原文件名。</p>
+<p>限于时间，就不上图了，祝使用愉快。</p>
+<p>补充一：</p>
+<p>对于某些 flv 文件，转换成 mp4
+的时候会报错，这时候可以用以下的代码来尝试：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ffmpeg -i filename.flv -c:v libx264 -crf 19 -strict experimental filename.mp4</span><br></pre></td></tr></table></figure>
+<p>将这里的 filrename 改为你的文件名即可</p>
+<p>补充二：</p>
+<p>flv/mp4 文件的合并</p>
+<p>有时候通过某些下载工具得到的 flv/mp4
+文件是多段的，比如B站视频上下载一集 40 分钟左右的纪录片实际上是 8
+个小片段，这时候可以新建一个 txt 文本文件，把你需要合并的 flv/mp4 和这个
+txt 放在同一个文件夹里面，然后把需要合并的 flv/mp4
+文件的名字按照顺序写在 txt 文件中并保存，格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[00].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[01].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[02].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[03].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[04].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[05].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[06].mp4&#x27;</span><br><span class="line">file &#x27;【国家地理】COSMOS系列【熟肉-对后十一集修复】 (P10. 气候变化)[07].mp4&#x27;</span><br></pre></td></tr></table></figure>
+<p>注：本例中将该 txt 文件命名为 file.txt</p>
+<p>在 cmd 里面进入该 txt 和视频文件所在的文件夹，然后输入以下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ffmpeg -f concat -safe 0 -i files.txt -c copy output.mp4</span><br></pre></td></tr></table></figure>
+<p>即可得到一个完整的 mp4 文件</p>
+<p>如需合并 flv，方法同上</p>
+<hr />
+<p>PS.</p>
+<p>最近在使用油猴脚本 <a
+href="https://github.com/the1812/Bilibili-Evolved">Bilibili Evolved</a>
+下载B站视频的时候，发现只有 FLV 和 DASH 两种下载模式。其中 DASH
+是下载一个无声的 mp4 视频文件和一个 m4a 音频文件，而 FLV 模式是下载一个
+flv 视频文件。百度了一下关于 flv
+文件的说明，下面是百度百科上面的介绍：</p>
+<blockquote>
+<p>FLV 是FLASH VIDEO的简称，FLV流媒体格式是随着Flash
+MX的推出发展而来的视频格式。由于它形成的文件极小、加载速度极快，使得网络观看视频文件成为可能，它的出现有效地解决了视频文件导入Flash后，使导出的SWF文件体积庞大，不能在网络上很好的使用等问题。</p>
+</blockquote>
+<p>猜测这两种下载模式应该是B站两种不同的播放器（flash 播放器，html5
+播放器）下对应的视频文件。</p>
+<p>但 flv 文件存在一个问题，就是并不是每个播放器都支持解码，我自己用的
+potplayer 可以很流畅的播放，但用 Windows media player 和 win10
+自带的电影和电视都不能播放，于是才有了今天的问题。本来想着下载一个格式工厂，但在搜索界面推送了今天转载的这篇文章，按照文章试了一下发现
+FFmpeg 这个工具确实很好用，一个 1.23G 的文件只用了不超过 10
+秒就转换好了，而且清晰度也很高，所以才把这么好的文章转载过来，以作记录。</p>
+]]></content>
+      <tags>
+        <tag>视频格式转换</tag>
+        <tag>flv</tag>
+        <tag>mp4</tag>
+        <tag>ffmpeg</tag>
+      </tags>
   </entry>
 </search>
